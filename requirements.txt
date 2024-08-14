@@ -8,6 +8,7 @@ pyrogram
 pygram
 Poetry
 gunicorn
-gunicorn --bind 0.0.0.0:8080 --keep-alive 2 app:app
-curl -sSL https://install.python-poetry.org | python3 -
+keep-alive
+poetry run python keep_alive.py
+poetry add some-package
 
