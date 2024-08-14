@@ -2,6 +2,4 @@ httpx
 python_telegram_bot
 loguru
 python-telegram-bot
---upgrade pip
-upgrade pip
 flask
