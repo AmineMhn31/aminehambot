@@ -10,5 +10,4 @@ Poetry
 gunicorn
 keep-alive
 keep_alive.py
-poetry add some-package
 
