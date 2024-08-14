@@ -37,7 +37,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "🔢Today's Cipher Code 14.08.2024📅:\n*T ➖*\n*A ➖🔘*\n*S 🔘🔘🔘*\n*K ➖🔘➖*\n*S 🔘🔘🔘*\n✅CLAIM 1000000💰\.",
+        "🔢Today's Cipher Code 14/08/2024📅:\n*T ➖*\n*A ➖🔘*\n*S 🔘🔘🔘*\n*K ➖🔘➖*\n*S 🔘🔘🔘*\n✅CLAIM 1000000💰\.",
         parse_mode='MARKDOWNV2')
     
     await context.bot.send_message(
