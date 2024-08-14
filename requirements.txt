@@ -9,5 +9,4 @@ pygram
 Poetry
 gunicorn
 keep-alive
-keep_alive.py
 
