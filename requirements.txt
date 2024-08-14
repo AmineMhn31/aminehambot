@@ -9,6 +9,6 @@ pygram
 Poetry
 gunicorn
 keep-alive
-run keep_alive.py
+keep_alive.py
 poetry add some-package
 
