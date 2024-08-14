@@ -7,14 +7,15 @@ import time
 import uuid
 import datetime
 from loguru import logger
-
+from stay_alive import keep_alive
 # Disable logging for httpx
 httpx_log = logger.bind(name="httpx").level("WARNING")
 logger.remove()
-logger.add(sink=sys.stdout, format="<white>{time:YYYY-MM-DD HH:mm:ss}</white>"
-                                   " | <level>{level: <8}</level>"
-                                   " | <cyan><b>{line}</b></cyan>"
-                                   " - <white><b>{message}</b></white>")
+logger.add(sink=sys.stdout,
+           format="<white>{time:YYYY-MM-DD HH:mm:ss}</white>"
+           " | <level>{level: <8}</level>"
+           " | <cyan><b>{line}</b></cyan>"
+           " - <white><b>{message}</b></white>")
 logger = logger.opt(colors=True)
 
 GAMES = {
@@ -46,45 +47,53 @@ HTTPX_TIMEOUT = 30
 
 key_count = 0
 
+
 async def login(client_id, app_token):
     headers = {
-        "User-Agent": "UnityPlayer/2022.3.20f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
+        "User-Agent":
+        "UnityPlayer/2022.3.20f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
         "Connection": "close"
     }
 
     async with httpx.AsyncClient() as client:
-        response = await client.post(
-            f'{BASE_URL}/promo/login-client',
-            headers=headers,
-            json={'appToken': app_token, 'clientId': client_id, 'clientOrigin': 'android'},
-            timeout=httpx.Timeout(HTTPX_TIMEOUT)  
-        )
+        response = await client.post(f'{BASE_URL}/promo/login-client',
+                                     headers=headers,
+                                     json={
+                                         'appToken': app_token,
+                                         'clientId': client_id,
+                                         'clientOrigin': 'android'
+                                     },
+                                     timeout=httpx.Timeout(HTTPX_TIMEOUT))
         response.raise_for_status()
         client_token = response.json()['clientToken']
         logger.info(f"Logged in with Client Token: {client_token}")
 
         return client_token
 
+
 async def register_event(client_token, promo_id):
     headers = {
         "Authorization": f"Bearer {client_token}",
-        "User-Agent": "UnityPlayer/2022.3.20f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
+        "User-Agent":
+        "UnityPlayer/2022.3.20f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
         "Connection": "close"
     }
     has_code = False
 
     async with httpx.AsyncClient() as client:
         while True:
-            delay_time = EVENTS_DELAY * (random.uniform(0,0.33) + 1)
+            delay_time = EVENTS_DELAY * (random.uniform(0, 0.33) + 1)
             logger.info(f"Sleeping for {delay_time} seconds.")
             await asyncio.sleep(delay_time)
 
-            response = await client.post(
-                f'{BASE_URL}/promo/register-event',
-                headers=headers,
-                json={'promoId': promo_id, 'eventId': str(uuid.uuid4()), 'eventOrigin': 'undefined'},
-                timeout=httpx.Timeout(HTTPX_TIMEOUT)  
-            )
+            response = await client.post(f'{BASE_URL}/promo/register-event',
+                                         headers=headers,
+                                         json={
+                                             'promoId': promo_id,
+                                             'eventId': str(uuid.uuid4()),
+                                             'eventOrigin': 'undefined'
+                                         },
+                                         timeout=httpx.Timeout(HTTPX_TIMEOUT))
             logger.info(f"Response received: {response.json()}")
 
             if 'hasCode' in response.json():
@@ -103,17 +112,16 @@ async def register_event(client_token, promo_id):
 async def create_code(client_token, promo_id):
     headers = {
         "Authorization": f"Bearer {client_token}",
-        "User-Agent": "UnityPlayer/2022.3.20f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
+        "User-Agent":
+        "UnityPlayer/2022.3.20f1 (UnityWebRequest/1.0, libcurl/8.5.0-DEV)",
         "Connection": "close"
     }
 
     async with httpx.AsyncClient() as client:
-        response = await client.post(
-            f'{BASE_URL}/promo/create-code',
-            headers=headers,
-            json={'promoId': promo_id},
-            timeout=httpx.Timeout(HTTPX_TIMEOUT)
-        )
+        response = await client.post(f'{BASE_URL}/promo/create-code',
+                                     headers=headers,
+                                     json={'promoId': promo_id},
+                                     timeout=httpx.Timeout(HTTPX_TIMEOUT))
         response.raise_for_status()
         key = response.json()['promoCode']
 
@@ -145,8 +153,12 @@ async def play_the_game(app_token, promo_id):
         logger.error(f"An error occured while trying to create the code: {e}")
         return None
 
+
 async def main(chosen_game, no_of_keys):
-    tasks = [play_the_game(GAMES[chosen_game]['appToken'], GAMES[chosen_game]['promoId']) for _ in range(no_of_keys)]
+    tasks = [
+        play_the_game(GAMES[chosen_game]['appToken'],
+                      GAMES[chosen_game]['promoId']) for _ in range(no_of_keys)
+    ]
     keys = await asyncio.gather(*tasks)
     return [key for key in keys if key]
 
@@ -154,13 +166,16 @@ async def main(chosen_game, no_of_keys):
 # Call run directly if you are a bot
 async def run(chosen_game, no_of_keys):
     if no_of_keys == 1:
-        logger.info(f"Generating {no_of_keys} key for {GAMES[chosen_game]['name']}")
+        logger.info(
+            f"Generating {no_of_keys} key for {GAMES[chosen_game]['name']}")
     else:
-        logger.info(f"Generating {no_of_keys} keys for {GAMES[chosen_game]['name']}")
+        logger.info(
+            f"Generating {no_of_keys} keys for {GAMES[chosen_game]['name']}")
 
-    keys = await main(chosen_game=chosen_game, no_of_keys=no_of_keys)    
+    keys = await main(chosen_game=chosen_game, no_of_keys=no_of_keys)
     return keys
-    
+
+
 if __name__ == "__main__":
     print("Select a game:")
     for key, value in GAMES.items():
@@ -169,20 +184,22 @@ if __name__ == "__main__":
     no_of_keys = int(input("Enter the number of keys to generate: "))
 
     if no_of_keys == 1:
-        logger.info(f"Generating {no_of_keys} key for {GAMES[chosen_game]['name']}")
+        logger.info(
+            f"Generating {no_of_keys} key for {GAMES[chosen_game]['name']}")
     else:
-        logger.info(f"Generating {no_of_keys} keys for {GAMES[chosen_game]['name']}")
-   
+        logger.info(
+            f"Generating {no_of_keys} keys for {GAMES[chosen_game]['name']}")
+
     keys = asyncio.run(main(chosen_game, no_of_keys))
 
     if keys:
-        with open('Keys.txt', 'a') as file:  
+        with open('Keys.txt', 'a') as file:
             for key in keys:
                 file.write(f"{key}\n")
-            logger.success("Generated Key(s) were successfully saved to Keys.txt")
+            logger.success(
+                "Generated Key(s) were successfully saved to Keys.txt")
 
     else:
-        logger.error("No keys were generated.")    
+        logger.error("No keys were generated.")
 
     input("Press Any Key To Exit")
-
