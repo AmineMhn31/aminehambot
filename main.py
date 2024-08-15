@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 keep_alive()
 
 # Token management based on the OS environment
-TOKEN_INSECURE = "YOUR_BOT_TOKEN_HERE"
+TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
 if os.name == 'posix':
     TOKEN = subprocess.run(["printenv", "HAMSTER_BOT_TOKEN"],
                            text=True,
