@@ -7,6 +7,7 @@ flask
 aiogram==2.23.1
 pyrogram
 pygram
+subprocess
 Poetry
 gunicorn
 keep-alive
