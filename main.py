@@ -4,7 +4,7 @@ import logging
 import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-
+import server
 from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
 TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
