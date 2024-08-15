@@ -1,6 +1,7 @@
 httpx
 python_telegram_bot
 loguru
+asyncio
 python-telegram-bot
 flask
 aiogram==2.23.1
