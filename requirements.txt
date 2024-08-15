@@ -8,7 +8,6 @@ aiogram==2.23.1
 pyrogram
 pygram
 Poetry
-os.getenv
 gunicorn
 keep-alive
 python-telegram-bot==20.1
