@@ -1,10 +1,11 @@
+import subprocess
 import os
 import logging
+import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-from stay_alive import keep_alive
-import server  # Import server module
 
+from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
 TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
 
@@ -24,7 +25,7 @@ EXCLUSIVE = False
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO)  # Change to INFO for more verbose logging
+    level=logging.CRITICAL)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
