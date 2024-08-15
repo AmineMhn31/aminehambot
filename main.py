@@ -43,7 +43,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -153,6 +153,29 @@ async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
+async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
+        return
+
+    server.logger.info(f"Generating for client: {update.effective_chat.id}")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"⌛️Generating⏳\.\.\.",
+                                   parse_mode='MARKDOWNV2')
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
+        parse_mode='MARKDOWNV2')
+
+    no_of_keys = int(context.args[0]) if context.args else 4
+    keys = await server.run(chosen_game=5, no_of_keys=no_of_keys)
+    generated_keys = [f"`{key}`" for key in keys]
+    formatted_keys = '\n'.join(generated_keys)
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"{formatted_keys}",
+                                   parse_mode='MARKDOWNV2')
+    server.logger.info("Message sent to the client.")
+
 
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
@@ -208,6 +231,9 @@ if __name__ == '__main__':
     train_handler = CommandHandler('train', train, block=False)
     application.add_handler(train_handler)
 
+   merge_handler = CommandHandler('merge', merge, block=False)
+    application.add_handler(merge_handler)
+    
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
 
