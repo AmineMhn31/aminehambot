@@ -9,5 +9,6 @@ pyrogram
 pygram
 subprocess
 Poetry
+os.getenv
 gunicorn
 keep-alive
