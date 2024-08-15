@@ -39,6 +39,11 @@ GAMES = {
         'appToken': '82647f43-3f87-402d-88dd-09a90025313f',
         'promoId': 'c4480ac7-e178-4973-8061-9ed5b2e17954',
     }
+     5: {
+        'name': 'Merge Away',
+        'appToken': '82647f43-3f87-402d-88dd-09a90025313f',
+        'promoId': 'c4480ac7-e178-4973-8061-9ed5b2e17954',
+    }          
 }
 
 BASE_URL = 'https://api.gamepromo.io'
