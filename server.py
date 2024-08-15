@@ -8,7 +8,6 @@ import uuid
 import datetime
 from loguru import logger
 from stay_alive import keep_alive
-
 # Disable logging for httpx
 httpx_log = logger.bind(name="httpx").level("WARNING")
 logger.remove()
@@ -39,8 +38,8 @@ GAMES = {
         'name': 'Train Miner',
         'appToken': '82647f43-3f87-402d-88dd-09a90025313f',
         'promoId': 'c4480ac7-e178-4973-8061-9ed5b2e17954',
-    },
-    5: {  # Missing comma issue fixed
+    }
+    5: {
         'name': 'Merge Away',
         'appToken': '8d1cc2ad-e097-4b86-90ef-7a27e19fb833',
         'promoId': 'dc128d28-c45b-411c-98ff-ac7726fbaea4',
@@ -156,7 +155,7 @@ async def play_the_game(app_token, promo_id):
         return key
 
     except Exception as e:
-        logger.error(f"An error occurred while trying to create the code: {e}")
+        logger.error(f"An error occured while trying to create the code: {e}")
         return None
 
 
