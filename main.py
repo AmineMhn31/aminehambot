@@ -231,7 +231,7 @@ if __name__ == '__main__':
     train_handler = CommandHandler('train', train, block=False)
     application.add_handler(train_handler)
 
-   merge_handler = CommandHandler('merge', merge, block=False)
+   merge_handler = CommandHandler('merge', merge)
     application.add_handler(merge_handler)
     
     all_handler = CommandHandler('all', all, block=False)
