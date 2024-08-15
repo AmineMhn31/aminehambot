@@ -84,7 +84,7 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
     server.logger.info("Server is running. Awaiting users...")
 
-    start_handler = CommandHandler('start', start, run_async=True)
+    start_handler = CommandHandler('start', start)
     application.add_handler(start_handler)
     
     bike_handler = CommandHandler('bike', bike, run_async=True)
