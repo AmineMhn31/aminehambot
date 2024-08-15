@@ -10,4 +10,4 @@ pygram
 Poetry
 gunicorn
 keep-alive
-
+set HAMSTER_BOT_TOKEN="7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
