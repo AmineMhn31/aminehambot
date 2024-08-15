@@ -1,11 +1,3 @@
-
-You said:
-correct thi bot of telegram programing whit python bot contain main.py server.py stay_alive.py 
-
-this is source code of file
-
-main.py
-
 import subprocess
 import os
 import logging
@@ -34,7 +26,6 @@ EXCLUSIVE = False
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
-
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Should make this a Database probably
