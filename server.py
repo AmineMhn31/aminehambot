@@ -3,9 +3,11 @@ import os
 import sys
 import httpx
 import random
+import time
 import uuid
+import datetime
 from loguru import logger
-from stay_alive import keep_alive
+
 
 # Disable logging for httpx
 httpx_log = logger.bind(name="httpx").level("WARNING")
