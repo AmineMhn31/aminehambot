@@ -48,7 +48,7 @@ GAMES = {
 }
 
 async def play_the_game(appToken, promoId, no_of_keys):
-    url = "https://api.pegex.xyz/api/v1/game/claim"
+    url = "https://api.gamepromo.io"
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {appToken}'
