@@ -1,17 +1,20 @@
-from flask import Flask, render_template
+from flask import Flask
 from threading import Thread
 import os
-app = Flask(__name__)
 
-app = Flask('')
+# Initialize the Flask application
+app = Flask(__name__)
 
 @app.route('/')
 def home():
     return "Bot is alive!"
 
 def run():
-    app.run(host='0.0.0.0', port=4000)
+    # Use the environment-specified port if available; otherwise, default to 4000
+    port = int(os.environ.get('PORT', 4000))
+    app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
+    # Start the web server in a new thread
     t = Thread(target=run)
     t.start()
