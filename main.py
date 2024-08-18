@@ -42,6 +42,30 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # ==================================================================
 
+# ========================NEWS==========================================
+async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Should make this a Database probably
+    # with open('user_ids','a') as file:
+    #     file.write(f"{update.effective_chat.first_name} : {update.effective_chat.id}\n")
+
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="""
+🐹 السادة الرؤساء التنفيذيون،
+
+🔑 قبل بضعة أسابيع، أطلقنا قسم Playground، وهو نموذج أولي لنظام Hamster الترفيهي المستقبلي\. تم دمج العديد من الألعاب مؤخرًا مع Hamster Kombat من خلال آلية المفاتيح\.
+
+🎁 نريد توضيح أن المفاتيح ستؤثر على حجم الإنزال الجوي ولكنها ليست مطلوبة للمشاركة\. لمنع الاحتيال، لا يمكننا الكشف عن مزيد من التفاصيل الآن، لكننا نراقب عن كثب خدمات توليد المفاتيح ونسجل جميع القطع الأثرية التي تم الحصول عليها بشكل غير نزيه\. سيتم أخذ هذا في الاعتبار للإسقاطات الجوية القادمة\!
+
+⚙️ يمكنك معرفة المزيد حول كيفية عمل Playground، وما الغرض منه وقليلًا عن الخطط المستقبلية\.
+""",
+        parse_mode='MARKDOWNV2'
+    )
+
+    # ==================================================================
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Should make this a Database probably
     # with open('user_ids','a') as file:
@@ -51,7 +75,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/cipher*\n*/start*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -204,6 +228,9 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
 
+    news_handler = CommandHandler('news', news, block=False)
+    application.add_handler(news_handler)
+    
     cipher_handler = CommandHandler('cipher', cipher, block=False)
     application.add_handler(cipher_handler)
 
