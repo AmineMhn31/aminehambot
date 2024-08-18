@@ -41,7 +41,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://giveawaylisting.com/wp-content/uploads/2024/06/image-135.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/combo.png")
         return
 
     url = context.args[0]
