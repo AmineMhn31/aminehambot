@@ -2,12 +2,16 @@ import subprocess
 import os
 import logging
 import asyncio
+import httpx
+from PIL import Image
+from io import BytesIO
+from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import server
 from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
-TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
+TOKEN_INSECURE = "6858198900:AAFRKCWioP__zDWsC_JEWrMQnwGFmPGpbUY"
 
 if os.name == 'posix':
     TOKEN = subprocess.run(["printenv", "HAMSTER_BOT_TOKEN"],
@@ -26,6 +30,36 @@ EXCLUSIVE = False
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
+
+# ========================COMBO==========================================
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        image_data = BytesIO(response.content)
+        return image_data
+
+async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://giveawaylisting.com/wp-content/uploads/2024/06/image-135.png")
+        return
+
+    url = context.args[0]
+    try:
+        image_data = await fetch_image(url)
+        img = Image.open(image_data)
+        img_format = img.format  # Get the image format to retain the original extension
+
+        with BytesIO() as output:
+            img.save(output, format=img_format)
+            output.seek(0)
+            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
+
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -75,7 +109,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -230,6 +264,9 @@ if __name__ == '__main__':
 
     news_handler = CommandHandler('news', news, block=False)
     application.add_handler(news_handler)
+
+    combo_handler = CommandHandler('combo', combo, block=False)
+    application.add_handler(combo_handler)
     
     cipher_handler = CommandHandler('cipher', cipher, block=False)
     application.add_handler(cipher_handler)
