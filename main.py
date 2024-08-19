@@ -71,7 +71,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "🔢Today's Cipher Code 18/08/2024📅:\n*P:  🔘➖➖🔘*\n*L:  🔘➖🔘🔘*\n*A:  ➖🔘*\n*Y:  ➖🔘➖➖*\n✅CLAIM 1000000💰\.",
+        "🔢Today's Cipher Code 18/08/2024📅:\n*P:  🔘➖➖🔘*\n*L:  🔘➖🔘🔘*\n*A:  🔘➖*\n*Y:  ➖🔘➖➖*\n✅CLAIM 1000000💰\.",
         parse_mode='MARKDOWNV2')
 
     # ==================================================================
