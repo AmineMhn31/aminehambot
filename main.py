@@ -219,7 +219,7 @@ async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def mergeaway(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -242,7 +242,7 @@ async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def twerk(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def twerkrace(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -328,11 +328,11 @@ if __name__ == '__main__':
     train_handler = CommandHandler('train', train, block=False)
     application.add_handler(train_handler)
 
-    merge_handler = CommandHandler('merge', merge, block=False)
-    application.add_handler(merge_handler)
+    mergeaway_handler = CommandHandler('merge', mergeaway, block=False)
+    application.add_handler(mergeaway_handler)
 
-    twerk_handler = CommandHandler('twerk', twerk, block=False)
-    application.add_handler(twerk_handler)
+    twerkrace_handler = CommandHandler('twerk', twerkrace, block=False)
+    application.add_handler(twerkrace_handler)
     
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
