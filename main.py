@@ -71,7 +71,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "🔢Today's Cipher Code 18/08/2024📅:\n*P:  🔘➖➖🔘*\n*L:  🔘➖🔘🔘*\n*A:  🔘➖*\n*Y:  ➖🔘➖➖*\n✅CLAIM 1000000💰\.",
+        "🔢Today's Cipher Code 18/08/2024📅:\n*M:  ➖➖*\n*E:  🔘*\n*R:  🔘➖🔘*\n*G:  ➖➖🔘*\n*E:  🔘*\n✅CLAIM 1000000💰\.",
         parse_mode='MARKDOWNV2')
 
     # ==================================================================
@@ -109,7 +109,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -265,6 +265,29 @@ async def twerkrace(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
+async def polysphere(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
+        return
+
+    server.logger.info(f"Generating for client: {update.effective_chat.id}")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"⌛️Generating⏳\.\.\.",
+                                   parse_mode='MARKDOWNV2')
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
+        parse_mode='MARKDOWNV2')
+
+    no_of_keys = int(context.args[0]) if context.args else 4
+    keys = await server.run(chosen_game=7, no_of_keys=no_of_keys)
+    generated_keys = [f"`{key}`" for key in keys]
+    formatted_keys = '\n'.join(generated_keys)
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"{formatted_keys}",
+                                   parse_mode='MARKDOWNV2')
+    server.logger.info("Message sent to the client.")
+
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -333,6 +356,9 @@ if __name__ == '__main__':
 
     twerkrace_handler = CommandHandler('twerk', twerkrace, block=False)
     application.add_handler(twerkrace_handler)
+    
+    polysphere_handler = CommandHandler('poly', polysphere, block=False)
+    application.add_handler(polysphere_handler)
     
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
