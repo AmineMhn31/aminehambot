@@ -41,7 +41,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/combo23.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/combo24.png")
         return
 
     url = context.args[0]
@@ -71,7 +71,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "🔢Today's Cipher Code 18/08/2024📅:\n*C:  ➖🔘➖🔘*\n*L:  🔘➖🔘🔘*\n*O:  ➖➖➖*\n*N:  ➖🔘*\n*E:  🔘*\n✅CLAIM 1000000💰\.",
+        "🔢Today's Cipher Code (2048) 23/08/2024📅:\n*2:  🔘🔘➖➖➖*\n*0:  ➖➖➖➖➖*\n*4:  🔘🔘🔘🔘➖*\n*8:  ➖➖➖🔘🔘*\n✅CLAIM 1000000💰\.",
         parse_mode='MARKDOWNV2')
 
     # ==================================================================
@@ -109,7 +109,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -287,6 +287,53 @@ async def polysphere(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    text=f"{formatted_keys}",
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
+    
+async def mowandtrim(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
+        return
+
+    server.logger.info(f"Generating for client: {update.effective_chat.id}")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"⌛️Generating⏳\.\.\.",
+                                   parse_mode='MARKDOWNV2')
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
+        parse_mode='MARKDOWNV2')
+
+    no_of_keys = int(context.args[0]) if context.args else 4
+    keys = await server.run(chosen_game=8, no_of_keys=no_of_keys)
+    generated_keys = [f"`{key}`" for key in keys]
+    formatted_keys = '\n'.join(generated_keys)
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"{formatted_keys}",
+                                   parse_mode='MARKDOWNV2')
+    server.logger.info("Message sent to the client.")
+
+async def mudracing(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
+        return
+
+    server.logger.info(f"Generating for client: {update.effective_chat.id}")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"⌛️Generating⏳\.\.\.",
+                                   parse_mode='MARKDOWNV2')
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
+        parse_mode='MARKDOWNV2')
+
+    no_of_keys = int(context.args[0]) if context.args else 4
+    keys = await server.run(chosen_game=9, no_of_keys=no_of_keys)
+    generated_keys = [f"`{key}`" for key in keys]
+    formatted_keys = '\n'.join(generated_keys)
+    await context.bot.send_message(chat_id=update.effective_chat.id,
+                                   text=f"{formatted_keys}",
+                                   parse_mode='MARKDOWNV2')
+    server.logger.info("Message sent to the client.")
+
 
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
@@ -359,6 +406,12 @@ if __name__ == '__main__':
     
     polysphere_handler = CommandHandler('poly', polysphere, block=False)
     application.add_handler(polysphere_handler)
+      
+    mowandtrim_handler = CommandHandler('mow', mowandtrim, block=False)
+    application.add_handler(mowandtrim_handler)
+    
+    mudracing_handler = CommandHandler('mud', mudracing, block=False)
+    application.add_handler(mudracing_handler)
     
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
