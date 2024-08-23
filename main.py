@@ -63,16 +63,15 @@ async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Should make this a Database probably
-    # with open('user_ids','a') as file:
-    #     file.write(f"{update.effective_chat.first_name} : {update.effective_chat.id}\n")
     await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "🔢Today's Cipher Code (2048) 23/08/2024📅:\n*2:  🔘🔘➖➖➖*\n*0:  ➖➖➖➖➖*\n*4:  🔘🔘🔘🔘➖*\n*8:  ➖➖➖🔘🔘*\n✅CLAIM 1000000💰\.",
-        parse_mode='MARKDOWNV2')
+        "🔢Today's Cipher Code \(2048\) 23/08/2024📅:\n\*2:  🔘🔘➖➖➖\*\n\*0:  ➖➖➖➖➖\*\n\*4:  🔘🔘🔘🔘➖\*\n\*8:  ➖➖➖🔘🔘\*\n✅CLAIM 1000000💰\.",
+        parse_mode='MARKDOWNV2'
+    )
+
 
     # ==================================================================
 
