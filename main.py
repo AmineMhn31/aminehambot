@@ -60,6 +60,34 @@ async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
 
+# ========================Mini Game==========================================
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        image_data = BytesIO(response.content)
+        return image_data
+
+async def minigame(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/minigame.png")
+        return
+
+    url = context.args[0]
+    try:
+        image_data = await fetch_image(url)
+        img = Image.open(image_data)
+        img_format = img.format  # Get the image format to retain the original extension
+
+        with BytesIO() as output:
+            img.save(output, format=img_format)
+            output.seek(0)
+            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -108,7 +136,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -384,6 +412,9 @@ if __name__ == '__main__':
     
     cipher_handler = CommandHandler('cipher', cipher, block=False)
     application.add_handler(cipher_handler)
+    
+    minigame_handler = CommandHandler('minigame', minigame, block=False)
+    application.add_handler(minigame_handler)
 
     bike_handler = CommandHandler('bike', bike, block=False)
     application.add_handler(bike_handler)
