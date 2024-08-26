@@ -31,6 +31,39 @@ EXCLUSIVE = False
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
+#=====================rate_currency===================================
+async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Usage: /rate <currency>\nExample: /rate USDT")
+        return
+
+    try:
+        currency = context.args[0].upper()
+
+        # Fetch the current price of the currency in USD
+        price_data = cryptocompare.get_price(currency, currency='USD')
+
+        if price_data and 'USD' in price_data[currency]:
+            current_price = price_data[currency]['USD']
+
+            # Define your threshold for what you consider 'high' or 'low'
+            high_threshold = 1.02  # Example threshold for high rate
+            low_threshold = 0.98   # Example threshold for low rate
+
+            # Compare current price with the thresholds
+            if current_price > high_threshold:
+                message = f"{currency} is currently HIGH at ${current_price} USD."
+            elif current_price < low_threshold:
+                message = f"{currency} is currently LOW at ${current_price} USD."
+            else:
+                message = f"{currency} is currently NORMAL at ${current_price} USD."
+
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=message)
+        else:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Could not retrieve the price for {currency}.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"An error occurred: {e}")
 
 #=====================convert_currency===================================
 async def convert(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -165,7 +198,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/convert*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -435,6 +468,9 @@ if __name__ == '__main__':
 
     convert_handler = CommandHandler('convert', convert, block=False)
     application.add_handler(convert_handler)
+
+    rate_handler = CommandHandler('rate', rate, block=False)
+    application.add_handler(rate_handler)
     
     news_handler = CommandHandler('news', news, block=False)
     application.add_handler(news_handler)
