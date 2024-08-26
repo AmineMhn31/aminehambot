@@ -31,6 +31,34 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
 
+#=====================convert_currency===================================
+async def convert(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if len(context.args) != 2:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Usage: /convert <amount> <from_currency>/<to_currency>\nExample: /convert 100 USDT/BTC")
+        return
+
+    try:
+        # Extract amount and currencies from user input
+        amount = float(context.args[0])
+        from_currency, to_currency = context.args[1].upper().split('/')
+
+        # Fetch the conversion rate
+        conversion_rate = cryptocompare.get_price(from_currency, currency=to_currency)
+
+        if conversion_rate and to_currency in conversion_rate[from_currency]:
+            converted_amount = amount * conversion_rate[from_currency][to_currency]
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text=f"{amount} {from_currency} is approximately {converted_amount:.8f} {to_currency}."
+            )
+        else:
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text=f"Could not retrieve conversion rate for {from_currency} to {to_currency}."
+            )
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"An error occurred: {e}")
 # ========================COMBO==========================================
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
@@ -136,7 +164,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/convert*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -404,6 +432,9 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
 
+    convert_handler = CommandHandler('convert', convert, block=False)
+    application.add_handler(convert_handler)
+    
     news_handler = CommandHandler('news', news, block=False)
     application.add_handler(news_handler)
 
