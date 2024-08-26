@@ -4,6 +4,7 @@ python_telegram_bot
 loguru
 asyncio
 python-telegram-bot
+cryptocompare
 flask
 aiogram==2.23.1
 pyrogram
