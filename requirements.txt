@@ -7,6 +7,7 @@ python-telegram-bot
 cryptocompare
 APScheduler
 schedulers
+schedule
 apscheduler
 flask
 aiogram==2.23.1
