@@ -37,7 +37,7 @@ logging.basicConfig(
 async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # Define the list of currencies you want to compare
-        currencies = ['BTC', 'ETH', 'USDT', 'LTC', 'XRP', 'BCH', 'ADA', 'DOT', 'BNB']  # Add or modify as needed
+        currencies = ['BTC', 'ETH', 'USDT', 'SOL', 'USDC', 'TON', 'TRX', 'DOGE', 'BNB', 'XRP']  # Add or modify as needed
         currency_prices = []
 
         # Fetch square prices for each currency
@@ -52,10 +52,10 @@ async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
         sorted_currencies = sorted(currency_prices, key=lambda x: x[1], reverse=True)
 
         # Select the top 8 currencies
-        top_currencies = sorted_currencies[:8]
+        top_currencies = sorted_currencies[:10]
 
         # Create the message with emojis
-        message = "📈 *Top 8 Currencies by Squared Price:*\n 🚀"
+        message = "📈 *Top 10 Currencies by Squared Price:*\n 🚀"
         for currency, squared_price in top_currencies:
             message += f"💰 {currency}: {squared_price:.2f} USD²\n 📈"
 
