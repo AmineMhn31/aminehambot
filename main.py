@@ -34,7 +34,7 @@ logging.basicConfig(
     level=logging.CRITICAL)
 
 # ====================== Daily Airdrop Function ==========================
-async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
+async def airdrop(context: ContextTypes.DEFAULT_TYPE):
     """Function to fetch and send cryptocurrency updates."""
     currencies = ["BTC", "ETH", "USDT", "BNB", "ADA", "XRP"]  # Add more currencies as needed
     message = "📊 **Cryptocurrency Update: Highs and Lows** 📊\n\n"
@@ -57,13 +57,7 @@ async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         logging.error(f"Error in daily airdrop: {e}")
 
-# ====================== /airdrop Command Handler ========================
-async def airdrop_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Command handler for /airdrop to trigger the daily_airdrop function manually."""
-    chat_id = update.effective_chat.id
-    context.bot_data['chat_id'] = chat_id  # Store chat_id for later use
-    await daily_airdrop(context)
-    await update.message.reply_text("Airdrop sent!")
+
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
@@ -498,7 +492,7 @@ if __name__ == '__main__':
 
    # Scheduler for the airdrop every 5 minutes
     scheduler = BackgroundScheduler(timezone="UTC")
-    scheduler.add_job(daily_airdrop, trigger='interval', minutes=5, args=[application.bot])
+    scheduler.add_job(airdrop, trigger='interval', minutes=5, args=[application.bot])
 
     # Add command handlers (including the new /airdrop command)
     airdrop_handler = CommandHandler('airdrop', airdrop, block=False)
