@@ -6,6 +6,7 @@ import httpx
 import cryptocompare
 from PIL import Image
 from io import BytesIO
+from binance.client import Client
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
@@ -35,10 +36,14 @@ logging.basicConfig(
 
 #=====================Markets===================================
 
+# Initialize Binance Client (replace with your API key and secret)
+client = Client(api_key='Z8vOvQdcSqTYEkZI4h9NagvpgFKxIG0LygJhVDYLA4Sn1Tcq7cOiDN5E9dQb8vvc', api_secret='UCGUSoC2wwR16vFvjDcYmJx4TVTes5bWh5cGarnQJZWG2ePzTaJ8SHyMiPBbr7sb
+')
+
 async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # Example API call to CoinGecko for market data
-        response = requests.get('https://api.coingecko.com/api/v3/coins/markets', params={
+        coingecko_response = requests.get('https://api.coingecko.com/api/v3/coins/markets', params={
             'vs_currency': 'usd',
             'order': 'market_cap_desc',
             'per_page': 10,
@@ -46,12 +51,19 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             'sparkline': 'false'
         })
 
-        data = response.json()
+        coingecko_data = coingecko_response.json()
+
+        # Example API call to Binance for market data
+        binance_tickers = client.get_ticker()
+
+        # Filter Binance data for specific coins, if needed
+        binance_data = [ticker for ticker in binance_tickers if ticker['symbol'] in ['BTCUSDT', 'ETHUSDT', 'BNBUSDT']]
 
         # Create the message with formatted market overview
         message = "📊 *Markets Overview*\n\n"
         message += "💹 *Trading Data*\n"
-        for coin in data[:3]:  # Fetch the first 3 coins for trading data
+        
+        for coin in coingecko_data[:3]:  # Fetch the first 3 coins for trading data
             name = coin['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
@@ -59,7 +71,7 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message += f"🔹 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
         
         message += "\n🔥 *Hot Coins*\n"
-        for coin in data[3:6]:  # Next 3 coins for hot coins section
+        for coin in coingecko_data[3:6]:  # Next 3 coins for hot coins section
             name = coin['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
@@ -67,7 +79,7 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message += f"🔸 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n🆕 *New Listing*\n"
-        for coin in data[6:9]:  # Next 3 coins for new listings section
+        for coin in coingecko_data[6:9]:  # Next 3 coins for new listings section
             name = coin['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
@@ -76,7 +88,7 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         message += "\n📈 *Top Gainer Coin*\n"
         # Sort to find the top gainer
-        top_gainer = max(data, key=lambda x: x['price_change_percentage_24h'])
+        top_gainer = max(coingecko_data, key=lambda x: x['price_change_percentage_24h'])
         name = top_gainer['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
         symbol = top_gainer['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
         price = f"{top_gainer['current_price']:.2f}".replace(".", r"\.")
@@ -85,12 +97,19 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         message += "\n📉 *Top Volume Coin*\n"
         # Sort to find the highest volume coin
-        top_volume = max(data, key=lambda x: x['total_volume'])
+        top_volume = max(coingecko_data, key=lambda x: x['total_volume'])
         name = top_volume['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
         symbol = top_volume['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
         price = f"{top_volume['current_price']:.2f}".replace(".", r"\.")
         percentage_change = f"{top_volume['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
         message += f"🏆 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
+
+        # Add Binance data to the message if needed
+        message += "\n💱 *Binance Data*\n"
+        for ticker in binance_data:
+            symbol = ticker['symbol'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
+            price_change = f"{ticker['priceChangePercent']}".replace(".", r"\.").replace("-", r"\-")
+            message += f"🔹 {symbol}: {ticker['lastPrice']} USD \({price_change}%\)\n"
 
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
