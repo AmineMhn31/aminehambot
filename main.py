@@ -9,6 +9,7 @@ from io import BytesIO
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
+from apscheduler.schedulers.background import BackgroundScheduler
 import server
 from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
