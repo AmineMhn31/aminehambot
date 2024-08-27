@@ -33,29 +33,36 @@ logging.basicConfig(
     level=logging.CRITICAL)
 
 #=====================square===================================
+import cryptocompare
+from telegram import Update
+from telegram.ext import ContextTypes
+
 async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # Define the list of currencies you want to compare
-        currencies = ['BTC', 'ETH', 'USDT']  # Add or modify as needed
-        best_currency = None
-        best_price = None
+        currencies = ['BTC', 'ETH', 'USDT', 'LTC', 'XRP', 'BCH', 'ADA', 'DOT', 'BNB']  # Add or modify as needed
+        currency_prices = []
 
-        # Fetch square prices and compare
+        # Fetch square prices for each currency
         for currency in currencies:
             price_data = cryptocompare.get_price(currency, currency='USD')
             if price_data and 'USD' in price_data[currency]:
                 current_price = price_data[currency]['USD']
                 squared_price = current_price ** 2  # Calculate square of the price
-                if best_price is None or squared_price > best_price:
-                    best_price = squared_price
-                    best_currency = currency
+                currency_prices.append((currency, squared_price))
 
-        if best_currency:
-            message = f"The best currency by square price is {best_currency} with a squared price of {best_price:.2f} USD²."
-        else:
-            message = "Could not retrieve price data for the specified currencies."
+        # Sort currencies by squared price in descending order
+        sorted_currencies = sorted(currency_prices, key=lambda x: x[1], reverse=True)
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=message)
+        # Select the top 8 currencies
+        top_currencies = sorted_currencies[:8]
+
+        # Create the message with emojis
+        message = "📈 *Top 8 Currencies by Squared Price:*\n 🚀"
+        for currency, squared_price in top_currencies:
+            message += f"💰 {currency}: {squared_price:.2f} USD²\n 📈"
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='Markdown')
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"An error occurred: {e}")
