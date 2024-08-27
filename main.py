@@ -33,6 +33,29 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
 
+# ====================== Daily Airdrop Function ==========================
+async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
+    currencies = ["BTC", "ETH", "USDT", "BNB", "ADA", "XRP"]  # Add more currencies as needed
+    message = "📊 **Cryptocurrency Update: Highs and Lows** 📊\n\n"
+
+    try:
+        for currency in currencies:
+            history = cryptocompare.get_historical_price_day(currency, currency='USD', limit=1)
+            if history:
+                high_price = history[0]['high']
+                low_price = history[0]['low']
+                message += f"**{currency}**:\nHigh: ${high_price:.2f}\nLow: ${low_price:.2f}\n\n"
+
+        await context.bot.send_message(chat_id='YOUR_CHAT_ID', text=message, parse_mode='Markdown')
+
+    except Exception as e:
+        logging.error(f"Error in daily airdrop: {e}")
+
+# ====================== /airdrop Command Handler ========================
+async def airdrop_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await daily_airdrop(context)  # Reuse the daily airdrop function for manual command
+    await update.message.reply_text("Airdrop sent!")
+
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
@@ -200,7 +223,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/dailyairdrop*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/airdrop*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -465,6 +488,15 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN or TOKEN_INSECURE).build()
     server.logger.info("Server is running. Awaiting users...")
 
+   # Scheduler for the airdrop every 5 minutes
+    scheduler = BackgroundScheduler(timezone="UTC")
+    scheduler.add_job(daily_airdrop, trigger='interval', minutes=5, args=[application.bot])
+    scheduler.start()
+
+    # Add command handlers (including the new /airdrop command)
+    application.add_handler(CommandHandler("airdrop", airdrop_command))
+    
+    
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
 
