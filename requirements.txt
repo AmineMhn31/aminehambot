@@ -5,6 +5,8 @@ loguru
 asyncio
 python-telegram-bot
 cryptocompare
+AsyncIOScheduler
+schedulers
 apscheduler
 flask
 aiogram==2.23.1
