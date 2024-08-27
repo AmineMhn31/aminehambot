@@ -51,42 +51,52 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Create the message with formatted market overview
         message = "📊 *Markets Overview*\n\n"
         message += "💹 *Trading Data*\n"
-        for coin in data[:3]:  # Just an example to fetch the first 3 coins for trading data
+        for coin in data[:3]:  # Fetch the first 3 coins for trading data
             name = coin['name'].replace("(", r"\(").replace(")", r"\)")
             symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
-            message += f"🔹 {name} ({symbol}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+            price = f"{coin['current_price']:.2f}".replace(".", r"\.")
+            percentage_change = f"{coin['price_change_percentage_24h']:.2f}".replace(".", r"\.")
+            message += f"🔹 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
         
         message += "\n🔥 *Hot Coins*\n"
         for coin in data[3:6]:  # Next 3 coins for hot coins section
             name = coin['name'].replace("(", r"\(").replace(")", r"\)")
             symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
-            message += f"🔸 {name} ({symbol}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+            price = f"{coin['current_price']:.2f}".replace(".", r"\.")
+            percentage_change = f"{coin['price_change_percentage_24h']:.2f}".replace(".", r"\.")
+            message += f"🔸 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n🆕 *New Listing*\n"
-        for coin in data[6:9]:  # Just an example, adjust as needed
+        for coin in data[6:9]:  # Next 3 coins for new listings section
             name = coin['name'].replace("(", r"\(").replace(")", r"\)")
             symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
-            message += f"🆕 {name} ({symbol}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+            price = f"{coin['current_price']:.2f}".replace(".", r"\.")
+            percentage_change = f"{coin['price_change_percentage_24h']:.2f}".replace(".", r"\.")
+            message += f"🆕 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n📈 *Top Gainer Coin*\n"
         # Sort to find the top gainer
         top_gainer = max(data, key=lambda x: x['price_change_percentage_24h'])
         name = top_gainer['name'].replace("(", r"\(").replace(")", r"\)")
         symbol = top_gainer['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
-        message += f"🏅 {name} ({symbol}): ${top_gainer['current_price']:.2f} ({top_gainer['price_change_percentage_24h']}%)\n"
+        price = f"{top_gainer['current_price']:.2f}".replace(".", r"\.")
+        percentage_change = f"{top_gainer['price_change_percentage_24h']:.2f}".replace(".", r"\.")
+        message += f"🏅 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n📉 *Top Volume Coin*\n"
         # Sort to find the highest volume coin
         top_volume = max(data, key=lambda x: x['total_volume'])
         name = top_volume['name'].replace("(", r"\(").replace(")", r"\)")
         symbol = top_volume['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
-        message += f"🏆 {name} ({symbol}): ${top_volume['current_price']:.2f} ({top_volume['price_change_percentage_24h']}%)\n"
+        price = f"{top_volume['current_price']:.2f}".replace(".", r"\.")
+        percentage_change = f"{top_volume['price_change_percentage_24h']:.2f}".replace(".", r"\.")
+        message += f"🏆 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
-        
+
 #=====================square===================================
 
 async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
