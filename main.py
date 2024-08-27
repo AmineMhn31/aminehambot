@@ -36,24 +36,10 @@ logging.basicConfig(
 
 #=====================Markets===================================
 
-# Initialize Binance Client (replace with your API key and secret)
-client = Client(api_key='Z8vOvQdcSqTYEkZI4h9NagvpgFKxIG0LygJhVDYLA4Sn1Tcq7cOiDN5E9dQb8vvc', api_secret='UCGUSoC2wwR16vFvjDcYmJx4TVTes5bWh5cGarnQJZWG2ePzTaJ8SHyMiPBbr7sb')
-
-def escape_markdown(text):
-    escape_chars = r'\_*[]()~`>#+-=|{}.!'
-    return "".join([f'\\{char}' if char in escape_chars else char for char in text])
-
 async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        # Example API call to Binance for market data
-        binance_tickers = client.get_ticker()
-
-        # Filter Binance data for specific coins, if needed
-        target_symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT']
-        binance_data = [ticker for ticker in binance_tickers if ticker['symbol'] in target_symbols]
-
-        # If you still want to use CoinGecko, make sure it's formatted correctly
-        coingecko_response = requests.get('https://api.coingecko.com/api/v3/coins/markets', params={
+        # Example API call to CoinGecko for market data
+        response = requests.get('https://api.coingecko.com/api/v3/coins/markets', params={
             'vs_currency': 'usd',
             'order': 'market_cap_desc',
             'per_page': 10,
@@ -61,63 +47,57 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             'sparkline': 'false'
         })
 
-        coingecko_data = coingecko_response.json()
+        data = response.json()
 
         # Create the message with formatted market overview
         message = "📊 *Markets Overview*\n\n"
         message += "💹 *Trading Data*\n"
-        
-        # Ensure coingecko_data is a list and has enough data
-        for coin in coingecko_data[:3]:
-            name = escape_markdown(coin['name'])
-            symbol = escape_markdown(coin['symbol'].upper())
+        for coin in data[:3]:  # Fetch the first 3 coins for trading data
+            name = coin['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
+            symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
             percentage_change = f"{coin['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
-            message += f"🔹 {name} ({symbol}): ${price} ({percentage_change}%)\n"
+            message += f"🔹 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
         
         message += "\n🔥 *Hot Coins*\n"
-        for coin in coingecko_data[3:6]:
-            name = escape_markdown(coin['name'])
-            symbol = escape_markdown(coin['symbol'].upper())
+        for coin in data[3:6]:  # Next 3 coins for hot coins section
+            name = coin['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
+            symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
             percentage_change = f"{coin['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
-            message += f"🔸 {name} ({symbol}): ${price} ({percentage_change}%)\n"
+            message += f"🔸 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n🆕 *New Listing*\n"
-        for coin in coingecko_data[6:9]:
-            name = escape_markdown(coin['name'])
-            symbol = escape_markdown(coin['symbol'].upper())
+        for coin in data[6:9]:  # Next 3 coins for new listings section
+            name = coin['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
+            symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
             percentage_change = f"{coin['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
-            message += f"🆕 {name} ({symbol}): ${price} ({percentage_change}%)\n"
+            message += f"🆕 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n📈 *Top Gainer Coin*\n"
-        top_gainer = max(coingecko_data, key=lambda x: x['price_change_percentage_24h'])
-        name = escape_markdown(top_gainer['name'])
-        symbol = escape_markdown(top_gainer['symbol'].upper())
+        # Sort to find the top gainer
+        top_gainer = max(data, key=lambda x: x['price_change_percentage_24h'])
+        name = top_gainer['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
+        symbol = top_gainer['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
         price = f"{top_gainer['current_price']:.2f}".replace(".", r"\.")
         percentage_change = f"{top_gainer['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
-        message += f"🏅 {name} ({symbol}): ${price} ({percentage_change}%)\n"
+        message += f"🏅 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         message += "\n📉 *Top Volume Coin*\n"
-        top_volume = max(coingecko_data, key=lambda x: x['total_volume'])
-        name = escape_markdown(top_volume['name'])
-        symbol = escape_markdown(top_volume['symbol'].upper())
+        # Sort to find the highest volume coin
+        top_volume = max(data, key=lambda x: x['total_volume'])
+        name = top_volume['name'].replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
+        symbol = top_volume['symbol'].upper().replace("(", r"\(").replace(")", r"\)").replace("-", r"\-")
         price = f"{top_volume['current_price']:.2f}".replace(".", r"\.")
         percentage_change = f"{top_volume['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
-        message += f"🏆 {name} ({symbol}): ${price} ({percentage_change}%)\n"
-
-        message += "\n💱 *Binance Data*\n"
-        for ticker in binance_data:
-            symbol = escape_markdown(ticker['symbol'])
-            last_price = f"{float(ticker['lastPrice']):.2f}".replace(".", r"\.")
-            price_change = f"{ticker['priceChangePercent']}".replace(".", r"\.").replace("-", r"\-")
-            message += f"🔹 {symbol}: ${last_price} USD ({price_change}%)\n"
+        message += f"🏆 {name} \({symbol}\): ${price} \({percentage_change}%\)\n"
 
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {escape_markdown(str(e))}", parse_mode='MarkdownV2')
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
+
         
 #=====================square===================================
 
