@@ -5,6 +5,7 @@ loguru
 asyncio
 python-telegram-bot
 cryptocompare
+apscheduler
 flask
 aiogram==2.23.1
 pyrogram
