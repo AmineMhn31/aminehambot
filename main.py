@@ -65,7 +65,7 @@ async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MARKDOWNV2')
 
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"An error occurred: {e}")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
 
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
