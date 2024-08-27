@@ -34,7 +34,7 @@ logging.basicConfig(
     level=logging.CRITICAL)
 
 # ====================== Daily Airdrop ===================================
-async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
+async def dailyairdrop(context: ContextTypes.DEFAULT_TYPE):
     currencies = ["BTC", "ETH", "USDT", "BNB", "ADA", "XRP", "TON", "NOT"]  # Add more currencies as needed
     message = "📊 **Daily Airdrop: Highs and Lows for Cryptocurrencies** 📊\n\n"
 
@@ -48,7 +48,7 @@ async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
 
                 message += f"**{currency}**:\nHigh: ${high_price:.2f}\nLow: ${low_price:.2f}\n\n"
 
-        await context.bot.send_message(chat_id='your-chat-id', text=message, parse_mode='Markdown')
+        await context.bot.send_message(chat_id='your-chat-id', text=message, parse_mode='MARKDOWNV2')
 
     except Exception as e:
         logging.error(f"Error in daily airdrop: {e}")
@@ -229,7 +229,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/airdrop*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/dailyairdrop*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -497,8 +497,8 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
 
-    airdrop_handler = CommandHandler('airdrop', airdrop, block=False)
-    application.add_handler(airdrop_handler)
+    dailyairdrop_handler = CommandHandler('dailyairdrop', dailyairdrop, block=False)
+    application.add_handler(dailyairdrop_handler)
 
     convert_handler = CommandHandler('convert', convert, block=False)
     application.add_handler(convert_handler)
