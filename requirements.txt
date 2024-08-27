@@ -5,7 +5,7 @@ loguru
 asyncio
 python-telegram-bot
 cryptocompare
-APScheduler
+apscheduler
 schedulers
 schedule
 apscheduler
