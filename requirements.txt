@@ -5,10 +5,9 @@ loguru
 asyncio
 python-telegram-bot
 cryptocompare
-apscheduler
-schedulers
-schedule
-apscheduler
+apscheduler  # Add this if you want to use APScheduler
+# or
+schedule  # Add this if you want to use the schedule library
 flask
 aiogram==2.23.1
 pyrogram
