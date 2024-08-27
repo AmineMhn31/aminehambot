@@ -33,9 +33,6 @@ logging.basicConfig(
     level=logging.CRITICAL)
 
 #=====================square===================================
-import cryptocompare
-from telegram import Update
-from telegram.ext import ContextTypes
 
 async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
@@ -62,10 +59,17 @@ async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
         for currency, squared_price in top_currencies:
             message += f"💰 {currency}: {squared_price:.2f} USD²\n 📈"
 
+        # Escape special characters for MarkdownV2
+        message = message.replace(".", "\\.").replace("-", "\\-").replace("(", "\\(").replace(")", "\\)")
+
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MARKDOWNV2')
 
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
+        # Escape special characters in the error message as well
+        error_message = f"❌ An error occurred: {e}"
+        error_message = error_message.replace(".", "\\.").replace("-", "\\-").replace("(", "\\(").replace(")", "\\)")
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=error_message, parse_mode='MARKDOWNV2')
 
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
