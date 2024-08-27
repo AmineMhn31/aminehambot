@@ -35,6 +35,7 @@ logging.basicConfig(
 
 # ====================== Daily Airdrop Function ==========================
 async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
+    """Function to fetch and send cryptocurrency updates."""
     currencies = ["BTC", "ETH", "USDT", "BNB", "ADA", "XRP"]  # Add more currencies as needed
     message = "📊 **Cryptocurrency Update: Highs and Lows** 📊\n\n"
 
@@ -46,16 +47,23 @@ async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
                 low_price = history[0]['low']
                 message += f"**{currency}**:\nHigh: ${high_price:.2f}\nLow: ${low_price:.2f}\n\n"
 
-        await context.bot.send_message(chat_id='YOUR_CHAT_ID', text=message, parse_mode='Markdown')
+        # Use job context or context.bot_data to store the chat_id for auto posting
+        job_context = context.job.context if hasattr(context, 'job') else None
+        chat_id = job_context['chat_id'] if job_context else context.bot_data.get('chat_id', None)
+
+        if chat_id:
+            await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='MARKDOWNV2')
 
     except Exception as e:
         logging.error(f"Error in daily airdrop: {e}")
 
 # ====================== /airdrop Command Handler ========================
 async def airdrop_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await daily_airdrop(context)  # Reuse the daily airdrop function for manual command
+    """Command handler for /airdrop to trigger the daily_airdrop function manually."""
+    chat_id = update.effective_chat.id
+    context.bot_data['chat_id'] = chat_id  # Store chat_id for later use
+    await daily_airdrop(context)
     await update.message.reply_text("Airdrop sent!")
-
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
@@ -491,11 +499,10 @@ if __name__ == '__main__':
    # Scheduler for the airdrop every 5 minutes
     scheduler = BackgroundScheduler(timezone="UTC")
     scheduler.add_job(daily_airdrop, trigger='interval', minutes=5, args=[application.bot])
-    scheduler.start()
 
     # Add command handlers (including the new /airdrop command)
-    application.add_handler(CommandHandler("airdrop", airdrop_command))
-    
+    airdrop_handler = CommandHandler('airdrop', airdrop, block=False)
+    application.add_handler(airdrop_handler)
     
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
