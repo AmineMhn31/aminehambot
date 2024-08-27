@@ -31,6 +31,31 @@ EXCLUSIVE = False
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
+
+# ====================== Daily Airdrop ===================================
+async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
+    currencies = ["BTC", "ETH", "USDT", "BNB", "ADA", "XRP", "TON", "NOT"]  # Add more currencies as needed
+    message = "📊 **Daily Airdrop: Highs and Lows for Cryptocurrencies** 📊\n\n"
+
+    try:
+        for currency in currencies:
+            history = cryptocompare.get_historical_price_day(currency, currency='USD', limit=1)
+
+            if history:
+                high_price = history[0]['high']
+                low_price = history[0]['low']
+
+                message += f"**{currency}**:\nHigh: ${high_price:.2f}\nLow: ${low_price:.2f}\n\n"
+
+        await context.bot.send_message(chat_id='your-chat-id', text=message, parse_mode='Markdown')
+
+    except Exception as e:
+        logging.error(f"Error in daily airdrop: {e}")
+
+    # Scheduler for the airdrop every 5 minutes
+    scheduler = BackgroundScheduler(timezone="UTC")
+    scheduler.add_job(daily_airdrop, trigger='interval', minutes=5, args=[application.bot])
+    scheduler.start()
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
