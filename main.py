@@ -37,8 +37,8 @@ logging.basicConfig(
 #=====================Markets===================================
 
 # Initialize Binance Client (replace with your API key and secret)
-client = Client(api_key='Z8vOvQdcSqTYEkZI4h9NagvpgFKxIG0LygJhVDYLA4Sn1Tcq7cOiDN5E9dQb8vvc', api_secret='UCGUSoC2wwR16vFvjDcYmJx4TVTes5bWh5cGarnQJZWG2ePzTaJ8SHyMiPBbr7sb
-')
+client = Client(api_key='Z8vOvQdcSqTYEkZI4h9NagvpgFKxIG0LygJhVDYLA4Sn1Tcq7cOiDN5E9dQb8vvc', api_secret='UCGUSoC2wwR16vFvjDcYmJx4TVTes5bWh5cGarnQJZWG2ePzTaJ8SHyMiPBbr7sb')
+
 
 async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
