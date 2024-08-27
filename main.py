@@ -52,32 +52,41 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
         message = "📊 *Markets Overview*\n\n"
         message += "💹 *Trading Data*\n"
         for coin in data[:3]:  # Just an example to fetch the first 3 coins for trading data
-            message += f"🔹 {coin['name']} ({coin['symbol'].upper()}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+            name = coin['name'].replace("(", r"\(").replace(")", r"\)")
+            symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
+            message += f"🔹 {name} ({symbol}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
         
         message += "\n🔥 *Hot Coins*\n"
         for coin in data[3:6]:  # Next 3 coins for hot coins section
-            message += f"🔸 {coin['name']} ({coin['symbol'].upper()}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+            name = coin['name'].replace("(", r"\(").replace(")", r"\)")
+            symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
+            message += f"🔸 {name} ({symbol}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
 
         message += "\n🆕 *New Listing*\n"
-        # You can adjust this section based on actual new listings
-        for coin in data[6:9]:
-            message += f"🆕 {coin['name']} ({coin['symbol'].upper()}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+        for coin in data[6:9]:  # Just an example, adjust as needed
+            name = coin['name'].replace("(", r"\(").replace(")", r"\)")
+            symbol = coin['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
+            message += f"🆕 {name} ({symbol}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
 
         message += "\n📈 *Top Gainer Coin*\n"
         # Sort to find the top gainer
         top_gainer = max(data, key=lambda x: x['price_change_percentage_24h'])
-        message += f"🏅 {top_gainer['name']} ({top_gainer['symbol'].upper()}): ${top_gainer['current_price']:.2f} ({top_gainer['price_change_percentage_24h']}%)\n"
+        name = top_gainer['name'].replace("(", r"\(").replace(")", r"\)")
+        symbol = top_gainer['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
+        message += f"🏅 {name} ({symbol}): ${top_gainer['current_price']:.2f} ({top_gainer['price_change_percentage_24h']}%)\n"
 
         message += "\n📉 *Top Volume Coin*\n"
         # Sort to find the highest volume coin
         top_volume = max(data, key=lambda x: x['total_volume'])
-        message += f"🏆 {top_volume['name']} ({top_volume['symbol'].upper()}): ${top_volume['current_price']:.2f} ({top_volume['price_change_percentage_24h']}%)\n"
+        name = top_volume['name'].replace("(", r"\(").replace(")", r"\)")
+        symbol = top_volume['symbol'].upper().replace("(", r"\(").replace(")", r"\)")
+        message += f"🏆 {name} ({symbol}): ${top_volume['current_price']:.2f} ({top_volume['price_change_percentage_24h']}%)\n"
 
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
-
+        
 #=====================square===================================
 
 async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
