@@ -9,7 +9,8 @@ from io import BytesIO
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-from apscheduler.schedulers.background import BackgroundScheduler
+import time
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import server
 from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
@@ -34,29 +35,32 @@ logging.basicConfig(
     level=logging.CRITICAL)
 
 # ====================== Daily Airdrop Function ==========================
-async def airdrop(context: ContextTypes.DEFAULT_TYPE):
-    """Function to fetch and send cryptocurrency updates."""
-    currencies = ["BTC", "ETH", "USDT", "BNB", "ADA", "XRP"]  # Add more currencies as needed
-    message = "📊 **Cryptocurrency Update: Highs and Lows** 📊\n\n"
+async def auto_airdrop(context: ContextTypes.DEFAULT_TYPE):
+    currency_list = ["BTC", "ETH", "USDT", "BNB", "SOL"]  # List of currencies to check
+    best_currency = None
+    best_price = 0
 
     try:
-        for currency in currencies:
-            history = cryptocompare.get_historical_price_day(currency, currency='USD', limit=1)
-            if history:
-                high_price = history[0]['high']
-                low_price = history[0]['low']
-                message += f"**{currency}**:\nHigh: ${high_price:.2f}\nLow: ${low_price:.2f}\n\n"
+        for currency in currency_list:
+            price_data = cryptocompare.get_price(currency, currency='USD')
+            if price_data and 'USD' in price_data[currency]:
+                current_price = price_data[currency]['USD']
+                if current_price > best_price:
+                    best_price = current_price
+                    best_currency = currency
 
-        # Use job context or context.bot_data to store the chat_id for auto posting
-        job_context = context.job.context if hasattr(context, 'job') else None
-        chat_id = job_context['chat_id'] if job_context else context.bot_data.get('chat_id', None)
-
-        if chat_id:
-            await context.bot.send_message(chat_id=chat_id, text=message, parse_mode='MARKDOWNV2')
+        if best_currency:
+            message = f"Airdrop Alert! The best currency right now is {best_currency} at ${best_price} USD."
+            await context.bot.send_message(chat_id=YOUR_CHAT_ID, text=message)
 
     except Exception as e:
-        logging.error(f"Error in daily airdrop: {e}")
+        logging.error(f"Auto Airdrop Error: {e}")
 
+# ====================== Schedule the Auto Airdrop Task ==========================
+
+scheduler = AsyncIOScheduler()
+scheduler.add_job(auto_airdrop, 'interval', minutes=5, args=[None])
+scheduler.start()
 
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -549,4 +553,5 @@ if __name__ == '__main__':
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
 
+    scheduler.start()
     application.run_polling()
