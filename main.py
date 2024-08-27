@@ -36,11 +36,6 @@ logging.basicConfig(
 
 #=====================Markets===================================
 
-from binance.client import Client
-import requests
-from telegram import Update
-from telegram.ext import ContextTypes
-
 # Initialize Binance Client (replace with your API key and secret)
 client = Client(api_key='Z8vOvQdcSqTYEkZI4h9NagvpgFKxIG0LygJhVDYLA4Sn1Tcq7cOiDN5E9dQb8vvc', api_secret='UCGUSoC2wwR16vFvjDcYmJx4TVTes5bWh5cGarnQJZWG2ePzTaJ8SHyMiPBbr7sb')
 
@@ -50,7 +45,14 @@ def escape_markdown(text):
 
 async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        # Example API call to CoinGecko for market data
+        # Example API call to Binance for market data
+        binance_tickers = client.get_ticker()
+
+        # Filter Binance data for specific coins, if needed
+        target_symbols = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT']
+        binance_data = [ticker for ticker in binance_tickers if ticker['symbol'] in target_symbols]
+
+        # If you still want to use CoinGecko, make sure it's formatted correctly
         coingecko_response = requests.get('https://api.coingecko.com/api/v3/coins/markets', params={
             'vs_currency': 'usd',
             'order': 'market_cap_desc',
@@ -61,17 +63,12 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         coingecko_data = coingecko_response.json()
 
-        # Example API call to Binance for market data
-        binance_tickers = client.get_ticker()
-
-        # Filter Binance data for specific coins, if needed
-        binance_data = [ticker for ticker in binance_tickers if ticker['symbol'] in ['BTCUSDT', 'ETHUSDT', 'BNBUSDT']]
-
         # Create the message with formatted market overview
         message = "📊 *Markets Overview*\n\n"
         message += "💹 *Trading Data*\n"
         
-        for coin in coingecko_data[:3]:  # Fetch the first 3 coins for trading data
+        # Ensure coingecko_data is a list and has enough data
+        for coin in coingecko_data[:3]:
             name = escape_markdown(coin['name'])
             symbol = escape_markdown(coin['symbol'].upper())
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
@@ -79,7 +76,7 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message += f"🔹 {name} ({symbol}): ${price} ({percentage_change}%)\n"
         
         message += "\n🔥 *Hot Coins*\n"
-        for coin in coingecko_data[3:6]:  # Next 3 coins for hot coins section
+        for coin in coingecko_data[3:6]:
             name = escape_markdown(coin['name'])
             symbol = escape_markdown(coin['symbol'].upper())
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
@@ -87,7 +84,7 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message += f"🔸 {name} ({symbol}): ${price} ({percentage_change}%)\n"
 
         message += "\n🆕 *New Listing*\n"
-        for coin in coingecko_data[6:9]:  # Next 3 coins for new listings section
+        for coin in coingecko_data[6:9]:
             name = escape_markdown(coin['name'])
             symbol = escape_markdown(coin['symbol'].upper())
             price = f"{coin['current_price']:.2f}".replace(".", r"\.")
@@ -95,7 +92,6 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
             message += f"🆕 {name} ({symbol}): ${price} ({percentage_change}%)\n"
 
         message += "\n📈 *Top Gainer Coin*\n"
-        # Sort to find the top gainer
         top_gainer = max(coingecko_data, key=lambda x: x['price_change_percentage_24h'])
         name = escape_markdown(top_gainer['name'])
         symbol = escape_markdown(top_gainer['symbol'].upper())
@@ -104,7 +100,6 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
         message += f"🏅 {name} ({symbol}): ${price} ({percentage_change}%)\n"
 
         message += "\n📉 *Top Volume Coin*\n"
-        # Sort to find the highest volume coin
         top_volume = max(coingecko_data, key=lambda x: x['total_volume'])
         name = escape_markdown(top_volume['name'])
         symbol = escape_markdown(top_volume['symbol'].upper())
@@ -112,7 +107,6 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
         percentage_change = f"{top_volume['price_change_percentage_24h']:.2f}".replace(".", r"\.").replace("-", r"\-")
         message += f"🏆 {name} ({symbol}): ${price} ({percentage_change}%)\n"
 
-        # Add Binance data to the message if needed
         message += "\n💱 *Binance Data*\n"
         for ticker in binance_data:
             symbol = escape_markdown(ticker['symbol'])
@@ -124,7 +118,7 @@ async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {escape_markdown(str(e))}", parse_mode='MarkdownV2')
-
+        
 #=====================square===================================
 
 async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
