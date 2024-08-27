@@ -10,6 +10,7 @@ from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import server
+import requests
 from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
 TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
@@ -31,6 +32,51 @@ EXCLUSIVE = False
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
+
+#=====================Markets===================================
+
+async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        # Example API call to CoinGecko for market data
+        response = requests.get('https://api.coingecko.com/api/v3/coins/markets', params={
+            'vs_currency': 'usd',
+            'order': 'market_cap_desc',
+            'per_page': 10,
+            'page': 1,
+            'sparkline': 'false'
+        })
+
+        data = response.json()
+
+        # Create the message with formatted market overview
+        message = "📊 *Markets Overview*\n\n"
+        message += "💹 *Trading Data*\n"
+        for coin in data[:3]:  # Just an example to fetch the first 3 coins for trading data
+            message += f"🔹 {coin['name']} ({coin['symbol'].upper()}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+        
+        message += "\n🔥 *Hot Coins*\n"
+        for coin in data[3:6]:  # Next 3 coins for hot coins section
+            message += f"🔸 {coin['name']} ({coin['symbol'].upper()}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+
+        message += "\n🆕 *New Listing*\n"
+        # You can adjust this section based on actual new listings
+        for coin in data[6:9]:
+            message += f"🆕 {coin['name']} ({coin['symbol'].upper()}): ${coin['current_price']:.2f} ({coin['price_change_percentage_24h']}%)\n"
+
+        message += "\n📈 *Top Gainer Coin*\n"
+        # Sort to find the top gainer
+        top_gainer = max(data, key=lambda x: x['price_change_percentage_24h'])
+        message += f"🏅 {top_gainer['name']} ({top_gainer['symbol'].upper()}): ${top_gainer['current_price']:.2f} ({top_gainer['price_change_percentage_24h']}%)\n"
+
+        message += "\n📉 *Top Volume Coin*\n"
+        # Sort to find the highest volume coin
+        top_volume = max(data, key=lambda x: x['total_volume'])
+        message += f"🏆 {top_volume['name']} ({top_volume['symbol'].upper()}): ${top_volume['current_price']:.2f} ({top_volume['price_change_percentage_24h']}%)\n"
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
 
 #=====================square===================================
 
@@ -238,7 +284,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -506,6 +552,9 @@ if __name__ == '__main__':
     
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
+
+    markets_handler = CommandHandler('markets', markets, block=False)
+    application.add_handler(markets_handler)
 
     square_handler = CommandHandler('square', square, block=False)
     application.add_handler(square_handler)
