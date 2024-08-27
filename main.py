@@ -62,7 +62,7 @@ async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
         for currency, squared_price in top_currencies:
             message += f"💰 {currency}: {squared_price:.2f} USD²\n 📈"
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='Markdown')
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MARKDOWNV2')
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"An error occurred: {e}")
