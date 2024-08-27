@@ -57,6 +57,11 @@ async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
     scheduler = BackgroundScheduler(timezone="UTC")
     scheduler.add_job(daily_airdrop, trigger='interval', minutes=5, args=[application.bot])
     scheduler.start()
+
+# ====================== /airdrop Command Handler ========================
+async def airdrop(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await daily_airdrop(context)  # Reuse the daily airdrop function for manual command
+    await update.message.reply_text("Airdrop sent!")
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
@@ -224,7 +229,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/airdrop*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -491,6 +496,9 @@ if __name__ == '__main__':
 
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
+
+    airdrop_handler = CommandHandler('airdrop', airdrop, block=False)
+    application.add_handler(airdrop_handler)
 
     convert_handler = CommandHandler('convert', convert, block=False)
     application.add_handler(convert_handler)
