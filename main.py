@@ -57,7 +57,7 @@ async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Create the message with emojis
         message = "📈 *Top 10 Currencies by Squared Price:*\n 🚀"
         for currency, squared_price in top_currencies:
-            message += f"💰 {currency}: {squared_price:.2f} USD²\n 📈"
+            message += f"💰 {currency}: {squared_price:.2f} USD²\n"
 
         # Escape special characters for MarkdownV2
         message = message.replace(".", "\\.").replace("-", "\\-").replace("(", "\\(").replace(")", "\\)")
