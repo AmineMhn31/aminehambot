@@ -1,5 +1,14 @@
 import os
 import logging
+import asyncio
+import sys
+import httpx
+import random
+import time
+import uuid
+import datetime
+import stay_alive
+from loguru import logger
 import cryptocompare
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
