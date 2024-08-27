@@ -3,17 +3,12 @@ import os
 import logging
 import asyncio
 import httpx
-import schedule
-import time
 import cryptocompare
 from PIL import Image
 from io import BytesIO
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-import time
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import server
 from stay_alive import keep_alive
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
@@ -37,33 +32,33 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
 
-# ====================== Daily Airdrop Function ==========================
-async def auto_airdrop(context: ContextTypes.DEFAULT_TYPE):
-    currency_list = ["BTC", "ETH", "USDT", "BNB", "SOL"]  # List of currencies to check
-    best_currency = None
-    best_price = 0
-
+#=====================square===================================
+async def square(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        for currency in currency_list:
+        # Define the list of currencies you want to compare
+        currencies = ['BTC', 'ETH', 'USDT']  # Add or modify as needed
+        best_currency = None
+        best_price = None
+
+        # Fetch square prices and compare
+        for currency in currencies:
             price_data = cryptocompare.get_price(currency, currency='USD')
             if price_data and 'USD' in price_data[currency]:
                 current_price = price_data[currency]['USD']
-                if current_price > best_price:
-                    best_price = current_price
+                squared_price = current_price ** 2  # Calculate square of the price
+                if best_price is None or squared_price > best_price:
+                    best_price = squared_price
                     best_currency = currency
 
         if best_currency:
-            message = f"Airdrop Alert! The best currency right now is {best_currency} at ${best_price} USD."
-            await context.bot.send_message(chat_id=YOUR_CHAT_ID, text=message)
+            message = f"The best currency by square price is {best_currency} with a squared price of {best_price:.2f} USD²."
+        else:
+            message = "Could not retrieve price data for the specified currencies."
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=message)
 
     except Exception as e:
-        logging.error(f"Auto Airdrop Error: {e}")
-
-# ====================== Schedule the Auto Airdrop Task ==========================
-
-scheduler = AsyncIOScheduler()
-scheduler.add_job(auto_airdrop, 'interval', minutes=5, args=[None])
-scheduler.start()
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"An error occurred: {e}")
 
 #=====================rate_currency===================================
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -232,7 +227,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/airdrop*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -263,7 +258,7 @@ async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=1, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -287,7 +282,7 @@ async def clone(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=2, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -311,7 +306,7 @@ async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=3, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -335,7 +330,7 @@ async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=4, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -358,7 +353,7 @@ async def mergeaway(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=5, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -381,7 +376,7 @@ async def twerkrace(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=6, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -404,7 +399,7 @@ async def polysphere(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=7, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -427,7 +422,7 @@ async def mowandtrim(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=8, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -450,7 +445,7 @@ async def mudracing(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     no_of_keys = int(context.args[0]) if context.args else 4
     keys = await server.run(chosen_game=9, no_of_keys=no_of_keys)
-    generated_keys = [f"`{key}`" for key in keys]
+    generated_keys = [f"{key}" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text=f"{formatted_keys}",
@@ -485,7 +480,7 @@ async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     for i in range(4):
         keys = await server.run(chosen_game=i + 1, no_of_keys=no_of_keys)
-        generated_keys = [f"`{key}`" for key in keys]
+        generated_keys = [f"{key}" for key in keys]
         formatted_keys = '\n'.join(generated_keys)
         await context.bot.send_message(chat_id=update.effective_chat.id,
                                        text=f"{formatted_keys}",
@@ -497,17 +492,13 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN or TOKEN_INSECURE).build()
     server.logger.info("Server is running. Awaiting users...")
 
-   # Scheduler for the airdrop every 5 minutes
-    scheduler = BackgroundScheduler(timezone="UTC")
-    scheduler.add_job(airdrop, trigger='interval', minutes=5, args=[application.bot])
-
-    # Add command handlers (including the new /airdrop command)
-    airdrop_handler = CommandHandler('airdrop', airdrop, block=False)
-    application.add_handler(airdrop_handler)
     
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
 
+    square_handler = CommandHandler('square', square, block=False)
+    application.add_handler(square_handler)
+    
     convert_handler = CommandHandler('convert', convert, block=False)
     application.add_handler(convert_handler)
 
@@ -556,5 +547,4 @@ if __name__ == '__main__':
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
 
-    scheduler.start()
     application.run_polling()
