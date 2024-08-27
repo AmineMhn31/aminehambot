@@ -6,7 +6,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from apscheduler.schedulers.background import BackgroundScheduler
 
 # Token setup
-TOKEN = "YOUR_BOT_TOKEN_HERE"  # Replace with your bot token
+TOKEN = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"  # Replace with your bot token
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -25,7 +25,7 @@ async def daily_airdrop(context: ContextTypes.DEFAULT_TYPE):
                 low_price = history[0]['low']
                 message += f"**{currency}**:\nHigh: ${high_price:.2f}\nLow: ${low_price:.2f}\n\n"
 
-        await context.bot.send_message(chat_id='YOUR_CHAT_ID', text=message, parse_mode='Markdown')
+        await context.bot.send_message(chat_id='AMINEHAMBOT', text=message, parse_mode='MarkdownV2')
 
     except Exception as e:
         logging.error(f"Error in daily airdrop: {e}")
