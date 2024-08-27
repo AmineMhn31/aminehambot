@@ -5,6 +5,7 @@ loguru
 asyncio
 python-telegram-bot
 cryptocompare
+python-binance
 apscheduler  # Add this if you want to use APScheduler
 # or
 schedule  # Add this if you want to use the schedule library
