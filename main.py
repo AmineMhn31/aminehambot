@@ -630,8 +630,8 @@ if __name__ == '__main__':
     bike_handler = CommandHandler('bike', bike, block=False)
     application.add_handler(bike_handler)
 
-    cafe_handler = CommandHandler('cafe', cafe, block=False)
-    application.add_handler(cafe_handler)
+    cafedash_handler = CommandHandler('cafe', cafedash, block=False)
+    application.add_handler(cafedash_handler)
 
     cube_handler = CommandHandler('cube', cube, block=False)
     application.add_handler(cube_handler)
