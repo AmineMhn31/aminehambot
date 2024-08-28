@@ -3,6 +3,7 @@ import os
 import logging
 import asyncio
 import httpx
+import re
 import cryptocompare
 from PIL import Image
 from io import BytesIO
