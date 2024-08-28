@@ -343,7 +343,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    text="🇩🇿 🇩🇿 POWERED BY 🇩🇿 🇩🇿",
                                    parse_mode='MARKDOWNV2')
 
-
+    # =================================bike key =================================
 async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -358,15 +358,23 @@ async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
         parse_mode='MARKDOWNV2')
 
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=1, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
+    try:
+        no_of_keys = int(context.args[0]) if context.args else 4
+        keys = await server.run(chosen_game=1, no_of_keys=no_of_keys)
+        server.logger.info(f"Keys generated: {keys}")
 
+        generated_keys = [f"{key}" for key in keys]
+        formatted_keys = '\n'.join(generated_keys)
+        await context.bot.send_message(chat_id=update.effective_chat.id,
+                                       text=f"{formatted_keys}",
+                                       parse_mode='MARKDOWNV2')
+        server.logger.info("Message sent to the client.")
+    except Exception as e:
+        server.logger.error(f"Error generating keys or sending message: {e}")
+        await context.bot.send_message(chat_id=update.effective_chat.id,
+                                       text=f"Error: {e}")
+
+=====================================================================================
 
 async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
