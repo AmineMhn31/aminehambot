@@ -651,7 +651,7 @@ if __name__ == '__main__':
     trim_handler = CommandHandler('trim', trim, block=False)
     application.add_handler(trim_handler)
     
-    cafehandler = CommandHandler('cafe', cafe, block=False)
+    cafe_handler = CommandHandler('cafe', cafe, block=False)
     application.add_handler(cafe_handler)
     
     all_handler = CommandHandler('all', all, block=False)
