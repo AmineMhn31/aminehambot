@@ -38,11 +38,12 @@ logging.basicConfig(
     level=logging.CRITICAL)
 
 
-
 # Function to escape special characters for MarkdownV2
 def escape_markdown_v2(text):
     # Escapes special characters in MarkdownV2: `_ * [ ] ( ) ~ ` > # + - = | { } . !`
-    return re.sub(r'([_*\[\]()~`>#+\-=|{}.!])', r'\\\1', text)
+    # Also handles URLs, especially characters like '-' which are problematic
+    special_chars = r'[_*[\]()~`>#+\-=|{}.!]'
+    return re.sub(special_chars, lambda match: '\\' + match.group(0), text)
 
 # ======================== Airdrop Game Command ==========================
 async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -82,6 +83,7 @@ async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Escape the error message to prevent MarkdownV2 parsing issues
         error_message = escape_markdown_v2(str(e))
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {error_message}", parse_mode='MarkdownV2')
+
 
         
 #=====================Markets===================================
