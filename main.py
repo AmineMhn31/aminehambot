@@ -46,43 +46,18 @@ def escape_markdown_v2(text):
     return re.sub(special_chars, lambda match: '\\' + match.group(0), text)
 
 # ======================== Airdrop Game Command ==========================
-async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        # List of airdrop games with names and links
-        games = [
-            {"name": "CatGoldMinerBot", "link": "https://t.me/catgoldminerbot?start=7100076583"},
-            {"name": "BlumCryptoBot", "link": "https://t.me/BlumCryptoBot/app?startapp=ref_VQIs4zRDoo"},
-            {"name": "CEXIO Tap Bot", "link": "https://t.me/cexio_tap_bot?start=1718627624394479"},
-            {"name": "CityHolder", "link": "https://t.me/cityholder?start=sergalexsandrovich"},
-            {"name": "Hamster Kombat Bot", "link": "https://t.me/hamsTer_kombat_bot/start?startapp=kentId6469212526"},
-            {"name": "MuskEmpireBot", "link": "https://t.me/muskempire_bot/game?startapp=hero6469212526"},
-            {"name": "OKX Racer", "link": "https://t.me/OKX_official_bot/OKX_Racer?startapp=linkCode_15558147"},
-            {"name": "Wcoin Tap Bot", "link": "https://t.me/wcoin_tapbot?start=NzEwMDA3NjU4Mw=="},
-            {"name": "TapSwap Mirror 1 Bot", "link": "https://t.me/tapswap_mirror_1_bot?start=r_7100076583"},
-            {"name": "GemzCoin Bot", "link": "https://t.me/gemzcoin_Bot/tap?startapp=7kVCGF-UJX4SikTk5NfW1B2"},
-            {"name": "Epic of Castles Bot", "link": "https://t.me/epicofcastles_bot/start?startapp=u444235430"},
-            {"name": "MemeFi Coin Bot", "link": "https://t.me/memefi_coin_bot?start=r_c3ecc5f3c4"},
-            {"name": "Pocket Rocket Game Bot", "link": "https://t.me/pocket_rocket_game_bot?start=65ac653f-c84b-4d56-9b4f-d42c66d92e8d"},
-            {"name": "TheYesCoin Bot", "link": "https://t.me/theYescoin_bot/Yescoin?startapp=ZmARzc"},
-            {"name": "BirdTON Bot", "link": "https://t.me/BIRDTonBot?start=7100076583"},
-            {"name": "HexaCoin Bot", "link": "https://t.me/HexacoinBot/wallet?startapp=7100076583"},
-            {"name": "WmClick Bot", "link": "https://t.me/wmclick_bot/click?startapp=ref_q7DJQknb"}
-        ]
+games = [
+    {"name": "CatGoldMinerBot", "link": "https://t.me/catgoldminerbot?start=7100076583"},
+    {"name": "BlumCryptoBot", "link": "https://t.me/BlumCryptoBot/app?startapp=ref_VQIs4zRDoo"},
+    # Add all other games here
+]
 
-        # Construct the message to send
-        message = "🎮 *Free-to-Earn Airdrop Games on Telegram:*\n\n"
-        for game in games:
-            game_name = escape_markdown_v2(game["name"])
-            game_link = escape_markdown_v2(game["link"])
-            message += f"🔹 *{game_name}* : [Play Now]({game_link})\n\n"
-
-        # Send the formatted message
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
-
-    except Exception as e:
-        # Escape the error message to prevent MarkdownV2 parsing issues
-        error_message = escape_markdown_v2(str(e))
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {error_message}", parse_mode='MarkdownV2')
+# Command handler for /airdropgame
+async def airdropgame(update, context):
+    message = "🎮 *Available Games for Airdrop* 🎮\n\n"
+    for game in games:
+        message += f"🔹 [{game['name']}]({game['link']})\n"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
 
         
