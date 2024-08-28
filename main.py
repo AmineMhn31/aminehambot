@@ -38,29 +38,41 @@ logging.basicConfig(
 
 # ======================== Airdrop Game Command ==========================
 async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # List of airdrop games and their Telegram links
-    games = [
-        ("Hamster Kombat Bot", "https://t.me/hamster_kombat_bot"),
-        ("Mini Games Bot", "https://t.me/hamster_minigames_bot"),
-        ("Hamster Combo Bot", "https://t.me/hamster_combo_bot"),
-        ("Merge Away Bot", "https://t.me/hamster_mergeaway_bot"),
-        ("Twerk Race Bot", "https://t.me/hamster_twerk_bot"),
-        ("Hamster Dungeon Bot", "https://t.me/hamster_dungeon_bot"),
-        ("Hamster Farm Bot", "https://t.me/hamster_farm_bot"),
-        ("Hamster Clicker Bot", "https://t.me/hamster_clicker_bot")
-    ]
+    try:
+        # List of airdrop games with names and links
+        games = [
+            {"name": "CatGoldMinerBot", "link": "https://t.me/catgoldminerbot?start=7100076583"},
+            {"name": "BlumCryptoBot", "link": "https://t.me/BlumCryptoBot/app?startapp=ref_VQIs4zRDoo"},
+            {"name": "CEXIO Tap Bot", "link": "https://t.me/cexio_tap_bot?start=1718627624394479"},
+            {"name": "CityHolder", "link": "https://t.me/cityholder?start=sergalexsandrovich"},
+            {"name": "Hamster Kombat Bot", "link": "https://t.me/hamsTer_kombat_bot/start?startapp=kentId6469212526"},
+            {"name": "MuskEmpireBot", "link": "https://t.me/muskempire_bot/game?startapp=hero6469212526"},
+            {"name": "OKX Racer", "link": "https://t.me/OKX_official_bot/OKX_Racer?startapp=linkCode_15558147"},
+            {"name": "Wcoin Tap Bot", "link": "https://t.me/wcoin_tapbot?start=NzEwMDA3NjU4Mw=="},
+            {"name": "TapSwap Mirror 1 Bot", "link": "https://t.me/tapswap_mirror_1_bot?start=r_7100076583"},
+            {"name": "GemzCoin Bot", "link": "https://t.me/gemzcoin_Bot/tap?startapp=7kVCGF-UJX4SikTk5NfW1B2"},
+            {"name": "Epic of Castles Bot", "link": "https://t.me/epicofcastles_bot/start?startapp=u444235430"},
+            {"name": "MemeFi Coin Bot", "link": "https://t.me/memefi_coin_bot?start=r_c3ecc5f3c4"},
+            {"name": "Pocket Rocket Game Bot", "link": "https://t.me/pocket_rocket_game_bot?start=65ac653f-c84b-4d56-9b4f-d42c66d92e8d"},
+            {"name": "TheYesCoin Bot", "link": "https://t.me/theYescoin_bot/Yescoin?startapp=ZmARzc"},
+            {"name": "BirdTON Bot", "link": "https://t.me/BIRDTonBot?start=7100076583"},
+            {"name": "HexaCoin Bot", "link": "https://t.me/HexacoinBot/wallet?startapp=7100076583"},
+            {"name": "WmClick Bot", "link": "https://t.me/wmclick_bot/click?startapp=ref_q7DJQknb"}
+        ]
 
-    # Create the message with InlineKeyboard buttons
-    buttons = [[InlineKeyboardButton(game[0], url=game[1])] for game in games]
-    reply_markup = InlineKeyboardMarkup(buttons)
+        # Construct the message to send
+        message = "🎮 *Free-to-Earn Airdrop Games on Telegram:*\n\n"
+        for game in games:
+            game_name = game["name"]
+            game_link = game["link"]
+            message += f"🔹 *{game_name}* : [Play Now]({game_link})\n\n"
 
-    # Send the message with the buttons
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text="🎮 *Free-to-Earn Games on Telegram* 🎮\n\nClick on any game below to start playing and earning rewards!",
-        reply_markup=reply_markup,
-        parse_mode='MarkdownV2'
-    )
+        # Send the formatted message
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
+
         
 #=====================Markets===================================
 
