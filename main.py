@@ -16,27 +16,29 @@ from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import server
 import requests
 from stay_alive import keep_alive
+
+
+
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
+
 TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
 
 if os.name == 'posix':
-    TOKEN = subprocess.run(["printenv", "HAMSTER_BOT_TOKEN"],
-                           text=True,
-                           capture_output=True).stdout.strip()
+    TOKEN = subprocess.run(["printenv", "HAMSTER_BOT_TOKEN"], text=True, capture_output=True).stdout.strip()
 elif os.name == 'nt':
-    TOKEN = subprocess.run(["echo", "%HAMSTER_BOT_TOKEN%"],
-                           text=True,
-                           capture_output=True,
-                           shell=True).stdout.strip()
+    TOKEN = subprocess.run(["echo", "%HAMSTER_BOT_TOKEN%"], text=True, capture_output=True, shell=True).stdout.strip()
     TOKEN = "" if TOKEN == "%HAMSTER_BOT_TOKEN%" else TOKEN
+
 
 AUTHORIZED_USERS = []
 EXCLUSIVE = False
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.CRITICAL)
+    level=logging.WARN
+)
 
+# ========================================================================================
 
 # ======================== Airdrop Game Command ==========================
 # Define the list of games
@@ -322,7 +324,9 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # ==================================================================
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # ==================================================================
+
+    async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Should make this a Database probably
     # with open('user_ids','a') as file:
     #     file.write(f"{update.effective_chat.first_name} : {update.effective_chat.id}\n")
@@ -331,7 +335,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/cafe*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mud*\n*/trim*\n*/cafe*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -344,317 +348,92 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id,
                                    text="🇩🇿 🇩🇿 POWERED BY 🇩🇿 🇩🇿",
                                    parse_mode='MARKDOWNV2')
-
-
-async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=1, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
-
-
-async def cafedash(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=2, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
-
-
-async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=3, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
-
-
-async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=4, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
-
-async def mergeaway(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=5, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
-
-async def twerkrace(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=6, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
-
-async def polysphere(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
-
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=7, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
     
-async def mowandtrim(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
+    
+    # ===========delay for the /all command==============================
+    await asyncio.sleep(delay)
+    server.logger.info(f"Delay for {delay} seconds")
 
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
+
+    server.logger.info(f"Generating for client: {update.effective_chat.first_name} - {update.effective_chat.username}: {update.effective_chat.id}")
+    if not all:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Generating\.\.\.", parse_mode='MARKDOWNV2')
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"This will only take a moment\.\.\.", parse_mode='MARKDOWNV2')
 
     no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=8, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
+    keys = await server.run(chosen_game=chosen_game, no_of_keys=no_of_keys)
+    generated_keys = [f"`{key}`" for key in keys]
     formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"{formatted_keys}", parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def mudracing(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
-        return
+async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=1, all=all)
 
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"⌛️Generating⏳\.\.\.",
-                                   parse_mode='MARKDOWNV2')
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"⏱️🙆‍♂ This will only take a moment 🙆‍♂⏱️\.\.\.",
-        parse_mode='MARKDOWNV2')
+async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=2, all=all)
 
-    no_of_keys = int(context.args[0]) if context.args else 4
-    keys = await server.run(chosen_game=9, no_of_keys=no_of_keys)
-    generated_keys = [f"{key}" for key in keys]
-    formatted_keys = '\n'.join(generated_keys)
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"{formatted_keys}",
-                                   parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
+async def train(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=3, all=all)
 
+async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=4, all=all)
+
+async def twerk(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=5, all=all)
+
+async def poly(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=6, all=all)
+
+async def mud(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=7, all=all)
+
+async def trim(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=8, all=all)
+
+async def cafe(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=9, all=all)
 
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
-
-    server.logger.info(f"Generating for client: {update.effective_chat.id}")
-    server.logger.info(f"Generating keys for All Games.")
+    
+    server.logger.info(f"Generating ALL GAMES for client: {update.effective_chat.first_name} - {update.effective_chat.username}: {update.effective_chat.id}")
 
     await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=f"Currently generating for all games\.\.\.",
-        parse_mode='MARKDOWNV2')
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-                                   text=f"Come Back in about 5\-10 minutes\.",
-                                   parse_mode='MARKDOWNV2')
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Currently generating for all games\.\.\.", parse_mode='MARKDOWNV2')
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Come Back in about 5\-10 minutes\.", parse_mode='MARKDOWNV2')
 
-    no_of_keys = int(context.args[0]) if context.args else 4
-    server.logger.info(
-        f"Number of keys set to {no_of_keys}. Context args was {'not empty' if context.args else 'empty'}"
-    )
-
-    # This currently overloads the server with login requests
-    # tasks = [bike(update, context), clone(update, context), cube(update, context), train(update, context)]
-    # await asyncio.gather(*tasks)
-
-    for i in range(4):
-        keys = await server.run(chosen_game=i + 1, no_of_keys=no_of_keys)
-        generated_keys = [f"{key}" for key in keys]
-        formatted_keys = '\n'.join(generated_keys)
-        await context.bot.send_message(chat_id=update.effective_chat.id,
-                                       text=f"{formatted_keys}",
-                                       parse_mode='MARKDOWNV2')
-        server.logger.info("Message sent to the client.")
+    # Wait a certain number of seconds between each game
+    tasks = [game_handler(update, context, i + 1, True, i * 30) for i in range(10)]
+    await asyncio.gather(*tasks)
 
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN or TOKEN_INSECURE).build()
     server.logger.info("Server is running. Awaiting users...")
 
-    
-    start_handler = CommandHandler('start', start, block=False)
-    application.add_handler(start_handler)
+    application.add_handler(CommandHandler('start', start, block=False))
+    application.add_handler(CommandHandler('airdropgame', airdropgame, block=False))
+    application.add_handler(CommandHandler('markets', markets, block=False))
+    application.add_handler(CommandHandler('square', square, block=False))
+    application.add_handler(CommandHandler('convert', convert, block=False))
+    application.add_handler(CommandHandler('rate', rate, block=False))
+    application.add_handler(CommandHandler('news', news, block=False))
+    application.add_handler(CommandHandler('combo', combo, block=False))
+    application.add_handler(CommandHandler('cipher', cipher, block=False))
+    application.add_handler(CommandHandler('minigame', minigame, block=False))
+    application.add_handler(CommandHandler('bike', bike, block=False))
+    application.add_handler(CommandHandler('cube', cube, block=False))
+    application.add_handler(CommandHandler('train', train, block=False))
+    application.add_handler(CommandHandler('merge', merge, block=False))
+    application.add_handler(CommandHandler('twerk', twerk, block=False))
+    application.add_handler(CommandHandler('poly', poly, block=False))
+    application.add_handler(CommandHandler('mud', mud, block=False))
+    application.add_handler(CommandHandler('trim', trim, block=False))
+    application.add_handler(CommandHandler('cafe', cafe, block=False))
+    application.add_handler(CommandHandler('all', all, block=False))
 
-    airdropgame_handler = CommandHandler('airdropgame', airdropgame, block=False)
-    application.add_handler(airdropgame_handler)
-
-    markets_handler = CommandHandler('markets', markets, block=False)
-    application.add_handler(markets_handler)
-    
-    square_handler = CommandHandler('square', square, block=False)
-    application.add_handler(square_handler)
-    
-    convert_handler = CommandHandler('convert', convert, block=False)
-    application.add_handler(convert_handler)
-
-    rate_handler = CommandHandler('rate', rate, block=False)
-    application.add_handler(rate_handler)
-    
-    news_handler = CommandHandler('news', news, block=False)
-    application.add_handler(news_handler)
-
-    combo_handler = CommandHandler('combo', combo, block=False)
-    application.add_handler(combo_handler)
-    
-    cipher_handler = CommandHandler('cipher', cipher, block=False)
-    application.add_handler(cipher_handler)
-    
-    minigame_handler = CommandHandler('minigame', minigame, block=False)
-    application.add_handler(minigame_handler)
-
-    bike_handler = CommandHandler('bike', bike, block=False)
-    application.add_handler(bike_handler)
-
-    cafedash_handler = CommandHandler('cafe', cafedash, block=False)
-    application.add_handler(cafedash_handler)
-
-    cube_handler = CommandHandler('cube', cube, block=False)
-    application.add_handler(cube_handler)
-
-    train_handler = CommandHandler('train', train, block=False)
-    application.add_handler(train_handler)
-
-    mergeaway_handler = CommandHandler('merge', mergeaway, block=False)
-    application.add_handler(mergeaway_handler)
-
-    twerkrace_handler = CommandHandler('twerk', twerkrace, block=False)
-    application.add_handler(twerkrace_handler)
-    
-    polysphere_handler = CommandHandler('poly', polysphere, block=False)
-    application.add_handler(polysphere_handler)
-      
-    mowandtrim_handler = CommandHandler('mow', mowandtrim, block=False)
-    application.add_handler(mowandtrim_handler)
-    
-    mudracing_handler = CommandHandler('mud', mudracing, block=False)
-    application.add_handler(mudracing_handler)
-    
-    all_handler = CommandHandler('all', all, block=False)
-    application.add_handler(all_handler)
 
     application.run_polling()
