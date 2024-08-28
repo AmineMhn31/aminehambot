@@ -331,7 +331,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/cafe*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mud*\n*/trim*\n*/cafe*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -370,7 +370,7 @@ async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
     server.logger.info("Message sent to the client.")
 
 
-async def cafedash(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -394,7 +394,7 @@ async def cafedash(update: Update, context: ContextTypes.DEFAULT_TYPE):
     server.logger.info("Message sent to the client.")
 
 
-async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -418,7 +418,7 @@ async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE):
     server.logger.info("Message sent to the client.")
 
 
-async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -441,7 +441,7 @@ async def train(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def mergeaway(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def twerk(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -464,7 +464,7 @@ async def mergeaway(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def twerkrace(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def poly(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -487,7 +487,7 @@ async def twerkrace(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def polysphere(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def mud(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -510,7 +510,7 @@ async def polysphere(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
     
-async def mowandtrim(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def trim(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -533,7 +533,7 @@ async def mowandtrim(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def mudracing(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def cafe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -582,7 +582,7 @@ async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # tasks = [bike(update, context), clone(update, context), cube(update, context), train(update, context)]
     # await asyncio.gather(*tasks)
 
-    for i in range(4):
+    for i in range(9):
         keys = await server.run(chosen_game=i + 1, no_of_keys=no_of_keys)
         generated_keys = [f"{key}" for key in keys]
         formatted_keys = '\n'.join(generated_keys)
@@ -630,29 +630,29 @@ if __name__ == '__main__':
     bike_handler = CommandHandler('bike', bike, block=False)
     application.add_handler(bike_handler)
 
-    cafedash_handler = CommandHandler('cube', cafedash, block=False)
-    application.add_handler(cafedash_handler)
-
-    cube_handler = CommandHandler('train', cube, block=False)
+    cube_handler = CommandHandler('cube', cube, block=False)
     application.add_handler(cube_handler)
 
-    train_handler = CommandHandler('merge', train, block=False)
+    train_handler = CommandHandler('train', train, block=False)
     application.add_handler(train_handler)
 
-    mergeaway_handler = CommandHandler('twerk', mergeaway, block=False)
-    application.add_handler(mergeaway_handler)
+    merge_handler = CommandHandler('merge', merge, block=False)
+    application.add_handler(merge_handler)
 
-    twerkrace_handler = CommandHandler('poly', twerkrace, block=False)
-    application.add_handler(twerkrace_handler)
+    twerk_handler = CommandHandler('twerk', twerk, block=False)
+    application.add_handler(twerk_handler)
+
+    poly_handler = CommandHandler('poly', poly, block=False)
+    application.add_handler(poly_handler)
     
-    polysphere_handler = CommandHandler('mud', polysphere, block=False)
-    application.add_handler(polysphere_handler)
+    mud_handler = CommandHandler('mud', mud, block=False)
+    application.add_handler(mud_handler)
       
-    mowandtrim_handler = CommandHandler('trim', mowandtrim, block=False)
-    application.add_handler(mowandtrim_handler)
+    trim_handler = CommandHandler('trim', trim, block=False)
+    application.add_handler(trim_handler)
     
-    mudracing_handler = CommandHandler('cafe', mudracing, block=False)
-    application.add_handler(mudracing_handler)
+    cafehandler = CommandHandler('cafe', cafe, block=False)
+    application.add_handler(cafe_handler)
     
     all_handler = CommandHandler('all', all, block=False)
     application.add_handler(all_handler)
