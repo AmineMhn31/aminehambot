@@ -37,9 +37,11 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
 
+
+
 # Function to escape special characters for MarkdownV2
 def escape_markdown_v2(text):
-    # Escapes special characters in MarkdownV2: `_*[]()~`>#+-=|{}.!`
+    # Escapes special characters in MarkdownV2: `_ * [ ] ( ) ~ ` > # + - = | { } . !`
     return re.sub(r'([_*\[\]()~`>#+\-=|{}.!])', r'\\\1', text)
 
 # ======================== Airdrop Game Command ==========================
