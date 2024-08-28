@@ -3,6 +3,8 @@ import os
 import logging
 import asyncio
 import httpx
+from io import BytesIO
+import aiohttp
 import cryptocompare
 from telegram import Update, InputFile
 from telegram import Update
