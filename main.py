@@ -331,7 +331,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/cafe*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -370,7 +370,7 @@ async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
     server.logger.info("Message sent to the client.")
 
 
-async def clone(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def cafedash(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
 
@@ -630,8 +630,8 @@ if __name__ == '__main__':
     bike_handler = CommandHandler('bike', bike, block=False)
     application.add_handler(bike_handler)
 
-    clone_handler = CommandHandler('clone', clone, block=False)
-    application.add_handler(clone_handler)
+    cafe_handler = CommandHandler('cafe', cafe, block=False)
+    application.add_handler(cafe_handler)
 
     cube_handler = CommandHandler('cube', cube, block=False)
     application.add_handler(cube_handler)
