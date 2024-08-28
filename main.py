@@ -3,20 +3,16 @@ import os
 import logging
 import asyncio
 import httpx
-import re
 import cryptocompare
-from PIL import Image
-from io import BytesIO
-from binance.client import Client
-from bs4 import BeautifulSoup
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import server
 import requests
 from stay_alive import keep_alive
+
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
+
 TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
 
 if os.name == 'posix':
