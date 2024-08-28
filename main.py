@@ -37,40 +37,29 @@ logging.basicConfig(
 
 # ======================== Airdrop Game Command ==========================
 async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        # Fetch the webpage content
-        url = "https://hamster-combo.com/free-to-earn-games-on-telegram/"
-        response = requests.get(url)
-        response.raise_for_status()  # Ensure the request was successful
-        
-        # Parse the webpage content
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Find the relevant section containing airdrop games (modify this based on actual HTML structure)
-        airdrop_section = soup.find('section', {'id': 'airdrop-games'})  # Example selector, modify accordingly
-        if not airdrop_section:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text="❌ Could not find airdrop games on the webpage.")
-            return
+    # List of airdrop games and their Telegram links
+    games = [
+        ("Hamster Kombat Bot", "https://t.me/hamster_kombat_bot"),
+        ("Mini Games Bot", "https://t.me/hamster_minigames_bot"),
+        ("Hamster Combo Bot", "https://t.me/hamster_combo_bot"),
+        ("Merge Away Bot", "https://t.me/hamster_mergeaway_bot"),
+        ("Twerk Race Bot", "https://t.me/hamster_twerk_bot"),
+        ("Hamster Dungeon Bot", "https://t.me/hamster_dungeon_bot"),
+        ("Hamster Farm Bot", "https://t.me/hamster_farm_bot"),
+        ("Hamster Clicker Bot", "https://t.me/hamster_clicker_bot")
+    ]
 
-        # Extract game information (modify this based on actual HTML structure)
-        games = airdrop_section.find_all('div', {'class': 'game'})  # Example selector, modify accordingly
-        if not games:
-            await context.bot.send_message(chat_id=update.effective_chat.id, text="❌ No airdrop games found.")
-            return
-        
-        # Construct the message to send
-        message = "🎮 *Free-to-Earn Airdrop Games on Telegram:*\n\n"
-        for game in games:
-            game_name = game.find('h3').text.strip()  # Example selector, modify accordingly
-            game_description = game.find('p').text.strip()  # Example selector, modify accordingly
-            game_link = game.find('a', href=True)['href']  # Example selector, modify accordingly
-            message += f"🔹 *{game_name}* - {game_description}\n🔗 [Play Now]({game_link})\n\n"
+    # Create the message with InlineKeyboard buttons
+    buttons = [[InlineKeyboardButton(game[0], url=game[1])] for game in games]
+    reply_markup = InlineKeyboardMarkup(buttons)
 
-        # Send the formatted message
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
-
-    except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
+    # Send the message with the buttons
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="🎮 *Free-to-Earn Games on Telegram* 🎮\n\nClick on any game below to start playing and earning rewards!",
+        reply_markup=reply_markup,
+        parse_mode='MarkdownV2'
+    )
         
 #=====================Markets===================================
 
