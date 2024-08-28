@@ -30,9 +30,9 @@ GAMES = {
         'promoId': '43e35910-c168-4634-ad4f-52fd764a843f',
     },
     2: {
-        'name': 'My Clone Army',
-        'appToken': '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
-        'promoId': 'fe693b26-b342-4159-8808-15e3ff7f8767',
+        'name': 'CafeDash',
+        'appToken': 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
+        'promoId': 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
     },
     3: {
         'name': 'Chain Cube 2048',
