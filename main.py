@@ -8,6 +8,7 @@ from PIL import Image
 from io import BytesIO
 from binance.client import Client
 from bs4 import BeautifulSoup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
