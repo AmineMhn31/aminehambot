@@ -630,28 +630,28 @@ if __name__ == '__main__':
     bike_handler = CommandHandler('bike', bike, block=False)
     application.add_handler(bike_handler)
 
-    cafedash_handler = CommandHandler('cafe', cafedash, block=False)
+    cafedash_handler = CommandHandler('cube', cafedash, block=False)
     application.add_handler(cafedash_handler)
 
-    cube_handler = CommandHandler('cube', cube, block=False)
+    cube_handler = CommandHandler('train', cube, block=False)
     application.add_handler(cube_handler)
 
-    train_handler = CommandHandler('train', train, block=False)
+    train_handler = CommandHandler('merge', train, block=False)
     application.add_handler(train_handler)
 
-    mergeaway_handler = CommandHandler('merge', mergeaway, block=False)
+    mergeaway_handler = CommandHandler('twerk', mergeaway, block=False)
     application.add_handler(mergeaway_handler)
 
-    twerkrace_handler = CommandHandler('twerk', twerkrace, block=False)
+    twerkrace_handler = CommandHandler('poly', twerkrace, block=False)
     application.add_handler(twerkrace_handler)
     
-    polysphere_handler = CommandHandler('poly', polysphere, block=False)
+    polysphere_handler = CommandHandler('mud', polysphere, block=False)
     application.add_handler(polysphere_handler)
       
-    mowandtrim_handler = CommandHandler('mow', mowandtrim, block=False)
+    mowandtrim_handler = CommandHandler('trim', mowandtrim, block=False)
     application.add_handler(mowandtrim_handler)
     
-    mudracing_handler = CommandHandler('mud', mudracing, block=False)
+    mudracing_handler = CommandHandler('cafe', mudracing, block=False)
     application.add_handler(mudracing_handler)
     
     all_handler = CommandHandler('all', all, block=False)
