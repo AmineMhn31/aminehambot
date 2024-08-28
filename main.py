@@ -7,6 +7,7 @@ import cryptocompare
 from PIL import Image
 from io import BytesIO
 from binance.client import Client
+from bs4 import BeautifulSoup
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
@@ -34,6 +35,43 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
 
+# ======================== Airdrop Game Command ==========================
+async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        # Fetch the webpage content
+        url = "https://hamster-combo.com/free-to-earn-games-on-telegram/"
+        response = requests.get(url)
+        response.raise_for_status()  # Ensure the request was successful
+        
+        # Parse the webpage content
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Find the relevant section containing airdrop games (modify this based on actual HTML structure)
+        airdrop_section = soup.find('section', {'id': 'airdrop-games'})  # Example selector, modify accordingly
+        if not airdrop_section:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="❌ Could not find airdrop games on the webpage.")
+            return
+
+        # Extract game information (modify this based on actual HTML structure)
+        games = airdrop_section.find_all('div', {'class': 'game'})  # Example selector, modify accordingly
+        if not games:
+            await context.bot.send_message(chat_id=update.effective_chat.id, text="❌ No airdrop games found.")
+            return
+        
+        # Construct the message to send
+        message = "🎮 *Free-to-Earn Airdrop Games on Telegram:*\n\n"
+        for game in games:
+            game_name = game.find('h3').text.strip()  # Example selector, modify accordingly
+            game_description = game.find('p').text.strip()  # Example selector, modify accordingly
+            game_link = game.find('a', href=True)['href']  # Example selector, modify accordingly
+            message += f"🔹 *{game_name}* - {game_description}\n🔗 [Play Now]({game_link})\n\n"
+
+        # Send the formatted message
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
+        
 #=====================Markets===================================
 
 async def markets(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -305,7 +343,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "THE COMMANDES ARE :\n*/start*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
+        "THE COMMANDES ARE :\n*/start*\n*/airdropgame*\n*/markets*\n*/square*\n*/convert*\n*/rate*\n*/news*\n*/cipher*\n*/combo*\n*/minigame*\n*/bike*\n*/clone*\n*/cube*\n*/train*\n*/merge*\n*/twerk*\n*/poly*\n*/mow*\n*/mud*\n*/all*\nThese will generate 4 keys for their respective games\.",
         parse_mode='MARKDOWNV2')
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
@@ -574,9 +612,12 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start, block=False)
     application.add_handler(start_handler)
 
+    airdropgame_handler = CommandHandler('airdropgame', airdropgame, block=False)
+    application.add_handler(airdropgame_handler)
+
     markets_handler = CommandHandler('markets', markets, block=False)
     application.add_handler(markets_handler)
-
+    
     square_handler = CommandHandler('square', square, block=False)
     application.add_handler(square_handler)
     
