@@ -37,6 +37,11 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.CRITICAL)
 
+# Function to escape special characters for MarkdownV2
+def escape_markdown_v2(text):
+    # Escapes special characters in MarkdownV2: `_*[]()~`>#+-=|{}.!`
+    return re.sub(r'([_*\[\]()~`>#+\-=|{}.!])', r'\\\1', text)
+
 # ======================== Airdrop Game Command ==========================
 async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
@@ -64,15 +69,17 @@ async def airdropgame(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Construct the message to send
         message = "🎮 *Free-to-Earn Airdrop Games on Telegram:*\n\n"
         for game in games:
-            game_name = game["name"]
-            game_link = game["link"]
+            game_name = escape_markdown_v2(game["name"])
+            game_link = escape_markdown_v2(game["link"])
             message += f"🔹 *{game_name}* : [Play Now]({game_link})\n\n"
 
         # Send the formatted message
         await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {e}")
+        # Escape the error message to prevent MarkdownV2 parsing issues
+        error_message = escape_markdown_v2(str(e))
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"❌ An error occurred: {error_message}", parse_mode='MarkdownV2')
 
         
 #=====================Markets===================================
