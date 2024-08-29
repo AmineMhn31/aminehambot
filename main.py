@@ -31,6 +31,29 @@ logging.basicConfig(
     level=logging.WARN
 )
 
+# ======================== Airdrop Game Command ==========================
+# Define the list of games
+
+games = [
+    {"name": "😼 CatsGangBot", "link": "https://t.me/catsgang_bot/join?startapp=FB0J8GnDdMO9mZ_cYVS17"},
+    {"name": "🐹 Hamster Kombat Bot", "link": "https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"},
+    {"name": "🚀 MuskEmpireBot", "link": "https://t.me/empirebot/game?startapp=hero2136515572"},
+    {"name": "⭐️ MajorStarsBot", "link": "https://t.me/major/start?startapp=2136515572"},
+    {"name": "🤑 BlumCryptoBot", "link": "https://t.me/BlumCryptoBot/app?startapp=ref_nGMDVNruDY"},
+    {"name": "⚽️ 1WinToken", "link": "http://t.me/token1win_bot/start?startapp=refId2136515572"},
+    {"name": "🤖 TapSwapBot", "link": "https://t.me/tapswap_mirror_1_bot?start=r_2136515572"},
+    {"name": "🏎️ OKX Racer", "link": "https://t.me/OKX_official_bot/OKX_Racer?startapp=linkCode_114315151"},
+]
+
+# Command handler for /airdropgame
+async def airdropgame(update, context):
+    message = "🎮 *Available Games for Airdrop* 🎮\n\n"
+    for game in games:
+        message += f"🔹 [{game['name']}]({game['link']})\n"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+    
+# ===============================================================================================================
+
 # ========================COMBO==========================================
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
@@ -135,6 +158,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🤖The Commands are⚙️\:\n"
             "👋🏻 🔹 /salam\n"
             "📰 🔹 /news\n"
+            "🪂 🔹 /airdropgame\n"
             "🖼️ 🔹 /combo\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
@@ -254,6 +278,7 @@ if __name__ == '__main__':
 
     application.add_handler(CommandHandler('salam', salam, block=False))
     application.add_handler(CommandHandler('news', news, block=False))
+    application.add_handler(CommandHandler('airdropgame', airdropgame, block=False))
     application.add_handler(CommandHandler('combo', combo, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
