@@ -182,7 +182,7 @@ async def game_handler(
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         await context.bot.send_message(
             chat_id=update.effective_chat.id, 
-            text="Clone this bot from the [github](https://github.com/Emperor-One/Hamster-Key-Telegram-Bot) repo and follow the instructions to create your own bot\.",
+            text="Clone this bot from the [github](https://github.com/AmineMhn31/aminehambot) repo and follow the instructions to create your own bot\.",
             parse_mode='MARKDOWNV2'
         )
         with open(f'{os.path.dirname(__file__)}/unauthorized','a') as file:
