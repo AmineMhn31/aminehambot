@@ -114,10 +114,10 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text="""
-🐹 السادة الرؤساء التنفيذيون،
+    🐹 السادة الرؤساء التنفيذيون،
 
-🤩 احجزوا موعدًا لحدثي TGE و AirDrop الخاصين بلعبة Hamster Kombat — 26 سبتمبر! 🤩\.
-""",
+    🤩🪂💸 احجزوا موعدًا لحدثي TGE و AirDrop الخاصين بلعبة Hamster Kombat — 26 سبتمبر\! 💸🪂🤩 \!
+    """,
         parse_mode='MARKDOWNV2'
     )
 
