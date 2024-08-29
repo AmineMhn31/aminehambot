@@ -3,6 +3,7 @@ import os
 import logging
 import asyncio
 import httpx
+import re
 from io import BytesIO
 import aiohttp
 import cryptocompare
@@ -12,6 +13,13 @@ from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import server
 import requests
 from stay_alive import keep_alive
+
+def escape_markdown_v2(text: str) -> str:
+    # Characters that need to be escaped in MarkdownV2
+    special_chars = r'[-_*.[]()~`>#+\|{}!]'
+    # Escape these characters by adding a preceding backslash
+    escaped_text = re.sub(special_chars, r'\\\1', text)
+    return escaped_text
 
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
 
@@ -344,6 +352,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
                                    parse_mode='MARKDOWNV2')
 
     # =================================bike key =================================
+
 async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -363,7 +372,7 @@ async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keys = await server.run(chosen_game=1, no_of_keys=no_of_keys)
         server.logger.info(f"Keys generated: {keys}")
 
-        generated_keys = [f"{key}" for key in keys]
+        generated_keys = [f"{escape_markdown_v2(key)}" for key in keys]
         formatted_keys = '\n'.join(generated_keys)
         await context.bot.send_message(chat_id=update.effective_chat.id,
                                        text=f"{formatted_keys}",
