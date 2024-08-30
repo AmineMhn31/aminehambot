@@ -121,7 +121,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=
-        "🔢Today's Cipher Code \(HOMIE\) 30/08/2024📅:\n\*H:  🔘🔘🔘🔘\*\n\*O:  ➖➖➖\*\n\*M:  ➖➖\*\n\*I:  🔘🔘\*\n\*E:  🔘\*\n✅CLAIM 1000000💰\.",
+        "🔢Today's Cipher Code \(ROCKSTAR\) 30/08/2024📅:\n\*R:  🔘➖🔘\*\n\*O:  ➖➖➖\*\n\*C:  ➖🔘➖🔘\*\n\*K:  ➖🔘➖\*\n\*S:  🔘🔘🔘\*\n\*T:  ➖\*\n\*A:  🔘➖\*\n\*R:  🔘➖🔘\*\n✅CLAIM 1000000💰\.",
         parse_mode='MARKDOWNV2'
     )
 
