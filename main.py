@@ -86,33 +86,31 @@ async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
 
 # ========================Mini Game==========================================
-async def fetch_image(url: str) -> BytesIO:
+
+async def fetch_video(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
-        image_data = BytesIO(response.content)
-        return image_data
+        video_data = BytesIO(response.content)
+        return video_data
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/minigame29.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/minigg31.mp4")
         return
 
     url = context.args[0]
     try:
-        image_data = await fetch_image(url)
-        img = Image.open(image_data)
-        img_format = img.format  # Get the image format to retain the original extension
+        video_data = await fetch_video(url)
 
-        with BytesIO() as output:
-            img.save(output, format=img_format)
-            output.seek(0)
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+        # Assuming the video is in MP4 format
+        await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(video_data, filename="video.mp4"))
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the video you requested.")
 
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
+
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
