@@ -1,5 +1,4 @@
 httpx
-httpx==0.24.0
 aiohttp==3.8.5
 Pillow
 python_telegram_bot
