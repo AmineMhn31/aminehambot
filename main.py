@@ -162,15 +162,15 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🖼️ 🔹 /combo\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
-            "🚴 🔹 /bike\n"
             "🧊 🔹 /cube\n"
             "🚂 🔹 /train\n"
             "🧩 🔹 /merge\n"
             "💃 🔹 /twerk\n"
             "🔮 🔹 /poly\n"
-            "🏎️ 🔹 /mud\n"
             "🚜 🔹 /trim\n"
-            "☕️ 🔹 /cafe\n"
+            "☕️ 🆕 🔹 /cafe\n"
+            "🍀 🆕 🔹 /zoo\n"
+            "🔫 🆕 🔹 /gang\n"
             "🎮 🔹 /all\n"
             "These will generate 4 keys for their respective games\\."
         ),
@@ -230,31 +230,31 @@ async def game_handler(
     await context.bot.send_message(chat_id=update.effective_chat.id, text=f"{formatted_keys}", parse_mode='MARKDOWNV2')
     server.logger.info("Message sent to the client.")
 
-async def bike(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=1, all=all)
 
-async def cube(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def train(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=2, all=all)
 
-async def train(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=3, all=all)
 
-async def merge(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def twerk(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=4, all=all)
 
-async def twerk(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def poly(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=5, all=all)
 
-async def poly(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def trim(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=6, all=all)
 
-async def mud(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def cafe(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=7, all=all)
 
-async def trim(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def zoo(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=8, all=all)
 
-async def cafe(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+async def gang(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=9, all=all)
 
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -282,15 +282,15 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('combo', combo, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
-    application.add_handler(CommandHandler('bike', bike, block=False))
     application.add_handler(CommandHandler('cube', cube, block=False))
     application.add_handler(CommandHandler('train', train, block=False))
     application.add_handler(CommandHandler('merge', merge, block=False))
     application.add_handler(CommandHandler('twerk', twerk, block=False))
     application.add_handler(CommandHandler('poly', poly, block=False))
-    application.add_handler(CommandHandler('mud', mud, block=False))
     application.add_handler(CommandHandler('trim', trim, block=False))
     application.add_handler(CommandHandler('cafe', cafe, block=False))
+    application.add_handler(CommandHandler('zoo', zoo, block=False))
+    application.add_handler(CommandHandler('gang', gang, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
 
 
