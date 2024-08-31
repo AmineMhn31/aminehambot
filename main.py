@@ -96,7 +96,7 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://raw.githubusercontent.com/AmineMhn31/aminehambot/main/minigg31.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/08/video_2024-08-31_23-26-50.666666666666666666mp4-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
