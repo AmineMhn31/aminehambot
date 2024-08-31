@@ -274,7 +274,7 @@ async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=f"⏰Come Back in about 5\-10 minutes⏰\.", parse_mode='MARKDOWNV2')
 
     # Wait a certain number of seconds between each game
-    tasks = [game_handler(update, context, i + 1, True, i * 30) for i in range(1, 10)]
+    tasks = [game_handler(update, context, i + 1, True, i * 30) for i in range(9)]
     await asyncio.gather(*tasks)
  # ============================================================================================
 
