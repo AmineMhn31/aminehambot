@@ -49,9 +49,9 @@ airdrops = [
 async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
     for airdrop in airdrops:
-        message += f"🔹 *{airdrop['name']}*\n"
-        message += f"   📅 *Date:* {airdrop['date']}\n"
-        message += f"   🌐 [Link]({airdrop['link']})\n\n"
+        message += f"🔹 *{airdrops['name']}*\n"
+        message += f"   📅 *Date:* {airdrops['date']}\n"
+        message += f"   🌐 [Link]({airdrops['link']})\n\n"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
     
 # ==================================================================
