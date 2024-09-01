@@ -311,7 +311,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('salam', salam, block=False))
     application.add_handler(CommandHandler('news', news, block=False))
     application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
-    application.add_handler(CommandHandler('miniggapps', airdropgame, block=False))
+    application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
     application.add_handler(CommandHandler('combo', combo, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
