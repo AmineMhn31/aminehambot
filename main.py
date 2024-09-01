@@ -31,6 +31,30 @@ logging.basicConfig(
     level=logging.WARN
 )
 
+
+# ======================== Airdrop Command ==========================
+# Define the list of confirmed airdrops
+
+airdrops = [
+    {"name": "🍅 Tomarket App", "date": "📅2 September 2024📅", "link": "https://t.me/Tomarket_ai_bot/app?startapp=0000RUJ4"},
+    {"name": "🐹 Hamster Kombat", "date": "📅26 September 2024📅", "link": "https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"},
+    {"name": "🐰 Rocky Rabbit", "date": "📅23 September 2024📅", "link": "https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572"},
+    {"name": "🤯 MemeFi App", "date": "📅9 October 2024📅", "link": "https://t.me/memefi_coin_bot/main?startapp=r_15a4e9bdba"},
+    {"name": "🌝 TapCoins App", "date": "📅Early September 2024📅", "https://t.me/tapcoinsbot/app?startapp=ref_3EpEkX"},
+    {"name": "🚀 X Empire App", "date": "📅end September – mid October 2024📅", "https://t.me/empirebot/game?startapp=hero2136515572"},
+    # Add more airdrops as needed
+]
+
+# Command handler for /airdrop
+async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
+    for airdrop in airdrops:
+        message += f"🔹 *{airdrop['name']}*\n"
+        message += f"   📅 *Date:* {airdrop['date']}\n"
+        message += f"   🌐 [Link]({airdrop['link']})\n\n"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+    
+# ==================================================================
 # ======================== Airdrop Game Command ==========================
 # Define the list of games
 
@@ -48,7 +72,7 @@ games = [
 ]
 
 # Command handler for /airdropgame
-async def airdropgame(update, context):
+async def miniggapps(update, context):
     message = "🎮 *Available Games for Airdrop* 🎮\n\n"
     for game in games:
         message += f"🔹 [{game['name']}]({game['link']})\n"
@@ -164,7 +188,8 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🤖The Commands are⚙️\:\n"
             "👋🏻 🔹 /salam\n"
             "📰 🔹 /news\n"
-            "🪂 🔹 /airdropgame\n"
+            "🪂 🔹 /airdrops\n"
+            "🕹 🔹 /miniggapps\n"
             "🖼️ 🔹 /combo\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
@@ -284,7 +309,8 @@ if __name__ == '__main__':
 
     application.add_handler(CommandHandler('salam', salam, block=False))
     application.add_handler(CommandHandler('news', news, block=False))
-    application.add_handler(CommandHandler('airdropgame', airdropgame, block=False))
+    application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
+    application.add_handler(CommandHandler('miniggapps', airdropgame, block=False))
     application.add_handler(CommandHandler('combo', combo, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
