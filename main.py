@@ -40,8 +40,8 @@ airdrops = [
     {"name": "🐹 Hamster Kombat", "date": "📅26 September 2024📅", "link": "https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"},
     {"name": "🐰 Rocky Rabbit", "date": "📅23 September 2024📅", "link": "https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572"},
     {"name": "🤯 MemeFi App", "date": "📅9 October 2024📅", "link": "https://t.me/memefi_coin_bot/main?startapp=r_15a4e9bdba"},
-    {"name": "🌝 TapCoins App", "date": "📅Early September 2024📅", "https://t.me/tapcoinsbot/app?startapp=ref_3EpEkX"},
-    {"name": "🚀 X Empire App", "date": "📅end September – mid October 2024📅", "https://t.me/empirebot/game?startapp=hero2136515572"},
+    {"name": "🌝 TapCoins App", "date": "📅Early September 2024📅", "link": "https://t.me/tapcoinsbot/app?startapp=ref_3EpEkX"},
+    {"name": "🚀 X Empire App", "date": "📅end September – mid October 2024📅", "link": "https://t.me/empirebot/game?startapp=hero2136515572"},
     # Add more airdrops as needed
 ]
 
@@ -49,12 +49,13 @@ airdrops = [
 async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
     for airdrop in airdrops:
-        message += f"🔹 *{airdrops['name']}*\n"
-        message += f"   📅 *Date:* {airdrops['date']}\n"
-        message += f"   🌐 [Link]({airdrops['link']})\n\n"
+        message += f"🔹 *{airdrop['name']}*\n"
+        message += f"   📅 *Date:* {airdrop['date']}\n"
+        message += f"   🌐 [Link]({airdrop['link']})\n\n"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
-    
+
 # ==================================================================
+
 # ======================== Airdrop Game Command ==========================
 # Define the list of games
 
