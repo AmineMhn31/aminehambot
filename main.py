@@ -121,7 +121,7 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/08/video_2024-08-31_23-26-50.666666666666666666mp4-online-video-cutter.com_.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-01_23-37-42-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
@@ -144,11 +144,12 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(FUNKY\\) 31/08/2024📅:\n"
-            "*F:  🔘🔘➖🔘*\n"
-            "*U:  🔘🔘➖*\n"
-            "*N:  ➖🔘*\n"
-            "*K:  ➖🔘➖*\n"
+            "🔢Today's Cipher Code \\(SMARTY\\) 01/09/2024📅:\n"
+            "*S:  🔘🔘🔘*\n"
+            "*M:  ➖➖*\n"
+            "*A:  🔘➖*\n"
+            "*R:  🔘➖🔘*\n"
+            "*T:  ➖*\n"
             "*Y:  ➖🔘➖➖*\n"
             "✅CLAIM 1000000💰\."
         ),
