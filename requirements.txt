@@ -3,6 +3,7 @@ aiohttp==3.8.5
 Pillow
 python_telegram_bot
 loguru
+requests
 asyncio
 python-telegram-bot
 cryptocompare
