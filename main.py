@@ -89,7 +89,7 @@ async def fetch_image(url: str) -> BytesIO:
         image_data = BytesIO(response.content)
         return image_data
 
-async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
         await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-11-1024x477.png")
         return
@@ -110,6 +110,46 @@ async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
 
+
+# ======================================================================================================
+
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        image_data = BytesIO(response.content)
+        return image_data
+
+async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Send the TomarketDaily Secret message
+    secret_message = (
+        "🍅 *TomarketDaily Secret* \n\n"
+        "1️⃣ x2 Tap Tomato Head 🍅\n"
+        "2️⃣ x1 Tap cat 🐈\n"
+        "3️⃣ x1 Tap tree 🌲"
+    )
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=secret_message, parse_mode="MarkdownV2")
+
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://static.bittime.com/cms-static/upload/Tomarket_Daily_Secret_Combo_29_Agustus_Mainkan_Gamenya_e18cd08205.webp")
+        return
+
+    url = context.args[0]
+    try:
+        image_data = await fetch_image(url)
+        img = Image.open(image_data)
+        img_format = img.format  # Get the image format to retain the original extension
+
+        with BytesIO() as output:
+            img.save(output, format=img_format)
+            output.seek(0)
+            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
+        
 # ========================Mini Game==========================================
 
 async def fetch_video(url: str) -> BytesIO:
@@ -194,7 +234,8 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📰 🔹 /news\n"
             "🪂 🔹 /airdrops\n"
             "🕹 🔹 /miniggapps\n"
-            "🖼️ 🔹 /combo\n"
+            "🐹 🔹 /hamstercombo\n"
+            "🍅 🆕 🔹 /tomarketcombo\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
             "🧊 🔹 /cube\n"
@@ -317,7 +358,8 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('news', news, block=False))
     application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
     application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
-    application.add_handler(CommandHandler('combo', combo, block=False))
+    application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
+    application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
     application.add_handler(CommandHandler('cube', cube, block=False))
