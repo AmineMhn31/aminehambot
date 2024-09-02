@@ -9,14 +9,11 @@ import aiohttp
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-from telegram import Bot
-from telegram.constants import ParseMode
 import server
 import requests
 from stay_alive import keep_alive
 
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
-GROUP_CHAT_ID = '@hamster16dz'
 TOKEN_INSECURE = "7474041486:AAGRj90HoAdC5IF7wx35gYi2qKi2Z9T_1Rw"
 
 if os.name == 'posix':
@@ -94,7 +91,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def combo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/08/image-455-1024x523.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-11-1024x477.png")
         return
 
     url = context.args[0]
@@ -147,13 +144,15 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(SMARTY\\) 01/09/2024📅:\n"
-            "*S:  🔘🔘🔘*\n"
-            "*M:  ➖➖*\n"
-            "*A:  🔘➖*\n"
-            "*R:  🔘➖🔘*\n"
+            "🔢Today's Cipher Code \\(WITHDRAW\\) 02/09/2024📅:\n"
+            "*W:  🔘➖➖*\n"
+            "*I:  🔘🔘*\n"
             "*T:  ➖*\n"
-            "*Y:  ➖🔘➖➖*\n"
+            "*H:  🔘🔘🔘🔘*\n"
+            "*D:  ➖🔘🔘*\n"
+            "*R:  🔘➖🔘*\n"
+            "*A:  🔘➖*\n"
+            "*W:  🔘➖➖*\n"
             "✅CLAIM 1000000💰\."
         ),
         parse_mode='MARKDOWNV2'
@@ -304,11 +303,6 @@ async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text=f"⏰Come Back in about 5\-10 minutes⏰\.", parse_mode='MARKDOWNV2')
 
     # Send message to the group
-    notification_message = f"🔑 A new key has been generated! 🎉\n\n{formatted_keys}"
-    await context.bot.send_message(chat_id=GROUP_CHAT_ID, text=notification_message, parse_mode='MARKDOWNV2')
-    
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"{formatted_keys}", parse_mode='MARKDOWNV2')
-    server.logger.info("Message sent to the client.")
     
     # Wait a certain number of seconds between each game
     tasks = [game_handler(update, context, i + 1, True, i * 30) for i in range(9)]
