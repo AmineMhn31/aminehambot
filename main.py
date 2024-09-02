@@ -9,7 +9,8 @@ import aiohttp
 from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
-from telegram import Bot, ParseMode
+from telegram import Bot
+from telegram.constants import ParseMode
 import server
 import requests
 from stay_alive import keep_alive
