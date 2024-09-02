@@ -203,9 +203,9 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "💃 🔹 /twerk\n"
             "🔮 🔹 /poly\n"
             "🚜 🔹 /trim\n"
-            "☕️ 🆕 🔹 /cafe\n"
             "🍀 🆕 🔹 /zoo\n"
-            "🔫 🆕 🔹 /gang\n"
+            "☕️ ❌ 🔹 /cafe\n"
+            "🔫 ❌ 🔹 /gang\n"
             "🎮 🔹 /all\n"
             "These will generate 4 keys for their respective games\\."
         ),
