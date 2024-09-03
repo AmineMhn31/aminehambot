@@ -265,7 +265,7 @@ async def hamsternews(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Second news: Tomarket Community Update
 async def tomarketnews(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
-        image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
+    image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
         
         tomarket_caption = (
             "💥🍅 *Dear Tomarket Community* 🍅💥\n\n"
