@@ -111,70 +111,50 @@ async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
 
 
-# ======================================================================================================
+# ========================================tomarketCOMBO==============================================================
 
+# Function to fetch an image from a given URL and return it as a BytesIO object
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
-        image_data = BytesIO(response.content)
-        return image_data
+        return BytesIO(response.content)
 
+# Main function that handles the /tomarketcombo command
 async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Send the TomarketDaily Secret message
+    chat_id = update.effective_chat.id
+
+    # Send the image first
+    image_url = "https://static.bittime.com/cms-static/upload/Tomarket_Daily_Secret_Combo_29_Agustus_Mainkan_Gamenya_e18cd08205.webp"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+
+    # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
         "1️⃣ x2 Tap Tomato Head 🍅\n"
         "2️⃣ x1 Tap cat 🐈\n"
         "3️⃣ x1 Tap tree 🌲"
     )
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
-    if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://static.bittime.com/cms-static/upload/Tomarket_Daily_Secret_Combo_29_Agustus_Mainkan_Gamenya_e18cd08205.webp")
-        return
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
 
-    url = context.args[0]
-    try:
-        image_data = await fetch_image(url)
-        img = Image.open(image_data)
-        img_format = img.format  # Get the image format to retain the original extension
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
 
-        with BytesIO() as output:
-            img.save(output, format=img_format)
-            output.seek(0)
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
-
-    except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
-        
-# ========================Mini Game==========================================
-
-async def fetch_video(url: str) -> BytesIO:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors
-        video_data = BytesIO(response.content)
-        return video_data
-
-async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-01_23-37-42-online-video-cutter.com_.mp4")
-        return
-
-    url = context.args[0]
-    try:
-        video_data = await fetch_video(url)
-
-        # Assuming the video is in MP4 format
-        await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(video_data, filename="video.mp4"))
-
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the video you requested.")
-
-    except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
 
 # ========================CIPHER==========================================
