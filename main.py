@@ -295,9 +295,9 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     except Exception as e:
-        logger.error(f"Error in /news command: {e}")
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, there was an error processing your request.")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve news: {e}")
 
+# ==================================================================
 
 
     # ==================================================================
