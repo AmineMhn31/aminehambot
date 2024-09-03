@@ -241,7 +241,6 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # =============================NEWS CRYPTO====================================
 
-logger = logging.getLogger(__name__)
 
 async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
@@ -264,6 +263,8 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
         # Second news: Tomarket Community Update
+async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
         image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
         
         tomarket_caption = (
