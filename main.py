@@ -239,17 +239,10 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode='MARKDOWNV2'
     )
 
-    # ==================================================================
+    # =============================NEWS CRYPTO====================================
 
-# ========================NEWS==========================================
-
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-        # First news: Hamster on Bybit
+ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try: 
         image_url_hamster = 'https://coinchapter.com/wp-content/uploads/2024/09/Screenshot_2024-09-03-20-27-01-144_com.android.chrome.png'
         
         hamster_caption = (
@@ -299,8 +292,13 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
     except Exception as e:
-        logger.error(f"Error in /news command: {e}")
+        # Ensure logger is defined and used
+        import logging
+        logging.basicConfig(level=logging.DEBUG)
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error in /news command: {e}", exc_info=True)
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, there was an error processing your request.")
+
 
 # ==================================================================
 
