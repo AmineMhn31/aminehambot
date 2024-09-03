@@ -131,9 +131,8 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x2 Tap Tomato Head 🍅\n"
-        "2️⃣ x1 Tap cat 🐈\n"
-        "3️⃣ x1 Tap tree 🌲"
+        "1️⃣ x1 Tap tree 🌲\n"
+        "2️⃣ x2 Tap Tomato Head 🍅\n"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
