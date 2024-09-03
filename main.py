@@ -241,10 +241,6 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # =============================NEWS CRYPTO====================================
 
-# Set up basic logging
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
-
 async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # First news: Hamster on Bybit
