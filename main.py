@@ -91,7 +91,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-11-1024x477.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-33-1024x537.png")
         return
 
     url = context.args[0]
@@ -156,6 +156,31 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
+# ===============================MINIGG===================================
+
+async def fetch_video(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        video_data = BytesIO(response.content)
+        return video_data
+
+async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/img_8930-online-video-cutter.com-1.mp4")
+        return
+
+    url = context.args[0]
+    try:
+        video_data = await fetch_video(url)
+
+        # Assuming the video is in MP4 format
+        await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(video_data, filename="video.mp4"))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the video you requested.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
