@@ -260,7 +260,7 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=update.effective_chat.id,
             photo=image_url_hamster,
             caption=hamster_caption,
-            parse_mode='MARKDOWNV2'
+            parse_mode='MarkdownV2'
         )
 
         # Second news: Tomarket Community Update
@@ -291,11 +291,13 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=update.effective_chat.id,
             photo=image_url_tomarket,
             caption=tomarket_caption,
-            parse_mode='MARKDOWNV2'
+            parse_mode='MarkdownV2'
         )
 
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve news: {e}")
+        logger.error(f"Error in /news command: {e}")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, there was an error processing your request.")
+
 
 # ==================================================================
 
