@@ -204,7 +204,7 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/img_8930-online-video-cutter.com-1.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-03_23-19-58-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
@@ -226,15 +226,14 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(WITHDRAW\\) 02/09/2024📅:\n"
-            "*W:  🔘➖➖*\n"
+            "🔢Today's Cipher Code \\(DEPOSIT\\) 03/09/2024📅:\n"
+            "*D:  ➖🔘🔘*\n"
+            "*E:  🔘*\n"
+            "*P:  🔘➖➖🔘*\n"
+            "*O:  ➖➖➖*\n"
+            "*S:  🔘🔘🔘*\n"
             "*I:  🔘🔘*\n"
             "*T:  ➖*\n"
-            "*H:  🔘🔘🔘🔘*\n"
-            "*D:  ➖🔘🔘*\n"
-            "*R:  🔘➖🔘*\n"
-            "*A:  🔘➖*\n"
-            "*W:  🔘➖➖*\n"
             "✅CLAIM 1000000💰\."
         ),
         parse_mode='MARKDOWNV2'
@@ -244,21 +243,74 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ========================NEWS==========================================
 async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Should make this a Database probably
-    # with open('user_ids','a') as file:
-    #     file.write(f"{update.effective_chat.first_name} : {update.effective_chat.id}\n")
-
+    # Send an introductory emoji message
     await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
 
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text="""
-    🐹 السادة الرؤساء التنفيذيون،
+    # URL of the image you want to send
+    image_url = 'https://coinchapter.com/wp-content/uploads/2024/09/Screenshot_2024-09-03-20-27-01-144_com.android.chrome.png'
 
-    🤩🪂💸 احجزوا موعدًا لحدثي TGE و AirDrop الخاصين بلعبة Hamster Kombat — 26 سبتمبر\! 💸🪂🤩 \!
-    """,
+    # Send the image using the URL
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id, 
+        photo=image_url,
+        caption="""
+💥 *\$HMSTR على BYBIT* 💥
+
+😎 يا له من يوم رائع! يسعدنا أن نعلن أن *\$HMSTR* ستكون متاحة على بورصة العملات المشفرة *BYBIT*!
+
+😉 إليك رمز الإحالة لأفضل الرؤساء التنفيذيين: *BYBITHAMSTER*
+
+🧡 ترقبوا الجديد!
+
+\#TheCryptoArk \#BybitListing
+        """,
         parse_mode='MARKDOWNV2'
     )
+
+    #========= tomarket news ======
+
+    # URL of the image you want to send
+    image_url = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
+
+    # Send the image using the URL
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id, 
+        photo=image_url,
+        caption="""
+💥🍅 *\Dear Tomarket Community* 🍅💥
+
+نحن ممتنون جدًا لحماسك ودعمك بينما نصل إلى معالم جديدة معًا. يسعدنا مشاركة بعض التحديثات المهمة معك.
+
+*كما ذكرنا، تم الانتهاء من اللقطة: 2 سبتمبر، 23:59 HRS \(GMT\+8\)*
+
+لقد أكملنا للتو أول لقطة رئيسية لدينا، وتم منح *نجوم Tomarket* الخاصة بك بناءً على مشاركتك في هذه الأنشطة الرئيسية:
+
+1️⃣. نتائج لعبة Drop
+2️⃣. تسجيل الدخول اليومي
+3️⃣. تكرار زراعة \$TOMATO
+4️⃣. رمز الغموض اليومي
+5️⃣. إكمال المهام
+6️⃣. الإحالات
+
+كلما فعلت هذه الأشياء أكثر، زادت مكافآتك\! ستستمر هذه الأنشطة في التأثير على *نجوم Tomarket* والمكافآت الخاصة بك حتى بعد اللقطة، لذا استمر في المشاركة لتحقيق أقصى استفادة مع اقترابنا من حدث توليد الرموز \(TGE\) في أواخر أكتوبر\.
+
+*مقدمة عن نظام المستويات*
+
+نحن متحمسون لإطلاق *نظام المستويات*، والذي سيحدد كمية الإنزال الجوي. إذا كان بإمكانك رؤية مستواك، فأنت مؤهل للإنزال الجوي.
+
+تم استخدام *نجوم Tomarket* السابقة لديك تلقائيًا للارتقاء إلى المستوى الأعلى.
+
+يتيح لك هذا النظام الارتقاء إلى المستوى الأعلى من خلال التفاعل مع المنصة، مما يمنحك الفرصة لتجاوز الآخرين وكسب المزيد من الإنزالات الجوية\! سيكون *نظام المستويات* نشطًا حتى TGE، لذا استغل هذه الفترة لتأمين مكانك الأول والحصول على أعلى تخصيص\.
+
+لقد سأل العديد منكم عن *Wallet Connect*—لا داعي للقلق حتى الآن. لا يزال لديك الوقت لربط محفظتك للحصول على الجوائز والإنزالات الجوية القادمة.
+
+Tomarket 🍅
+
+\#tomarket \#tomato
+        """,
+        parse_mode='MARKDOWNV2'
+    )
+
 
     # ==================================================================
 
