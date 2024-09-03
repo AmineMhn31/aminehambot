@@ -243,6 +243,10 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ========================NEWS==========================================
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # First news: Hamster on Bybit
@@ -297,7 +301,6 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         logger.error(f"Error in /news command: {e}")
         await context.bot.send_message(chat_id=update.effective_chat.id, text="Sorry, there was an error processing your request.")
-
 
 # ==================================================================
 
