@@ -241,6 +241,8 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # =============================NEWS CRYPTO====================================
 
+logger = logging.getLogger(__name__)
+
 async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # First news: Hamster on Bybit
