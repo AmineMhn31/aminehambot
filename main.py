@@ -81,7 +81,8 @@ async def miniggapps(update, context):
     
 # ===============================================================================================================
 
-# ========================COMBO==========================================
+# ========================hamsterCOMBO==========================================
+
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
@@ -154,6 +155,37 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
+
+# ========================rocky rabbit COMBO==========================================
+
+
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        image_data = BytesIO(response.content)
+        return image_data
+
+async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-28-1024x619.png")
+        return
+
+    url = context.args[0]
+    try:
+        image_data = await fetch_image(url)
+        img = Image.open(image_data)
+        img_format = img.format  # Get the image format to retain the original extension
+
+        with BytesIO() as output:
+            img.save(output, format=img_format)
+            output.seek(0)
+            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
 
 # ===============================MINIGG===================================
 
@@ -240,6 +272,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🕹 🔹 /miniggapps\n"
             "🐹 🔹 /hamstercombo\n"
             "🍅 🆕 🔹 /tomarketcombo\n"
+            "🐰 🆕 🔹 /rockyrabbitcombo\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
             "🧊 🔹 /cube\n"
@@ -364,6 +397,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
     application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
     application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
+    application.add_handler(CommandHandler('rockyrabbitcombo', rockyrabbitcombo, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
     application.add_handler(CommandHandler('cube', cube, block=False))
