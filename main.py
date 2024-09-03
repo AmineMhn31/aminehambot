@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 
 
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
-#TOKEN_INSECURE = "7474041486:AAGRj90HoAdC5IF7wx35gYi2qKi2Z9T_1Rw"
+#TOKEN_INSECURE = ""
 
 load_dotenv()
 
