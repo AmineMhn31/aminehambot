@@ -1,4 +1,5 @@
 httpx
+python-dotenv
 aiohttp==3.8.5
 Pillow
 python_telegram_bot
