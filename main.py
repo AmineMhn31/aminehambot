@@ -256,14 +256,15 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(DEPOSIT\\) 03/09/2024📅:\n"
-            "*D:  ➖🔘🔘*\n"
-            "*E:  🔘*\n"
-            "*P:  🔘➖➖🔘*\n"
+            "🔢Today's Cipher Code \\(OFFCHAIN\\) 04/09/2024📅:\n"
             "*O:  ➖➖➖*\n"
-            "*S:  🔘🔘🔘*\n"
+            "*F:  🔘🔘➖🔘*\n"
+            "*F:  🔘🔘➖🔘*\n"
+            "*C:  ➖🔘➖🔘*\n"
+            "*H:  🔘🔘🔘🔘*\n"
+            "*A:  🔘➖*\n"
             "*I:  🔘🔘*\n"
-            "*T:  ➖*\n"
+            "*N:  ➖🔘*\n"
             "✅CLAIM 1000000💰\."
         ),
         parse_mode='MARKDOWNV2'
