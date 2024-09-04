@@ -14,6 +14,7 @@ import requests
 from stay_alive import keep_alive
 from dotenv import load_dotenv
 from update import add_update_handlers, is_update_mode
+from telegram.ext import Updater, CommandHandler, Dispatcher
 
 # Other imports and setup...
 
