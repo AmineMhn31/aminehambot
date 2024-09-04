@@ -10,7 +10,7 @@ import stay_alive
 from loguru import logger
 from stay_alive import keep_alive
 from update import add_update_handlers, is_update_mode
-
+from telegram.ext import Updater, CommandHandler, Dispatcher
 # Other imports and setup...
 
 # Add handlers for update commands
