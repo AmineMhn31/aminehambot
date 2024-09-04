@@ -242,7 +242,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # =============================NEWS CRYPTO====================================
 
 
-async def hamsternews(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # First news: Hamster on Bybit
         image_url_hamster = 'https://coinchapter.com/wp-content/uploads/2024/09/Screenshot_2024-09-03-20-27-01-144_com.android.chrome.png'
@@ -263,9 +263,7 @@ async def hamsternews(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
         # Second news: Tomarket Community Update
-async def tomarketnews(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
-    image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
+        image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
         
         tomarket_caption = (
             "💥🍅 *Dear Tomarket Community* 🍅💥\n\n"
@@ -320,8 +318,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text=(
             "🤖The Commands are⚙️\:\n"
             "👋🏻 🔹 /salam\n"
-            "📰🐹 🔹 /hamsternews\n"
-            "📰🍅 🔹 /tomarketnews\n"
+            "📰 🔹 /news\n"
             "🪂 🔹 /airdrops\n"
             "🕹 🔹 /miniggapps\n"
             "🐹 🔹 /hamstercombo\n"
@@ -446,8 +443,7 @@ if __name__ == '__main__':
     server.logger.info("Server is running. Awaiting users...")
 
     application.add_handler(CommandHandler('salam', salam, block=False))
-    application.add_handler(CommandHandler('hamsternews', hamsternews, block=False))
-    application.add_handler(CommandHandler('tomarketnews', tomarketnews, block=False))
+    application.add_handler(CommandHandler('news', news, block=False))
     application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
     application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
     application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
