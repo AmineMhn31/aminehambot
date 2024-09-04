@@ -98,7 +98,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-33-1024x537.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-55-1024x457.png")
         return
 
     url = context.args[0]
@@ -132,14 +132,14 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://static.bittime.com/cms-static/upload/Tomarket_Daily_Secret_Combo_29_Agustus_Mainkan_Gamenya_e18cd08205.webp"
+    image_url = "https://imagedelivery.net/4-5JC1r3VHAXpnrwWHBHRQ/cf16bfed-31e6-4a0b-f6c0-ac2909129f00/public"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x1 Tap tree 🌲\n"
-        "2️⃣ x2 Tap Tomato Head 🍅\n"
+        "1️⃣ x1 Tap hamster 🐹\n"
+        "2️⃣ x3 Tap Tomato Head 🍅\n"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
@@ -164,7 +164,6 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ========================rocky rabbit COMBO==========================================
 
-
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
@@ -174,7 +173,38 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-28-1024x619.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-50-1024x615.png")
+        return
+
+    url = context.args[0]
+    try:
+        image_data = await fetch_image(url)
+        img = Image.open(image_data)
+        img_format = img.format  # Get the image format to retain the original extension
+
+        with BytesIO() as output:
+            img.save(output, format=img_format)
+            output.seek(0)
+            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
+
+
+#==============================rocky rabbit enigma========================
+
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        image_data = BytesIO(response.content)
+        return image_data
+
+async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-59-1024x1006.png")
         return
 
     url = context.args[0]
@@ -337,6 +367,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🐹 🔹 /hamstercombo\n"
             "🍅 🆕 🔹 /tomarketcombo\n"
             "🐰 🆕 🔹 /rockyrabbitcombo\n"
+            "🐰 🔐 🔹 /rockyrabbitenigma\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
             "🧊 🔹 /cube\n"
@@ -468,6 +499,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
     application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
     application.add_handler(CommandHandler('rockyrabbitcombo', rockyrabbitcombo, block=False))
+    application.add_handler(CommandHandler('rockyrabbitenigma', rockyrabbitenigma, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
     application.add_handler(CommandHandler('cube', cube, block=False))
