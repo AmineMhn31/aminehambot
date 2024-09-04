@@ -345,9 +345,10 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "💃 🔹 /twerk\n"
             "🔮 🔹 /poly\n"
             "🚜 🔹 /trim\n"
-            "🍀 🆕 🔹 /zoo\n"
-            "☕️ ❌ 🔹 /cafe\n"
-            "🔫 ❌ 🔹 /gang\n"
+            "🍀 🔹 /zoo\n"
+            "⚔️ 🆕 🔹 /fluff\n"
+   #         "☕️ ❌ 🔹 /cafe\n"
+   #         "🔫 ❌ 🔹 /gang\n"
             "🎮 🔹 /all\n"
             "These will generate 4 keys for their respective games\\."
         ),
@@ -434,6 +435,9 @@ async def zoo(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
 async def gang(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=9, all=all)
 
+async def fluff(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=10, all=all)
+
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -447,8 +451,10 @@ async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Send message to the group
     
     # Wait a certain number of seconds between each game
-    tasks = [game_handler(update, context, i + 1, True, i * 30) for i in range(9)]
+    
+    tasks = [game_handler(update, context, i + 1, True, i * 30) for i in range(len(server.GAMES))]
     await asyncio.gather(*tasks)
+    
  # ============================================================================================
 
 if __name__ == '__main__':
@@ -473,6 +479,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('cafe', cafe, block=False))
     application.add_handler(CommandHandler('zoo', zoo, block=False))
     application.add_handler(CommandHandler('gang', gang, block=False))
+    application.add_handler(CommandHandler('fluff', fluff, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
 
 
