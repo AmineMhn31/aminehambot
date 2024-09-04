@@ -9,25 +9,7 @@ import datetime
 import stay_alive
 from loguru import logger
 from stay_alive import keep_alive
-from update import add_update_handlers, is_update_mode
-from telegram.ext import Updater, CommandHandler, Dispatcher
-# Other imports and setup...
 
-# Add handlers for update commands
-add_update_handlers(dispatcher)
-
-# Example check to disable other commands when in update mode
-def some_command(update: Update, context: CallbackContext) -> None:
-    if is_update_mode():
-        update.message.reply_text("🚧 Bot is under maintenance. This command is temporarily disabled.")
-        return
-    
-    # Rest of your command logic...
-
-# Add the command handlers to the dispatcher as needed
-dispatcher.add_handler(CommandHandler("some_command", some_command))
-
-# Start the bot...
 
 
 # Start the keep_alive server
