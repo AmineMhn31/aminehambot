@@ -1,17 +1,39 @@
-import asyncio
+import subprocess
 import os
-import random
-import time
-import uuid
-import datetime
-import stay_alive
-from loguru import logger
+import logging
+import asyncio
 import httpx
+import re
 from io import BytesIO
+import aiohttp
 from telegram import Update, InputFile
-from telegram.ext import ContextTypes
-import sys
-print(sys.path)
+from telegram import Update
+from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, Application
+import requests
+from dotenv import load_dotenv
+
+
+# Paste Token Here if you don't wanna put it in an env. variable for some reason
+#TOKEN_INSECURE = ""
+
+load_dotenv()
+
+TOKEN_INSECURE = os.getenv("MY_BOT_TOKEN")
+
+if os.name == 'posix':
+    TOKEN = subprocess.run(["printenv", "HAMSTER_BOT_TOKEN"], text=True, capture_output=True).stdout.strip()
+elif os.name == 'nt':
+    TOKEN = subprocess.run(["echo", "%HAMSTER_BOT_TOKEN%"], text=True, capture_output=True, shell=True).stdout.strip()
+    TOKEN = "" if TOKEN == "%HAMSTER_BOT_TOKEN%" else TOKEN
+
+
+AUTHORIZED_USERS = []
+EXCLUSIVE = False
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.WARN
+)
 
 # ========================hamsterCOMBO==========================================
 
@@ -195,3 +217,20 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ),
         parse_mode='MARKDOWNV2'
     )
+
+
+if __name__ == '__main__':
+    application = ApplicationBuilder().token(TOKEN or TOKEN_INSECURE).build()
+    server.logger.info("Server is running. Awaiting users...")
+
+
+    application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
+    application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
+    application.add_handler(CommandHandler('rockyrabbitcombo', rockyrabbitcombo, block=False))
+    application.add_handler(CommandHandler('rockyrabbitenigma', rockyrabbitenigma, block=False))
+    application.add_handler(CommandHandler('cipher', cipher, block=False))
+    application.add_handler(CommandHandler('minigg', minigg, block=False))
+ 
+
+
+    application.run_polling()
