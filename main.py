@@ -39,17 +39,30 @@ logging.basicConfig(
 
 
 #================== CLASH =============================================
-async def abbbb(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # URL of the GIF you want to send
-    gif_url = 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHpnMmpnYzhlZTUxNW92MGZ6M2tmZzdtMDlrcWk5a2FsY240Mmg5OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cLYGlosjoJJEtXiisY/giphy.gif'
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        image_data = BytesIO(response.content)
+        return image_data
 
-    # Send the GIF using the URL
-    await context.bot.send_animation(
-        chat_id=update.effective_chat.id,
-        animation=gif_url,
-        caption="Here's an epic clash GIF for you!",
-        parse_mode='MARKDOWNV2'
-    )
+async def abbbb(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW9mbjBpZm9ocHdpOTg3MGxhMmFqb280eGpiOXdhcm50Z3NqZXcwNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cLYGlosjoJJEtXiisY/giphy.webp")
+        return
+
+    url = context.args[0]
+    try:
+        image_data = await fetch_image(url)
+
+        await context.bot.send_animation(
+            chat_id=update.effective_chat.id, 
+            animation=InputFile(image_data, filename="animation.gif"),
+            caption="Here is the GIF you requested."
+        )
+
+    except Exception as e:
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve GIF: {e}")
 
 # ======================== Airdrop Command ==========================
 # Define the list of confirmed airdrops
