@@ -185,7 +185,7 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-03_23-19-58-online-video-cutter.com_.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-06_00-03-53-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
@@ -207,10 +207,9 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(OFFCHAIN\\) 04/09/2024📅:\n"
+            "🔢Today's Cipher Code \\(ONCHAIN\\) 05/09/2024📅:\n"
             "*O:  ➖➖➖*\n"
-            "*F:  🔘🔘➖🔘*\n"
-            "*F:  🔘🔘➖🔘*\n"
+            "*N:  🔘🔘➖🔘*\n"
             "*C:  ➖🔘➖🔘*\n"
             "*H:  🔘🔘🔘🔘*\n"
             "*A:  🔘➖*\n"
@@ -378,6 +377,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🍀 🔹 /zoo\n"
             "⚔️ 🆕 🔹 /fluff\n"
             "🃏 🆕 🔹 /tile\n"
+            "🛖 🆕 🔹 /stone\n"
    #         "☕️ ❌ 🔹 /cafe\n"
    #         "🔫 ❌ 🔹 /gang\n"
             "🎮 🔹 /all\n"
@@ -472,6 +472,9 @@ async def fluff(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False)
 async def tile(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=11, all=all)
 
+async def stone(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=12, all=all)
+
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -516,6 +519,7 @@ if __name__ == '__main__':
 #    application.add_handler(CommandHandler('gang', gang, block=False))
     application.add_handler(CommandHandler('fluff', fluff, block=False))
     application.add_handler(CommandHandler('tile', tile, block=False))
+    application.add_handler(CommandHandler('stone', stone, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
 
 
