@@ -512,7 +512,6 @@ if __name__ == '__main__':
 #    application.add_handler(CommandHandler('gang', gang, block=False))
     application.add_handler(CommandHandler('fluff', fluff, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
-    application.add_handler(CommandHandler('abbbb', abbbb, block=False))
 
 
     application.run_polling()
