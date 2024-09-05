@@ -209,7 +209,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text=(
             "🔢Today's Cipher Code \\(ONCHAIN\\) 05/09/2024📅:\n"
             "*O:  ➖➖➖*\n"
-            "*N:  🔘🔘➖🔘*\n"
+            "*N:  ➖🔘*\n"
             "*C:  ➖🔘➖🔘*\n"
             "*H:  🔘🔘🔘🔘*\n"
             "*A:  🔘➖*\n"
