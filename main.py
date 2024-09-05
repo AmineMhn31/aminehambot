@@ -10,7 +10,7 @@ from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, Application
 import server
-import miniapp
+from miniapp import minigg, hamstercombo, tomarketcombo, rockyrabbitcombo, rockyrabbitenigma, cipher
 import requests
 from stay_alive import keep_alive
 from dotenv import load_dotenv
