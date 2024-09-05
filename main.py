@@ -377,6 +377,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🚜 🔹 /trim\n"
             "🍀 🔹 /zoo\n"
             "⚔️ 🆕 🔹 /fluff\n"
+            "🃏 🆕 🔹 /tile\n"
    #         "☕️ ❌ 🔹 /cafe\n"
    #         "🔫 ❌ 🔹 /gang\n"
             "🎮 🔹 /all\n"
@@ -468,6 +469,9 @@ async def zoo(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
 async def fluff(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=10, all=all)
 
+async def tile(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=11, all=all)
+
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -511,6 +515,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('zoo', zoo, block=False))
 #    application.add_handler(CommandHandler('gang', gang, block=False))
     application.add_handler(CommandHandler('fluff', fluff, block=False))
+    application.add_handler(CommandHandler('tile', tile, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
 
 
