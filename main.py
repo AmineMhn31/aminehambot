@@ -89,8 +89,8 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x1 Tap hamster 🐹\n"
-        "2️⃣ x3 Tap Tomato Head 🍅\n"
+        "1️⃣ x2 Tap Cats 🐈\n"
+        "2️⃣ x1 Tap Tomato Head 🍅\n"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
@@ -124,7 +124,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-50-1024x615.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-68-1024x585.png")
         return
 
     url = context.args[0]
@@ -155,7 +155,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-59-1024x1006.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/GWuZbCAXEAA4LGP.jpg")
         return
 
     url = context.args[0]
