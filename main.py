@@ -38,6 +38,19 @@ logging.basicConfig(
 )
 
 
+#================== CLASH =============================================
+async def abbbb(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # URL of the GIF you want to send
+    gif_url = 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHpnMmpnYzhlZTUxNW92MGZ6M2tmZzdtMDlrcWk5a2FsY240Mmg5OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/cLYGlosjoJJEtXiisY/giphy.gif'
+
+    # Send the GIF using the URL
+    await context.bot.send_animation(
+        chat_id=update.effective_chat.id,
+        animation=gif_url,
+        caption="Here's an epic clash GIF for you!",
+        parse_mode='MARKDOWNV2'
+    )
+
 # ======================== Airdrop Command ==========================
 # Define the list of confirmed airdrops
 
@@ -98,7 +111,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-55-1024x457.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-72-1024x466.png")
         return
 
     url = context.args[0]
@@ -514,6 +527,7 @@ if __name__ == '__main__':
 #    application.add_handler(CommandHandler('gang', gang, block=False))
     application.add_handler(CommandHandler('fluff', fluff, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
+    application.add_handler(CommandHandler('abbbb', abbbb, block=False))
 
 
     application.run_polling()
