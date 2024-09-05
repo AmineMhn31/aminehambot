@@ -2,6 +2,8 @@ import httpx
 from io import BytesIO
 from telegram import Update, InputFile
 from telegram.ext import ContextTypes
+import sys
+print(sys.path)
 
 # ========================hamsterCOMBO==========================================
 
