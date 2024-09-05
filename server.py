@@ -53,17 +53,17 @@ GAMES = {
     6 : {
         'name' : 'Mow and Trim',
         'appToken' : 'ef319a80-949a-492e-8ee0-424fb5fc20a6',
-        'promoId' : 'ef319a80-949a-492e-8ee0-424fb5fc20a6'
+        'promoId' : 'ef319a80-949a-492e-8ee0-424fb5fc20a6',
     }, 
   #  7 : {
   #      'name': 'Cafe Dash',
   #      'appToken': 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
-  #      'promoId': 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11'
+  #      'promoId': 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
  #   },
     8 : {
         'name': 'Zoopolis',
         'appToken': 'b2436c89-e0aa-4aed-8046-9b0515e1c46b',
-        'promoId': 'b2436c89-e0aa-4aed-8046-9b0515e1c46b'
+        'promoId': 'b2436c89-e0aa-4aed-8046-9b0515e1c46b',
     },
   #   9 : {
    #     'name': 'Gangs Wars',
@@ -73,14 +73,14 @@ GAMES = {
      10 : {
         'name': 'Fluff Crusade',
         'appToken': '112887b0-a8af-4eb2-ac63-d82df78283d9',
-        'promoId': '112887b0-a8af-4eb2-ac63-d82df78283d9'
-     }
+        'promoId': '112887b0-a8af-4eb2-ac63-d82df78283d9',
+     },
 
        11 : {
         'name': 'Tile Trio',
         'appToken': 'e68b39d2-4880-4a31-b3aa-0393e7df10c7',
-        'promoId': 'e68b39d2-4880-4a31-b3aa-0393e7df10c7'
-     }
+        'promoId': 'e68b39d2-4880-4a31-b3aa-0393e7df10c7',
+     },
 }
 
 BASE_URL = 'https://api.gamepromo.io'
