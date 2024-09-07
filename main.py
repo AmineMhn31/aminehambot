@@ -49,7 +49,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-72-1024x466.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/GW30kU4WcAEWKzR.jpg")
         return
 
     url = context.args[0]
@@ -89,8 +89,8 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x2 Tap Cats 🐈\n"
-        "2️⃣ x1 Tap Tomato Head 🍅\n"
+        "1️⃣ x1 Tap Tomato Head 🍅\n"
+        "2️⃣ x1 Tap Hamster 🐹\n"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
@@ -124,7 +124,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-68-1024x585.png")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-100.png")
         return
 
     url = context.args[0]
@@ -155,7 +155,7 @@ async def fetch_image(url: str) -> BytesIO:
 
 async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/GWuZbCAXEAA4LGP.jpg")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-106-1024x1006.png")
         return
 
     url = context.args[0]
@@ -185,7 +185,7 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-06_00-03-53-online-video-cutter.com_.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-07_23-31-29-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
@@ -207,14 +207,10 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(ONCHAIN\\) 05/09/2024📅:\n"
-            "*O:  ➖➖➖*\n"
-            "*N:  ➖🔘*\n"
+            "🔢Today's Cipher Code \\(KYC\\) 07/09/2024📅:\n"
+            "*K:  ➖🔘➖*\n"
+            "*Y:  ➖🔘➖➖*\n"
             "*C:  ➖🔘➖🔘*\n"
-            "*H:  🔘🔘🔘🔘*\n"
-            "*A:  🔘➖*\n"
-            "*I:  🔘🔘*\n"
-            "*N:  ➖🔘*\n"
             "✅CLAIM 1000000💰\."
         ),
         parse_mode='MARKDOWNV2'
