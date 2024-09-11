@@ -40,37 +40,6 @@ logging.basicConfig(
 
 # ========================hamsterCOMBO==========================================
 
-async def fetch_image(url: str) -> BytesIO:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors
-        image_data = BytesIO(response.content)
-        return image_data
-
-async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/GW30kU4WcAEWKzR.jpg")
-        return
-
-    url = context.args[0]
-    try:
-        image_data = await fetch_image(url)
-        img = Image.open(image_data)
-        img_format = img.format  # Get the image format to retain the original extension
-
-        with BytesIO() as output:
-            img.save(output, format=img_format)
-            output.seek(0)
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
-
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
-
-    except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
-
-
-# ========================================tomarketCOMBO==============================================================
-
 # Function to fetch an image from a given URL and return it as a BytesIO object
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
@@ -79,18 +48,17 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://imagedelivery.net/4-5JC1r3VHAXpnrwWHBHRQ/cf16bfed-31e6-4a0b-f6c0-ac2909129f00/public"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-178-1024x546.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x1 Tap Tomato Head 🍅\n"
-        "2️⃣ x1 Tap Hamster 🐹\n"
+        "🐹 * Hamster Combo: 11.09.2024* 🐹\n\n"
+        "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
@@ -113,66 +81,229 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
+
+# ========================================tomarketCOMBO==============================================================
+
+# Function to fetch an image from a given URL and return it as a BytesIO object
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return BytesIO(response.content)
+
+# Main function that handles the /tomarketcombo command
+async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+
+    # Send the image first
+    image_url = "https://imagedelivery.net/4-5JC1r3VHAXpnrwWHBHRQ/cf16bfed-31e6-4a0b-f6c0-ac2909129f00/public"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "🍅 *TomarketDaily Secret* \n\n"
+        "1️⃣ x2 Tap Hamster 🐹\n"
+        "2️⃣ x2 Tap Tomato Head 🍅\n"
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
+
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
+
+
+# ========================================MAJORCOMBO==============================================================
+
+# Function to fetch an image from a given URL and return it as a BytesIO object
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return BytesIO(response.content)
+
+# Main function that handles the /tomarketcombo command
+async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+
+    # Send the image first
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-170-1024x330.png"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "⭐️ * Major Combo: 11.09.2024* ⭐️\n\n"
+        "✅ Get 5000 stars with Major Durov Puzzle ✅\n"
+        "Join us here: [⭐️ MajorStarsBot](https://t.me/major/start?startapp=2136515572)"
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
+
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
+            
 # ========================rocky rabbit COMBO==========================================
 
+# Function to fetch an image from a given URL and return it as a BytesIO object
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
-        image_data = BytesIO(response.content)
-        return image_data
+        return BytesIO(response.content)
 
+# Main function that handles the /tomarketcombo command
 async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-100.png")
-        return
+    chat_id = update.effective_chat.id
 
-    url = context.args[0]
-    try:
-        image_data = await fetch_image(url)
-        img = Image.open(image_data)
-        img_format = img.format  # Get the image format to retain the original extension
+    # Send the image first
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-175-1024x611.png"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
-        with BytesIO() as output:
-            img.save(output, format=img_format)
-            output.seek(0)
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "🐰 * Rocky Rabbit Combo: 11.09.2024* 🐇\n\n"
+        "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
+        
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
 
-    except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
 
+
+# ========================rocky rabbit EGGS==========================================
+
+# Function to fetch an image from a given URL and return it as a BytesIO object
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return BytesIO(response.content)
+
+# Main function that handles the /tomarketcombo command
+async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+
+    # Send the image first
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-165-1024x403.png"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "🐰 * Rocky Rabbit Eggs: 11.09.2024* 🐇\n\n"
+        "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
+        
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
+
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
+            
 #==============================rocky rabbit enigma========================
 
+# Function to fetch an image from a given URL and return it as a BytesIO object
 async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
-        image_data = BytesIO(response.content)
-        return image_data
+        return BytesIO(response.content)
 
+# Main function that handles the /tomarketcombo command
 async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://cointicker.com/wp-content/uploads/2024/09/image-106-1024x1006.png")
-        return
+    chat_id = update.effective_chat.id
 
-    url = context.args[0]
-    try:
-        image_data = await fetch_image(url)
-        img = Image.open(image_data)
-        img_format = img.format  # Get the image format to retain the original extension
+    # Send the image first
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-182.png"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
-        with BytesIO() as output:
-            img.save(output, format=img_format)
-            output.seek(0)
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "🐰 * Rocky Rabbit ENIGMA: 11.09.2024* 🐇\n\n"
+        "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
+        
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the image you requested.")
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
 
-    except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve image: {e}")
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
 # ===============================MINIGG===================================
 
@@ -359,8 +490,10 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🪂 🔹 /airdrops\n"
             "🕹 🔹 /miniggapps\n"
             "🐹 🔹 /hamstercombo\n"
+            "⭐️ 🔹 /majorcombo\n"
             "🍅 🆕 🔹 /tomarketcombo\n"
             "🐰 🆕 🔹 /rockyrabbitcombo\n"
+            "🐣 🆕 🔹 /rockyrabbiteggs\n"
             "🐰 🔐 🔹 /rockyrabbitenigma\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
@@ -499,8 +632,10 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
     application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
     application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
+    application.add_handler(CommandHandler('majorcombo', majorcombo, block=False))
     application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
     application.add_handler(CommandHandler('rockyrabbitcombo', rockyrabbitcombo, block=False))
+    application.add_handler(CommandHandler('rockyrabbiteggs', rockyrabbiteggs, block=False))
     application.add_handler(CommandHandler('rockyrabbitenigma', rockyrabbitenigma, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
