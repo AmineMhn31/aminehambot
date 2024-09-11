@@ -47,7 +47,7 @@ async def fetch_image(url: str) -> BytesIO:
         response.raise_for_status()  # Raise an exception for HTTP errors
         return BytesIO(response.content)
 
-# Main function that handles the /tomarketcombo command
+# Main function that handles the /hamstercombo command
 async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
@@ -55,12 +55,12 @@ async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-178-1024x546.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
-    # Then send the TomarketDaily Secret message
+    # Then send the Hamster Combo Secret message
     secret_message = (
-        "🐹 * Hamster Combo: 11.09.2024* 🐹\n\n"
+        "🐹 *Hamster Combo: 11.09.2024* 🐹\n\n"
         "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")  # Using basic Markdown
 
     # Check if an image URL is provided in the command arguments
     if context.args:
@@ -80,6 +80,7 @@ async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
+
 
 
 # ========================================tomarketCOMBO==============================================================
@@ -316,7 +317,7 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/video_2024-09-07_23-31-29-online-video-cutter.com_.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-10-22.04.05-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
@@ -338,10 +339,14 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(KYC\\) 07/09/2024📅:\n"
-            "*K:  ➖🔘➖*\n"
-            "*Y:  ➖🔘➖➖*\n"
-            "*C:  ➖🔘➖🔘*\n"
+            "🔢Today's Cipher Code \\(DELIGHT\\) 11/09/2024📅:\n"
+            "*D:  ➖🔘🔘*\n"
+            "*E:  🔘*\n"
+            "*L:  🔘➖🔘🔘*\n"
+            "*I:  🔘🔘*\n"
+            "*G:  ➖➖🔘*\n"
+            "*H:  🔘🔘🔘🔘*\n"
+            "*T:  ➖*\n"
             "✅CLAIM 1000000💰\."
         ),
         parse_mode='MARKDOWNV2'
