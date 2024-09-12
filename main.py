@@ -326,7 +326,9 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🏴‍☠️ *BLUM Daily Video code* \n\n"
-        "▶️ How to analyze crypto? – Code: GO GET ✅\n"
+        "▶️ BLUM Forkes Explained? – Code: GO GET ✅\n"
+        "▶️ How to analyze crypto? – Code: VALUE ✅\n"
+        
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
