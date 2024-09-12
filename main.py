@@ -355,6 +355,7 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
+
 async def fetch_video(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
@@ -371,17 +372,6 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         video_data = await fetch_video(url)
         
-        # Send the title and game link message first
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=(
-                "🐹 Guide Daily Mini Game in Hamster Kombat 🐹\n\n"
-                "Join us here:\n"
-                "🐹 Hamster Kombat Bot https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"
-            )
-        )
-        
-        # Send the video
         with BytesIO() as output:
             output.write(video_data.getvalue())
             output.seek(0)
@@ -391,6 +381,7 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
+
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
