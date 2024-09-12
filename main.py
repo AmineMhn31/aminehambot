@@ -385,17 +385,17 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=(
-            "🔢Today's Cipher Code \\(DELIGHT\\) 11/09/2024📅:\n"
-            "*D:  ➖🔘🔘*\n"
-            "*E:  🔘*\n"
-            "*L:  🔘➖🔘🔘*\n"
+            "🔢Today's Cipher Code \\(INSPIRE\\) 12/09/2024📅:\n"
             "*I:  🔘🔘*\n"
-            "*G:  ➖➖🔘*\n"
-            "*H:  🔘🔘🔘🔘*\n"
-            "*T:  ➖*\n"
-            "✅CLAIM 1000000💰\."
+            "*N:  ➖🔘*\n"
+            "*S:  🔘🔘🔘*\n"
+            "*P:  🔘➖➖🔘*\n"
+            "*I:  🔘🔘*\n"
+            "*R:  🔘➖🔘*\n"
+            "*E:  🔘*\n"
+            "✅ Activate cipher here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
         ),
-        parse_mode='MARKDOWNV2'
+        parse_mode='MARKDOWN'
     )
                            
 # ======================== Airdrop Command ==========================
