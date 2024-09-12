@@ -387,17 +387,6 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         video_data = await fetch_video(url)
 
-        # Send the Hamster Combo Secret message
-        secret_message = (
-            "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\n"
-            "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
-        )
-        await context.bot.send_message(
-            chat_id=chat_id, 
-            text=secret_message, 
-            parse_mode="Markdown"
-        )
-
         # Send the video
         await context.bot.send_video(
             chat_id=chat_id, 
