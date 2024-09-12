@@ -355,6 +355,8 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
+logger = logging.getLogger(__name__)
+
 async def fetch_video(url: str) -> BytesIO:
     try:
         async with httpx.AsyncClient() as client:
