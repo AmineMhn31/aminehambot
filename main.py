@@ -363,13 +363,20 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-10-22.04.05-online-video-cutter.com_.mp4")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
     try:
         video_data = await fetch_video(url)
 
+# Then send the Hamster Combo Secret message
+    secret_message = (
+        "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\n"
+        "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")  # Using basic Markdown
+        
         # Assuming the video is in MP4 format
         await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(video_data, filename="video.mp4"))
 
