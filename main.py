@@ -355,17 +355,31 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ===============================MINIGG===================================
 
 async def fetch_video(url: str) -> BytesIO:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors
-        video_data = BytesIO(response.content)
-        return video_data
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url)
+            response.raise_for_status()  # Raise an exception for HTTP errors
+            video_data = BytesIO(response.content)
+            logger.info(f"Video fetched successfully from {url}")
+            return video_data
+    except httpx.HTTPStatusError as e:
+        logger.error(f"HTTP error occurred: {e.response.status_code} - {e.response.text}")
+        raise
+    except httpx.RequestError as e:
+        logger.error(f"Error occurred while requesting {e.request.url}: {e}")
+        raise
+    except Exception as e:
+        logger.error(f"An unexpected error occurred: {e}")
+        raise
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+
     if not context.args:
+        default_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, 
-            text="https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
+            chat_id=chat_id, 
+            text=default_url
         )
         return
 
@@ -375,31 +389,31 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         # Send the Hamster Combo Secret message
         secret_message = (
-            "🐹 *Hamster Kombat Mini Game Solution* 🐹\n\n"
+            "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\n"
             "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
         )
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, 
+            chat_id=chat_id, 
             text=secret_message, 
             parse_mode="Markdown"
         )
 
         # Send the video
         await context.bot.send_video(
-            chat_id=update.effective_chat.id, 
+            chat_id=chat_id, 
             video=InputFile(video_data, filename="video.mp4")
         )
 
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, 
+            chat_id=chat_id, 
             text="Here is the video you requested."
         )
+        logger.info(f"Video sent successfully to chat_id: {chat_id}")
 
     except Exception as e:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id, 
-            text=f"Failed to retrieve video: {e}"
-        )
+        error_message = f"Failed to retrieve video: {e}"
+        await context.bot.send_message(chat_id=chat_id, text=error_message)
+        logger.error(error_message)
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
