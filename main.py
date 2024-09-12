@@ -187,12 +187,12 @@ async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-175-1024x611.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-192-1024x596.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🐰 * Rocky Rabbit Combo: 11.09.2024* 🐇\n\n"
+        "🐰 * Rocky Rabbit Combo: 12.09.2024* 🐇\n\n"
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
@@ -233,12 +233,12 @@ async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-165-1024x403.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-183-1024x410.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🐰 * Rocky Rabbit Eggs: 11.09.2024* 🐇\n\n"
+        "🐰 * Rocky Rabbit Eggs: 12.09.2024* 🐇\n\n"
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
