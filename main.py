@@ -352,10 +352,9 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
+
 # ===============================MINIGG===================================
 
-
-# Function to fetch video data from a URL
 async def fetch_video(url: str) -> BytesIO:
     try:
         async with httpx.AsyncClient() as client:
@@ -368,18 +367,13 @@ async def fetch_video(url: str) -> BytesIO:
         logger.error(f"Failed to fetch video: {e}")
         raise
 
-# /minigg command handler
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
-
-    # Specify the video URL
     video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
     
     try:
-        # Fetch the video data
         video_data = await fetch_video(video_url)
         
-        # Send the title and text
         secret_message = (
             "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\n"
             "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
@@ -390,11 +384,10 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
         
-        # Send the video
-        video_data.seek(0)  # Reset stream position
+        video_data.seek(0)
         await context.bot.send_video(
             chat_id=chat_id, 
-            video=InputFile(video_data, filename="mini_game_guide.mp4"), 
+            video=InputFile(video_data, filename="mini_game_guide.mp4"),
             caption="🐹 *Hamster Kombat Mini Game Guide* 🐹",
             parse_mode="Markdown"
         )
