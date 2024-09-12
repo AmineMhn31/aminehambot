@@ -359,12 +359,18 @@ async def fetch_video(url: str) -> BytesIO:
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
-            response.raise_for_status()
+            response.raise_for_status()  # Will raise HTTPStatusError for bad responses
             video_data = BytesIO(response.content)
             logger.info(f"Video fetched successfully from {url}")
             return video_data
+    except httpx.HTTPStatusError as e:
+        logger.error(f"HTTP error occurred while fetching video: {e.response.status_code} - {e.response.text}")
+        raise
+    except httpx.RequestError as e:
+        logger.error(f"Request error occurred while fetching video: {e}")
+        raise
     except Exception as e:
-        logger.error(f"Failed to fetch video: {e}")
+        logger.error(f"An unexpected error occurred while fetching video: {e}")
         raise
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -384,7 +390,7 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
         
-        video_data.seek(0)
+        video_data.seek(0)  # Reset stream position
         await context.bot.send_video(
             chat_id=chat_id, 
             video=InputFile(video_data, filename="mini_game_guide.mp4"),
