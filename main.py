@@ -355,7 +355,6 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
-
 async def fetch_video(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
@@ -365,19 +364,19 @@ async def fetch_video(url: str) -> BytesIO:
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4")
+        video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
+        await context.bot.send_video(chat_id=update.effective_chat.id, video=video_url, caption="Here is the video you requested.")
         return
 
     url = context.args[0]
     try:
+        # Optional: Fetch and send the video using BytesIO
         video_data = await fetch_video(url)
         
         with BytesIO() as output:
             output.write(video_data.getvalue())
             output.seek(0)
-            await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(output, filename="video.mp4"))
-
-        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the video you requested.")
+            await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(output, filename="video.mp4"), caption="Here is the video you requested.")
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
