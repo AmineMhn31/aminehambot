@@ -355,37 +355,31 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ===============================MINIGG===================================
 
 
+# Function to fetch video data from a URL
 async def fetch_video(url: str) -> BytesIO:
     try:
         async with httpx.AsyncClient() as client:
             response = await client.get(url)
-            response.raise_for_status()  # Raise an exception for HTTP errors
+            response.raise_for_status()
             video_data = BytesIO(response.content)
             logger.info(f"Video fetched successfully from {url}")
             return video_data
-    except httpx.HTTPStatusError as e:
-        logger.error(f"HTTP error occurred: {e.response.status_code} - {e.response.text}")
-        raise
-    except httpx.RequestError as e:
-        logger.error(f"Error occurred while requesting {e.request.url}: {e}")
-        raise
     except Exception as e:
-        logger.error(f"An unexpected error occurred: {e}")
+        logger.error(f"Failed to fetch video: {e}")
         raise
 
+# /minigg command handler
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
-    if not context.args:
-        default_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
-        await context.bot.send_message(chat_id=chat_id, text=default_url)
-        return
-
-    url = context.args[0]
+    # Specify the video URL
+    video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
+    
     try:
-        video_data = await fetch_video(url)
-
-        # Send the Hamster Combo Secret message first
+        # Fetch the video data
+        video_data = await fetch_video(video_url)
+        
+        # Send the title and text
         secret_message = (
             "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\n"
             "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
@@ -395,19 +389,15 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text=secret_message, 
             parse_mode="Markdown"
         )
-
-        # Send the video next
-        video_data.seek(0)  # Ensure the video is at the start of the stream
+        
+        # Send the video
+        video_data.seek(0)  # Reset stream position
         await context.bot.send_video(
             chat_id=chat_id, 
-            video=InputFile(video_data, filename="video.mp4")
+            video=InputFile(video_data, filename="mini_game_guide.mp4"), 
+            caption="🐹 *Hamster Kombat Mini Game Guide* 🐹",
+            parse_mode="Markdown"
         )
-
-        await context.bot.send_message(
-            chat_id=chat_id, 
-            text="Here is the video you requested."
-        )
-        logger.info(f"Video sent successfully to chat_id: {chat_id}")
 
     except Exception as e:
         error_message = f"Failed to retrieve video: {e}"
