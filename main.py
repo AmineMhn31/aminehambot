@@ -355,54 +355,28 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ===============================MINIGG===================================
 
 async def fetch_video(url: str) -> BytesIO:
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(url)
-            response.raise_for_status()  # Raise an exception for HTTP errors
-            video_data = BytesIO(response.content)
-            logger.info(f"Video fetched successfully from {url}")
-            return video_data
-    except httpx.HTTPStatusError as e:
-        logger.error(f"HTTP error occurred: {e.response.status_code} - {e.response.text}")
-        raise
-    except httpx.RequestError as e:
-        logger.error(f"Error occurred while requesting {e.request.url}: {e}")
-        raise
-    except Exception as e:
-        logger.error(f"An unexpected error occurred: {e}")
-        raise
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        video_data = BytesIO(response.content)
+        return video_data
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    chat_id = update.effective_chat.id
-
     if not context.args:
-        default_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
-        await context.bot.send_message(
-            chat_id=chat_id, 
-            text=default_url
-        )
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4")
         return
 
     url = context.args[0]
     try:
         video_data = await fetch_video(url)
+        
+        # Assuming the video is in MP4 format
+        await context.bot.send_video(chat_id=update.effective_chat.id, video=InputFile(video_data, filename="video.mp4"))
 
-        # Send the video
-        await context.bot.send_video(
-            chat_id=chat_id, 
-            video=InputFile(video_data, filename="video.mp4")
-        )
-
-        await context.bot.send_message(
-            chat_id=chat_id, 
-            text="Here is the video you requested."
-        )
-        logger.info(f"Video sent successfully to chat_id: {chat_id}")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Here is the video you requested.")
 
     except Exception as e:
-        error_message = f"Failed to retrieve video: {e}"
-        await context.bot.send_message(chat_id=chat_id, text=error_message)
-        logger.error(error_message)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
