@@ -105,8 +105,9 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🍅 *TomarketDaily Secret* \n\n"
         "1️⃣ x2 Tap CATS 🐈\n"
         "2️⃣ x2 Tap TREE 🌲\n"
+        "Join us here: [🍅 Tomarket Bot](https://t.me/Tomarket_ai_bot/app?startapp=0000RUJ4)"
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
 
     # Check if an image URL is provided in the command arguments
     if context.args:
@@ -151,7 +152,7 @@ async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✅ Get 5000 stars with Major Durov Puzzle ✅\n"
         "Join us here: [⭐️ MajorStarsBot](https://t.me/major/start?startapp=2136515572)"
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
 
     # Check if an image URL is provided in the command arguments
     if context.args:
@@ -195,7 +196,7 @@ async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
 
     # Check if an image URL is provided in the command arguments
     if context.args:
@@ -241,7 +242,7 @@ async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
 
     # Check if an image URL is provided in the command arguments
     if context.args:
@@ -285,7 +286,7 @@ async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
 
     # Check if an image URL is provided in the command arguments
     if context.args:
@@ -306,7 +307,7 @@ async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
-# ========================================BLIM CODE==============================================================
+# ========================================BLUM CODE==============================================================
 
 # Function to fetch an image from a given URL and return it as a BytesIO object
 async def fetch_image(url: str) -> BytesIO:
@@ -328,9 +329,9 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🏴‍☠️ *BLUM Daily Video code* \n\n"
         "▶️ BLUM Forkes Explained? – Code: GO GET ✅\n"
         "▶️ How to analyze crypto? – Code: VALUE ✅\n"
-        
+        "Join us here: [🏴‍☠️ BLUM Bot](https://t.me/BlumCryptoBot/app?startapp=ref_nGMDVNruDY)"
     )
-    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
 
     # Check if an image URL is provided in the command arguments
     if context.args:
