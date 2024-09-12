@@ -306,7 +306,7 @@ async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
-# ========================================tomarketCOMBO==============================================================
+# ========================================BLIM CODE==============================================================
 
 # Function to fetch an image from a given URL and return it as a BytesIO object
 async def fetch_image(url: str) -> BytesIO:
@@ -326,7 +326,7 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🏴‍☠️ *BLUM Daily Video code* \n\n"
-        "▶️ How to analyze crypto? – Code: VALUE ✅\n"
+        "▶️ How to analyze crypto? – Code: GO GET ✅\n"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="MarkdownV2")
 
