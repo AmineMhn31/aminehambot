@@ -355,6 +355,11 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
+import httpx
+from io import BytesIO
+from telegram import Update, InputFile
+from telegram.ext import ContextTypes
+
 async def fetch_video(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
@@ -363,7 +368,6 @@ async def fetch_video(url: str) -> BytesIO:
         return video_data
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # If no arguments are provided, send the default video URL directly
     if not context.args:
         video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
         await context.bot.send_video(chat_id=update.effective_chat.id, video=video_url, caption="Here is the video you requested.")
@@ -371,10 +375,8 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     url = context.args[0]
     try:
-        # Fetch video data from the URL
         video_data = await fetch_video(url)
         
-        # Send the fetched video
         await context.bot.send_video(
             chat_id=update.effective_chat.id,
             video=InputFile(video_data, filename="video.mp4"),
@@ -383,6 +385,7 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     except Exception as e:
         await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
+
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
