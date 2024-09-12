@@ -277,12 +277,12 @@ async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-182.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-198-1024x1005.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🐰 * Rocky Rabbit ENIGMA: 11.09.2024* 🐇\n\n"
+        "🐰 * Rocky Rabbit ENIGMA: 12.09.2024* 🐇\n\n"
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
