@@ -355,10 +355,6 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
-import httpx
-from io import BytesIO
-from telegram import Update, InputFile
-from telegram.ext import ContextTypes
 
 async def fetch_video(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
