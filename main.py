@@ -142,12 +142,12 @@ async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-170-1024x330.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/GXPJIQnW0AAYwn5.jpg"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "⭐️ * Major Combo: 11.09.2024* ⭐️\n\n"
+        "⭐️ * Major Combo: 12.09.2024* ⭐️\n\n"
         "✅ Get 5000 stars with Major Durov Puzzle ✅\n"
         "Join us here: [⭐️ MajorStarsBot](https://t.me/major/start?startapp=2136515572)"
     )
@@ -558,6 +558,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "⚔️ 🆕 🔹 /fluff\n"
             "🃏 🆕 🔹 /tile\n"
             "🛖 🆕 🔹 /stone\n"
+            "🐧 🆕 🔹 /bounce\n"
    #         "☕️ ❌ 🔹 /cafe\n"
    #         "🔫 ❌ 🔹 /gang\n"
             "🎮 🔹 /all\n"
@@ -655,6 +656,9 @@ async def tile(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
 async def stone(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=12, all=all)
 
+async def bounce(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=13, all=all)
+
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -703,6 +707,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('fluff', fluff, block=False))
     application.add_handler(CommandHandler('tile', tile, block=False))
     application.add_handler(CommandHandler('stone', stone, block=False))
+    application.add_handler(CommandHandler('bounce', bounce, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
 
 
