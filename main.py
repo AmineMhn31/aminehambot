@@ -57,7 +57,7 @@ async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # Then send the Hamster Combo Secret message
     secret_message = (
-        "🐹 *Hamster Combo: 12.09.2024* 🐹\n\n"
+        "🐹 * Hamster Kombat Daily Combo * 🐹\n\n"
         "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")  # Using basic Markdown
@@ -143,12 +143,12 @@ async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/GXPJIQnW0AAYwn5.jpg"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-224-1024x389.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "⭐️ * Major Combo: 12.09.2024* ⭐️\n\n"
+        "⭐️ * Major Combo * ⭐️\n\n"
         "✅ Get 5000 stars with Major Durov Puzzle ✅\n"
         "Join us here: [⭐️ MajorStarsBot](https://t.me/major/start?startapp=2136515572)"
     )
@@ -187,12 +187,12 @@ async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-192-1024x596.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-227-1024x614.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🐰 * Rocky Rabbit Combo: 12.09.2024* 🐇\n\n"
+        "🐰 * Rocky Rabbit Combo * 🐇\n\n"
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
@@ -233,12 +233,12 @@ async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-183-1024x410.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-218-1024x422.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🐰 * Rocky Rabbit Eggs: 12.09.2024* 🐇\n\n"
+        "🐰 * Rocky Rabbit Eggs * 🐇\n\n"
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
@@ -277,12 +277,12 @@ async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-198-1024x1005.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-236-1024x1001.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🐰 * Rocky Rabbit ENIGMA: 12.09.2024* 🐇\n\n"
+        "🐰 * Rocky Rabbit ENIGMA * 🐇\n\n"
         "Join us here: [🐰 Rocky Rabbit Bot](https://t.me/rocky_rabbit_bot/play?startapp=frId2136515572)"
         
     )
@@ -382,24 +382,56 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 # ========================CIPHER==========================================
-async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
 
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=(
-            "🔢Today's Cipher Code \\(INSPIRE\\) 12/09/2024📅:\n"
-            "*I:  🔘🔘*\n"
-            "*N:  ➖🔘*\n"
-            "*S:  🔘🔘🔘*\n"
-            "*P:  🔘➖➖🔘*\n"
-            "*I:  🔘🔘*\n"
-            "*R:  🔘➖🔘*\n"
-            "*E:  🔘*\n"
-            "✅ Activate cipher here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
-        ),
-        parse_mode='MARKDOWN'
+# Function to fetch an image from a given URL and return it as a BytesIO object
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return BytesIO(response.content)
+
+# Main function that handles the /tomarketcombo command
+async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+
+    # Send the image first
+    image_url = "https://store.livarava.com/1c11cd4f-44d1-11ef-a4c0-01b895e04db0.jpg"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "🏴‍☠️ *Today's Cipher Code: INTRIGUE * 🔎\n\n"
+        "*I:  🔘🔘*\n"
+        "*N:  ➖🔘*\n"
+        "*T:  ➖*\n"
+        "*R:  🔘➖🔘*\n"
+        "*I:  🔘🔘*\n"
+        "*G:  ➖➖🔘*\n"
+        "*U:  🔘🔘➖*\n"
+        "*E:  🔘*\n"
+        "✅ Activate cipher here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
     )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
+
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
+
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
+
                            
 # ======================== Airdrop Command ==========================
 # Define the list of confirmed airdrops
