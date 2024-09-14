@@ -1,5 +1,6 @@
 import subprocess
 import os
+from telegram.utils.helpers import mention_markdown
 import logging
 import asyncio
 import httpx
@@ -359,6 +360,10 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Video URL (replace with the actual URL)
     video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-13-22.10.54-online-video-cutter.com_.mp4"
+
+    # Get user info to mention
+    user = update.effective_user
+    user_mention = mention_markdown(user.id, user.first_name)
     
     # Title to add as the caption
     title = "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\nJoin us here: 🐹 [Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
