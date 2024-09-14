@@ -1,5 +1,6 @@
 import subprocess
 import os
+import openai
 import logging
 import asyncio
 import httpx
@@ -527,64 +528,100 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ==================================================================
 
 
-    # ==================================================================
+    # =================================command bot=================================
 
-async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Should make this a Database probably
-    # with open(f'{os.path.dirname(__file__)}/user_ids','a') as file:
-    #     file.write(f"{datetime.now().strftime('[%Y-%m-%d %H:%M:%S]')} {update.effective_chat.first_name}, {update.effective_chat.username}, {update.effective_chat.id}\n")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+# AI API call for personalized responses
+async def get_ai_response(prompt: str) -> str:
+    try:
+        response = openai.Completion.create(
+            model="text-davinci-003",  # Use a model like GPT-3 or GPT-4
+            prompt=prompt,
+            max_tokens=100
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        print(f"OpenAI API error: {e}")
+        return "🤖 I'm having trouble generating a response right now."
+
+# Save user information in a file (or a database)
+def save_user_info(update):
+    user_info = f"{datetime.now().strftime('[%Y-%m-%d %H:%M:%S]')} {update.effective_chat.first_name}, {update.effective_chat.username}, {update.effective_chat.id}\n"
+    with open(f'{os.path.dirname(__file__)}/user_ids', 'a') as file:
+        file.write(user_info)
+
+# Function to handle command responses
+async def send_command_list(context, update):
+    commands = [
+        ("👋🏻", "/salam", False),
+        ("📰", "/news", False),
+        ("🪂", "/airdrops", False),
+        ("🕹", "/miniggapps", False),
+        ("🐹", "/hamstercombo", False),
+        ("⭐️", "/majorcombo", False),
+        ("🍅", "/tomarketcombo", True),
+        ("🐰", "/rockyrabbitcombo", True),
+        ("🐣", "/rockyrabbiteggs", True),
+        ("🐰 🔐", "/rockyrabbitenigma", False),
+        ("🏴‍☠️", "/blumcode", True),
+        ("🔐", "/cipher", False),
+        ("🎲", "/minigg", False),
+        ("🧊", "/cube", False),
+        ("🚂", "/train", False),
+        ("🧩", "/merge", False),
+        ("💃", "/twerk", False),
+        ("🔮", "/poly", False),
+        ("🚜", "/trim", False),
+        ("🍀", "/zoo", False),
+        ("⚔️", "/fluff", True),
+        ("🃏", "/tile", True),
+        ("🛖", "/stone", True),
+        ("🐧", "/bounce", True),
+        ("🏀", "/hide", True),
+        ("🎮", "/all", False)
+    ]
+
+    command_list = "\n".join([f"{emoji} {'🆕' if is_new else ''} 🔹 {command}" for emoji, command, is_new in commands])
+
+    message = (
+        "🤖 *The Commands are* ⚙️:\n"
+        f"{command_list}\n"
+        "These will generate 4 keys for their respective games."
+    )
     
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=(
-            "🤖The Commands are⚙️\:\n"
-            "👋🏻 🔹 /salam\n"
-            "📰 🔹 /news\n"
-            "🪂 🔹 /airdrops\n"
-            "🕹 🔹 /miniggapps\n"
-            "🐹 🔹 /hamstercombo\n"
-            "⭐️ 🔹 /majorcombo\n"
-            "🍅 🆕 🔹 /tomarketcombo\n"
-            "🐰 🆕 🔹 /rockyrabbitcombo\n"
-            "🐣 🆕 🔹 /rockyrabbiteggs\n"
-            "🐰 🔐 🔹 /rockyrabbitenigma\n"
-            "🏴‍☠️ 🆕 🔹 /blumcode\n"
-            "🔐 🔹 /cipher\n"
-            "🎲 🔹 /minigg\n"
-            "🧊 🔹 /cube\n"
-            "🚂 🔹 /train\n"
-            "🧩 🔹 /merge\n"
-            "💃 🔹 /twerk\n"
-            "🔮 🔹 /poly\n"
-            "🚜 🔹 /trim\n"
-            "🍀 🔹 /zoo\n"
-            "⚔️ 🆕 🔹 /fluff\n"
-            "🃏 🆕 🔹 /tile\n"
-            "🛖 🆕 🔹 /stone\n"
-            "🐧 🆕 🔹 /bounce\n"
-            "🏀 🆕 🔹 /hide\n"
-   #         "☕️ ❌ 🔹 /cafe\n"
-   #         "🔫 ❌ 🔹 /gang\n"
-            "🎮 🔹 /all\n"
-            "These will generate 4 keys for their respective games\\."
-        ),
+        text=message,
         parse_mode='MARKDOWNV2'
     )
 
+# Main 'salam' command handler
+async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Save user info to the database
+    save_user_info(update)
 
+    # Send an initial greeting with a custom AI-generated message
+    ai_greeting = await get_ai_response(f"Greet {update.effective_chat.first_name} warmly.")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=f"🐹 {ai_greeting}")
     
+    # Send the list of commands
+    await send_command_list(context, update)
+    
+    # Additional helpful messages
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text="🤖You can also set how many keys are generated\. For example, */cube 8* will generate *EIGHT* keys for the cube game🤖\.",
+        text="🤖 You can also set how many keys are generated. For example, */cube 8* will generate *EIGHT* keys for the cube game.",
         parse_mode='MARKDOWNV2'
-        )
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-       text=" ⚠️REMARK⚠️ : 🔰 BOT 100% SAFE ✅",
-       parse_mode='MARKDOWNV2')
-    await context.bot.send_message(chat_id=update.effective_chat.id,
-       text="🇩🇿 🇩🇿 POWERED BY 🇩🇿 🇩🇿",
-       parse_mode='MARKDOWNV2')
+    )
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="⚠️ *REMARK* ⚠️: 🔰 BOT 100% SAFE ✅",
+        parse_mode='MARKDOWNV2'
+    )
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="🇩🇿 🇩🇿 POWERED BY 🇩🇿 🇩🇿",
+        parse_mode='MARKDOWNV2'
+    )
 
 
 async def game_handler(
