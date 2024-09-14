@@ -361,7 +361,7 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-13-22.10.54-online-video-cutter.com_.mp4"
     
     # Title to add as the caption
-    title = "🐹 Guide Daily Mini Game in Hamster Kombat 🐹\n\nJoin us here: 🐹 Hamster Kombat Bot https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"
+    title = "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\nJoin us here: 🐹 [Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
 
     try:
         # Sending video to the chat
@@ -369,16 +369,16 @@ async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=update.effective_chat.id,
             video=video_url,
             caption=title,
-            parse_mode='MarkdownV2'
+            parse_mode='Markdown'  # Changed from MarkdownV2 to Markdown
         )
     
     except Exception as e:
         # Log error if there's an issue sending the video
-        print(f"Error in /vedio command: {e}")
+        print(f"Error in /minigg command: {e}")
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="Sorry, there was an error processing your request.",
-            parse_mode='MarkdownV2'
+            parse_mode='Markdown'
         )
 
 # ========================CIPHER==========================================
