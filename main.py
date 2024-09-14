@@ -52,7 +52,7 @@ async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/GXRm96gXYAEW186.jpg"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-231.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the Hamster Combo Secret message
@@ -103,8 +103,8 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x2 Tap CATS 🐈\n"
-        "2️⃣ x2 Tap TREE 🌲\n"
+        "1️⃣ x2 Tap Hamster 🐹\n"
+        "2️⃣ x1 Tap Tomato Head 🍅\n"
         "Join us here: [🍅 Tomarket Bot](https://t.me/Tomarket_ai_bot/app?startapp=0000RUJ4)"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
@@ -327,8 +327,9 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🏴‍☠️ *BLUM Daily Video code* \n\n"
-        "▶️ BLUM Forkes Explained? – Code: GO GET ✅\n"
-        "▶️ How to analyze crypto? – Code: VALUE ✅\n"
+        "▶️ Secure your Crypto ! – Code: BEST PROJECT EVER ✅\n"
+        "▶️ BLUM Forkes Explained ? – Code: GO GET ✅\n"
+        "▶️ How to analyze crypto ? – Code: VALUE ✅\n"
         "Join us here: [🏴‍☠️ BLUM Bot](https://t.me/BlumCryptoBot/app?startapp=ref_nGMDVNruDY)"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
@@ -355,33 +356,30 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
-
-async def fetch_video(url: str) -> BytesIO:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        response.raise_for_status()  # Raise an exception for HTTP errors
-        video_data = BytesIO(response.content)
-        return video_data
-
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not context.args:
-        video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/11111111-online-video-cutter.com_.mp4"
-        await context.bot.send_video(chat_id=update.effective_chat.id, video=video_url, caption="Here is the video you requested.")
-        return
+    # Video URL (replace with the actual URL)
+    video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-13-22.10.54-online-video-cutter.com_.mp4"
+    
+    # Title to add as the caption
+    title = "🐹 Guide Daily Mini Game in Hamster Kombat 🐹\n\nJoin us here: 🐹 Hamster Kombat Bot https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"
 
-    url = context.args[0]
     try:
-        video_data = await fetch_video(url)
-        
+        # Sending video to the chat
         await context.bot.send_video(
             chat_id=update.effective_chat.id,
-            video=InputFile(video_data, filename="video.mp4"),
-            caption="Here is the video you requested."
+            video=video_url,
+            caption=title,
+            parse_mode='MarkdownV2'
         )
-
+    
     except Exception as e:
-        await context.bot.send_message(chat_id=update.effective_chat.id, text=f"Failed to retrieve video: {e}")
-
+        # Log error if there's an issue sending the video
+        print(f"Error in /vedio command: {e}")
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="Sorry, there was an error processing your request.",
+            parse_mode='MarkdownV2'
+        )
 
 # ========================CIPHER==========================================
 async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -565,6 +563,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🃏 🆕 🔹 /tile\n"
             "🛖 🆕 🔹 /stone\n"
             "🐧 🆕 🔹 /bounce\n"
+            "🏀 🆕 🔹 /hide\n"
    #         "☕️ ❌ 🔹 /cafe\n"
    #         "🔫 ❌ 🔹 /gang\n"
             "🎮 🔹 /all\n"
@@ -665,6 +664,9 @@ async def stone(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False)
 async def bounce(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
     await game_handler(update, context, chosen_game=13, all=all)
 
+async def hide(update: Update, context: ContextTypes.DEFAULT_TYPE, all = False):
+    await game_handler(update, context, chosen_game=14, all=all)
+
 async def all(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if EXCLUSIVE and not update.effective_chat.id in AUTHORIZED_USERS:
         return
@@ -714,6 +716,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('tile', tile, block=False))
     application.add_handler(CommandHandler('stone', stone, block=False))
     application.add_handler(CommandHandler('bounce', bounce, block=False))
+    application.add_handler(CommandHandler('hide', hide, block=False))
     application.add_handler(CommandHandler('all', all, block=False))
 
 
