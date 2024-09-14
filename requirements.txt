@@ -1,5 +1,7 @@
 httpx
-openai
+python-telegram-bot==20.5
+openai==1.11.0
+aiohttp==3.8.6
 python-dotenv
 aiohttp==3.8.5
 Pillow
