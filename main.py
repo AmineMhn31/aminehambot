@@ -1,6 +1,6 @@
 import subprocess
 import os
-from telegram.utils.helpers import mention_markdown
+from telegram import Update, ParseMode
 import logging
 import asyncio
 import httpx
@@ -357,33 +357,34 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
-async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+async def vedio(update: Update, context):
     # Video URL (replace with the actual URL)
     video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-13-22.10.54-online-video-cutter.com_.mp4"
-
+    
     # Get user info to mention
     user = update.effective_user
-    user_mention = mention_markdown(user.id, user.first_name)
+    user_mention = f"[{user.first_name}](tg://user?id={user.id})"
     
     # Title to add as the caption
-    title = "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\nJoin us here: 🐹 [Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
-
+    title = f"🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\nJoin us here: 🐹 [Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)\n\n👤 {user_mention} used this command!"
+    
     try:
         # Sending video to the chat
         await context.bot.send_video(
             chat_id=update.effective_chat.id,
             video=video_url,
             caption=title,
-            parse_mode='Markdown'  # Changed from MarkdownV2 to Markdown
+            parse_mode=ParseMode.MARKDOWN  # Markdown mode
         )
     
     except Exception as e:
         # Log error if there's an issue sending the video
-        print(f"Error in /minigg command: {e}")
+        print(f"Error in /vedio command: {e}")
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="Sorry, there was an error processing your request.",
-            parse_mode='Markdown'
+            parse_mode=ParseMode.MARKDOWN
         )
 
 # ========================CIPHER==========================================
