@@ -218,7 +218,7 @@ async def crypto(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Should make this a Database probably
     # with open('user_ids','a') as file:
     #     file.write(f"{update.effective_chat.first_name} : {update.effective_chat.id}\n")
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="🐹")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="📊")
     
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
