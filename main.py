@@ -52,7 +52,7 @@ async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-231.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-251-1024x505.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the Hamster Combo Secret message
@@ -103,8 +103,8 @@ async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Then send the TomarketDaily Secret message
     secret_message = (
         "🍅 *TomarketDaily Secret* \n\n"
-        "1️⃣ x2 Tap Hamster 🐹\n"
-        "2️⃣ x1 Tap Tomato Head 🍅\n"
+        "1️⃣ x2 Tap CAT 🐈\n"
+        "2️⃣ x2 Tap Tomato Head 🍅\n"
         "Join us here: [🍅 Tomarket Bot](https://t.me/Tomarket_ai_bot/app?startapp=0000RUJ4)"
     )
     await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
@@ -143,7 +143,7 @@ async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-224-1024x389.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-242-1024x389.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -353,12 +353,55 @@ async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
         except Exception as e:
             await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
+# ========================================MAJOR CODE==============================================================
+
+# Function to fetch an image from a given URL and return it as a BytesIO object
+async def fetch_image(url: str) -> BytesIO:
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return BytesIO(response.content)
+
+# Main function that handles the /tomarketcombo command
+async def majorcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
+
+    # Send the image first
+    image_url = "https://www.worldcoinindex.com/data/news/v-638617851025680202/news-index-4548.png"
+    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+
+    # Then send the TomarketDaily Secret message
+    secret_message = (
+        "⭐️ *Major YouTube Video code* ⭐️\n\n"
+        "▶️ Watch YouTube video #1 - Code:: 070624 ✅\n"
+        "Join us here Get 5000 Get 5000 : [⭐️ MajorStarsBot](https://t.me/major/start?startapp=2136515572)"
+    )
+    await context.bot.send_message(chat_id=chat_id, text=secret_message, parse_mode="Markdown")
+
+    # Check if an image URL is provided in the command arguments
+    if context.args:
+        url = context.args[0]
+        try:
+            # Fetch and send the requested image
+            image_data = await fetch_image(url)
+            img = Image.open(image_data)
+            img_format = img.format  # Retain the original image format
+
+            with BytesIO() as output:
+                img.save(output, format=img_format)
+                output.seek(0)
+                await context.bot.send_photo(chat_id=chat_id, photo=InputFile(output, filename=f"image.{img_format.lower()}"))
+
+            await context.bot.send_message(chat_id=chat_id, text="Here is the image you requested.")
+
+        except Exception as e:
+            await context.bot.send_message(chat_id=chat_id, text=f"Failed to retrieve image: {e}")
 
 # ===============================MINIGG===================================
 
 async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Video URL (replace with the actual URL)
-    video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-13-22.10.54-online-video-cutter.com_.mp4"
+    video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-14-22.17.46-online-video-cutter.com_.mp4"
 
     # Title to add as the caption
     title = "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\nJoin us here: 🐹 [Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
@@ -400,7 +443,7 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🏴‍☠️ *Today's Cipher Code: INTRIGUE * 🔎\n\n"
+        "🔎 *Today's Cipher Code: INTRIGUE * 🔎\n\n"
         "*I:  🔘🔘*\n"
         "*N:  ➖🔘*\n"
         "*T:  ➖*\n"
@@ -580,6 +623,7 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "🐣 🆕 🔹 /rockyrabbiteggs\n"
             "🐰 🔐 🔹 /rockyrabbitenigma\n"
             "🏴‍☠️ 🆕 🔹 /blumcode\n"
+            "⭐️ 🆕 🔹 /majorcode\n"
             "🔐 🔹 /cipher\n"
             "🎲 🔹 /minigg\n"
             "🧊 🔹 /cube\n"
@@ -731,6 +775,7 @@ if __name__ == '__main__':
     application.add_handler(CommandHandler('rockyrabbiteggs', rockyrabbiteggs, block=False))
     application.add_handler(CommandHandler('rockyrabbitenigma', rockyrabbitenigma, block=False))
     application.add_handler(CommandHandler('blumcode', blumcode, block=False))
+    application.add_handler(CommandHandler('majorcode', majorcode, block=False))
     application.add_handler(CommandHandler('cipher', cipher, block=False))
     application.add_handler(CommandHandler('minigg', minigg, block=False))
     application.add_handler(CommandHandler('cube', cube, block=False))
