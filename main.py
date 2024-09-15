@@ -187,7 +187,7 @@ async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-227-1024x614.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-248-1024x613.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -233,7 +233,7 @@ async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-218-1024x422.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-240-1024x395.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -277,7 +277,7 @@ async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-236-1024x1001.png"
+    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-255.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
