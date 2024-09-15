@@ -443,14 +443,12 @@ async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # Then send the TomarketDaily Secret message
     secret_message = (
-        "🔎 *Today's Cipher Code: INTRIGUE * 🔎\n\n"
-        "*I:  🔘🔘*\n"
-        "*N:  ➖🔘*\n"
-        "*T:  ➖*\n"
+        "🔎 *Today's Cipher Code: CHARGE * 🔎\n\n"
+        "*C:  ➖🔘➖🔘*\n"
+        "*H:  🔘🔘🔘🔘*\n"
+        "*A:  🔘➖*\n"
         "*R:  🔘➖🔘*\n"
-        "*I:  🔘🔘*\n"
         "*G:  ➖➖🔘*\n"
-        "*U:  🔘🔘➖*\n"
         "*E:  🔘*\n"
         "✅ Activate cipher here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
     )
