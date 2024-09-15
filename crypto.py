@@ -14,9 +14,15 @@ from telegram import Update, InputFile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import requests
+from dotenv import load_dotenv
 from stay_alive import keep_alive
+
 # Paste Token Here if you don't wanna put it in an env. variable for some reason
-TOKEN_INSECURE = "7474041486:AAFLRJZacez8OyYCn5bxta_itkiHiTZ07MU"
+#TOKEN_INSECURE = ""
+
+load_dotenv()
+
+TOKEN_INSECURE = os.getenv("MY_BOT_TOKEN")
 
 if os.name == 'posix':
     TOKEN = subprocess.run(["printenv", "HAMSTER_BOT_TOKEN"],
