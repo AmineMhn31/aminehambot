@@ -490,7 +490,7 @@ airdrops = [
 
 # Command handler for /airdrop
 #async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
+    #message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
     for airdrop in airdrops:
         message += f"🔹 *{airdrop['name']}*\n"
         message += f"   📅 *Date:* {airdrop['date']}\n"
@@ -517,7 +517,7 @@ games = [
 
 # Command handler for /airdropgame
 #async def miniggapps(update, context):
-    message = "🎮 *Available Games for Airdrop* 🎮\n\n"
+    #message = "🎮 *Available Games for Airdrop* 🎮\n\n"
     for game in games:
         message += f"🔹 [{game['name']}]({game['link']})\n"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
