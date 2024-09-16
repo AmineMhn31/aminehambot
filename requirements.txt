@@ -1,4 +1,5 @@
 httpx
+pip==24.2
 openai==1.11.0
 python-dotenv
 aiohttp==3.8.5
