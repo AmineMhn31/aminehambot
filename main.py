@@ -42,8 +42,8 @@ logging.basicConfig(
 # ========================hamsterCOMBO==========================================
 
 # Function to fetch an image from a given URL and return it as a BytesIO object
-async def fetch_image(url: str) -> BytesIO:
-    async with httpx.AsyncClient() as client:
+#async def fetch_image(url: str) -> BytesIO:
+   # async with httpx.AsyncClient() as client:
         response = await client.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
         return BytesIO(response.content)
@@ -54,10 +54,10 @@ async def fetch_image(url: str) -> BytesIO:
 
     # Send the image first
     #image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-251-1024x505.png"
-    await context.bot.send_photo(chat_id=chat_id, photo=image_url)
+   # await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the Hamster Combo Secret message
-    secret_message = (
+    #secret_message = (
         "🐹 * Hamster Kombat Daily Combo * 🐹\n\n"
         "Join us here: [🐹 Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
     )
@@ -491,18 +491,18 @@ airdrops = [
 # Command handler for /airdrop
 #async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
-    for airdrop in airdrops:
+   # for airdrop in airdrops:
         message += f"🔹 *{airdrop['name']}*\n"
         message += f"   📅 *Date:* {airdrop['date']}\n"
         message += f"   🌐 [Link]({airdrop['link']})\n\n"
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+   # await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
 
 # ==================================================================
 
 # ======================== Airdrop Game Command ==========================
 # Define the list of games
 
-games = [
+#games = [
     {"name": "😼 CatsGangBot", "link": "https://t.me/catsgang_bot/join?startapp=FB0J8GnDdMO9mZ_cYVS17"},
     {"name": "🐹 Hamster Kombat Bot", "link": "https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572"},
     {"name": "🚀 MuskEmpireBot", "link": "https://t.me/empirebot/game?startapp=hero2136515572"},
@@ -518,15 +518,15 @@ games = [
 # Command handler for /airdropgame
 #async def miniggapps(update, context):
     #message = "🎮 *Available Games for Airdrop* 🎮\n\n"
-    for game in games:
-        message += f"🔹 [{game['name']}]({game['link']})\n"
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
+  #  for game in games:
+    #    message += f"🔹 [{game['name']}]({game['link']})\n"
+  #  await context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode='MarkdownV2')
     
 
 #================================================NEWS=========================================================
 
 #async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    try:
+#    try:
         # First news: Hamster on Bybit
         #image_url_hamster = 'https://coinchapter.com/wp-content/uploads/2024/09/Screenshot_2024-09-03-20-27-01-144_com.android.chrome.png'
         
@@ -538,7 +538,7 @@ games = [
             "#TheCryptoArk #BybitListing"
         )
 
-        await context.bot.send_photo(
+     #   await context.bot.send_photo(
             chat_id=update.effective_chat.id,
             photo=image_url_hamster,
             caption=hamster_caption,
@@ -552,7 +552,7 @@ games = [
         #image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
         
         # Caption for the Tomarket Community Update, formatted with MarkdownV2
-        tomarket_caption = (
+    #    tomarket_caption = (
             "💥🍅 *Dear Tomarket Community* 🍅💥\n\n"
             "نحن ممتنون جدًا لحماسك ودعمك بينما نصل إلى معالم جديدة معًا\\.\n"
             "يسعدنا مشاركة بعض التحديثات المهمة معك\\.\n\n"
@@ -580,7 +580,7 @@ games = [
         )
 
         # Sending the photo with the caption
-        await context.bot.send_photo(
+   #     await context.bot.send_photo(
             chat_id=update.effective_chat.id,
             photo=image_url_tomarket,
             caption=tomarket_caption,
@@ -591,7 +591,7 @@ games = [
         # Logging any errors that occur
         logger.error(f"Error in tomarket_news command: {e}")
         # Sending an error message to the user
-        await context.bot.send_message(
+    #    await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="Sorry, there was an error processing your request.",
             parse_mode='MarkdownV2'
