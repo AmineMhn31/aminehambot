@@ -49,11 +49,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /hamstercombo command
-async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def hamstercombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-251-1024x505.png"
+    #image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-251-1024x505.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the Hamster Combo Secret message
@@ -94,11 +94,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def tomarketcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://imagedelivery.net/4-5JC1r3VHAXpnrwWHBHRQ/cf16bfed-31e6-4a0b-f6c0-ac2909129f00/public"
+    #image_url = "https://imagedelivery.net/4-5JC1r3VHAXpnrwWHBHRQ/cf16bfed-31e6-4a0b-f6c0-ac2909129f00/public"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -140,11 +140,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def majorcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-242-1024x389.png"
+    #image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-242-1024x389.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -184,11 +184,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-248-1024x613.png"
+    #image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-248-1024x613.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -223,18 +223,18 @@ async def rockyrabbitcombo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ========================rocky rabbit EGGS==========================================
 
 # Function to fetch an image from a given URL and return it as a BytesIO object
-async def fetch_image(url: str) -> BytesIO:
+#async def fetch_image(url: str) -> BytesIO:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
         response.raise_for_status()  # Raise an exception for HTTP errors
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def rockyrabbiteggs(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-240-1024x395.png"
+    #image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-240-1024x395.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -274,11 +274,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def rockyrabbitenigma(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-255.png"
+    #image_url = "https://cointicker.com/wp-content/uploads/2024/09/image-255.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -318,11 +318,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def blumcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://coinmozo.com/wp-content/uploads/2024/09/BITCOIN-LAUCH-DATE-94-1024x597.jpg"
+    #image_url = "https://coinmozo.com/wp-content/uploads/2024/09/BITCOIN-LAUCH-DATE-94-1024x597.jpg"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -364,11 +364,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def majorcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def majorcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://www.worldcoinindex.com/data/news/v-638617851025680202/news-index-4548.png"
+    #image_url = "https://www.worldcoinindex.com/data/news/v-638617851025680202/news-index-4548.png"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -400,9 +400,9 @@ async def majorcode(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ===============================MINIGG===================================
 
-async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def minigg(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Video URL (replace with the actual URL)
-    video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-14-22.17.46-online-video-cutter.com_.mp4"
+    #video_url = "https://hamster-combo.com/wp-content/uploads/2024/09/2024-09-14-22.17.46-online-video-cutter.com_.mp4"
 
     # Title to add as the caption
     title = "🐹 *Guide Daily Mini Game in Hamster Kombat* 🐹\n\nJoin us here: 🐹 [Hamster Kombat Bot](https://t.me/hamster_kombaT_bot/start?startapp=kentId2136515572)"
@@ -435,11 +435,11 @@ async def fetch_image(url: str) -> BytesIO:
         return BytesIO(response.content)
 
 # Main function that handles the /tomarketcombo command
-async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def cipher(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
     # Send the image first
-    image_url = "https://store.livarava.com/1c11cd4f-44d1-11ef-a4c0-01b895e04db0.jpg"
+    #image_url = "https://store.livarava.com/1c11cd4f-44d1-11ef-a4c0-01b895e04db0.jpg"
     await context.bot.send_photo(chat_id=chat_id, photo=image_url)
 
     # Then send the TomarketDaily Secret message
@@ -489,7 +489,7 @@ airdrops = [
 ]
 
 # Command handler for /airdrop
-async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def Airdrops(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = "📣📅🪂 *Confirmed Airdrops Telegram Games Mini Apps September 2024* 🪂📅📣\n\n"
     for airdrop in airdrops:
         message += f"🔹 *{airdrop['name']}*\n"
@@ -516,7 +516,7 @@ games = [
 ]
 
 # Command handler for /airdropgame
-async def miniggapps(update, context):
+#async def miniggapps(update, context):
     message = "🎮 *Available Games for Airdrop* 🎮\n\n"
     for game in games:
         message += f"🔹 [{game['name']}]({game['link']})\n"
@@ -525,10 +525,10 @@ async def miniggapps(update, context):
 
 #================================================NEWS=========================================================
 
-async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
+#async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         # First news: Hamster on Bybit
-        image_url_hamster = 'https://coinchapter.com/wp-content/uploads/2024/09/Screenshot_2024-09-03-20-27-01-144_com.android.chrome.png'
+        #image_url_hamster = 'https://coinchapter.com/wp-content/uploads/2024/09/Screenshot_2024-09-03-20-27-01-144_com.android.chrome.png'
         
         hamster_caption = (
             "💥 *$HMSTR على BYBIT* 💥\n\n"
@@ -549,7 +549,7 @@ async def news(update: Update, context: ContextTypes.DEFAULT_TYPE):
 #async def tomarket_news(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #try:
         # Image URL for Tomarket Community Update
-        image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
+        #image_url_tomarket = 'https://cointicker.com/wp-content/uploads/2024/08/image-368-1024x576.png'
         
         # Caption for the Tomarket Community Update, formatted with MarkdownV2
         tomarket_caption = (
@@ -612,19 +612,19 @@ async def salam(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text=(
             "🤖The Commands are⚙️\:\n"
             "👋🏻 🔹 /salam\n"
-            "📰 🔹 /news\n"
-            "🪂 🔹 /airdrops\n"
-            "🕹 🔹 /miniggapps\n"
-            "🐹 🔹 /hamstercombo\n"
-            "⭐️ 🔹 /majorcombo\n"
-            "🍅 🆕 🔹 /tomarketcombo\n"
-            "🐰 🆕 🔹 /rockyrabbitcombo\n"
-            "🐣 🆕 🔹 /rockyrabbiteggs\n"
-            "🐰 🔐 🔹 /rockyrabbitenigma\n"
-            "🏴‍☠️ 🆕 🔹 /blumcode\n"
-            "⭐️ 🆕 🔹 /majorcode\n"
-            "🔐 🔹 /cipher\n"
-            "🎲 🔹 /minigg\n"
+            #"📰 🔹 /news\n"
+            #"🪂 🔹 /airdrops\n"
+            #"🕹 🔹 /miniggapps\n"
+            #"🐹 🔹 /hamstercombo\n"
+            #"⭐️ 🔹 /majorcombo\n"
+            #"🍅 🆕 🔹 /tomarketcombo\n"
+            #"🐰 🆕 🔹 /rockyrabbitcombo\n"
+            #"🐣 🆕 🔹 /rockyrabbiteggs\n"
+            #"🐰 🔐 🔹 /rockyrabbitenigma\n"
+            #"🏴‍☠️ 🆕 🔹 /blumcode\n"
+            #"⭐️ 🆕 🔹 /majorcode\n"
+            #"🔐 🔹 /cipher\n"
+            #"🎲 🔹 /minigg\n"
             "🧊 🔹 /cube\n"
             "🚂 🔹 /train\n"
             "🧩 🔹 /merge\n"
@@ -764,19 +764,19 @@ if __name__ == '__main__':
     server.logger.info("Server is running. Awaiting users...")
 
     application.add_handler(CommandHandler('salam', salam, block=False))
-    application.add_handler(CommandHandler('news', news, block=False))
-    application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
-    application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
-    application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
-    application.add_handler(CommandHandler('majorcombo', majorcombo, block=False))
-    application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
-    application.add_handler(CommandHandler('rockyrabbitcombo', rockyrabbitcombo, block=False))
-    application.add_handler(CommandHandler('rockyrabbiteggs', rockyrabbiteggs, block=False))
-    application.add_handler(CommandHandler('rockyrabbitenigma', rockyrabbitenigma, block=False))
-    application.add_handler(CommandHandler('blumcode', blumcode, block=False))
-    application.add_handler(CommandHandler('majorcode', majorcode, block=False))
-    application.add_handler(CommandHandler('cipher', cipher, block=False))
-    application.add_handler(CommandHandler('minigg', minigg, block=False))
+    #application.add_handler(CommandHandler('news', news, block=False))
+    #application.add_handler(CommandHandler('Airdrops', Airdrops, block=False))
+    #application.add_handler(CommandHandler('miniggapps', miniggapps, block=False))
+    #application.add_handler(CommandHandler('hamstercombo', hamstercombo, block=False))
+    #application.add_handler(CommandHandler('majorcombo', majorcombo, block=False))
+    #application.add_handler(CommandHandler('tomarketcombo', tomarketcombo, block=False))
+    #application.add_handler(CommandHandler('rockyrabbitcombo', rockyrabbitcombo, block=False))
+    #application.add_handler(CommandHandler('rockyrabbiteggs', rockyrabbiteggs, block=False))
+    #application.add_handler(CommandHandler('rockyrabbitenigma', rockyrabbitenigma, block=False))
+    #application.add_handler(CommandHandler('blumcode', blumcode, block=False))
+    #application.add_handler(CommandHandler('majorcode', majorcode, block=False))
+    #application.add_handler(CommandHandler('cipher', cipher, block=False))
+    #application.add_handler(CommandHandler('minigg', minigg, block=False))
     application.add_handler(CommandHandler('cube', cube, block=False))
     application.add_handler(CommandHandler('train', train, block=False))
     application.add_handler(CommandHandler('merge', merge, block=False))
